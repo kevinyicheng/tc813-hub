@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>TC813 季業績獎金週報</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+    width: 1080px;
+    min-height: 1920px;
+    margin: 0 auto;
+    padding: 48px 48px 64px;
+  }
+
+  /* ── Header ── */
+  .header {
+    margin-bottom: 36px;
+    border-left: 8px solid #2563eb;
+    padding-left: 20px;
+  }
+  .header h1 {
+    font-size: 40px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .header .meta {
+    font-size: 18px;
+    color: #64748b;
+    margin-top: 6px;
+    font-weight: 400;
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .kpi {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px 20px;
+    border-top: 5px solid;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .kpi.total  { border-color: #94a3b8; }
+  .kpi.green  { border-color: #22c55e; }
+  .kpi.yellow { border-color: #f59e0b; }
+  .kpi.red    { border-color: #ef4444; }
+  .kpi .label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #64748b;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  .kpi .value { font-size: 48px; font-weight: 800; line-height: 1; }
+  .kpi.green  .value { color: #16a34a; }
+  .kpi.yellow .value { color: #d97706; }
+  .kpi.red    .value { color: #dc2626; }
+  .kpi.total  .value { color: #334155; }
+
+  /* ── Period Group ── */
+  .period-group { margin-bottom: 32px; }
+  .period-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    padding-left: 2px;
+  }
+
+  /* ── Card Table ── */
+  .table-wrap {
+    background: #ffffff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: #f8fafc;
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  thead th.right { text-align: right; }
+  tbody tr { border-top: 1px solid #f1f5f9; }
+  tbody tr:last-child td { border-bottom: none; }
+  td { padding: 16px 18px; vertical-align: middle; }
+  td.right { text-align: right; }
+
+  /* Name cell */
+  td.name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* FYC number */
+  td.fyc {
+    font-size: 18px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  /* Bonus amount */
+  td.amt {
+    font-size: 22px;
+    font-weight: 800;
+    text-align: right;
+  }
+
+  /* ── Badge ── */
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  .badge-18 { background: #dcfce7; color: #15803d; }
+  .badge-15 { background: #d1fae5; color: #059669; }
+  .badge-12 { background: #dbeafe; color: #1d4ed8; }
+  .badge-10 { background: #fef9c3; color: #a16207; }
+  .badge-5  { background: #ffedd5; color: #c2410c; }
+  .badge-0  { background: #f1f5f9; color: #94a3b8; border: 1.5px solid #e2e8f0; }
+
+  /* ── Progress bar ── */
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .bar-bg {
+    flex: 1;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: #94a3b8;
+    width: 36px;
+    text-align: right;
+  }
+
+  /* ── Gap text ── */
+  .gap { font-size: 14px; color: #94a3b8; }
+  .gap.near { color: #d97706; font-weight: 700; }
+  .gap.very-near { color: #dc2626; font-weight: 800; }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #94a3b8;
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <h1>TC813 季業績獎金週報</h1>
+  <div class="meta">資料更新：115/04/18 &nbsp;·&nbsp; 週一晨報</div>
+</div>
+
+<!-- KPI 摘要 -->
+<div class="kpi-row">
+  <div class="kpi total">
+    <div class="label">追蹤人數</div>
+    <div class="value">20</div>
+  </div>
+  <div class="kpi green">
+    <div class="label">已達標</div>
+    <div class="value">6</div>
+  </div>
+  <div class="kpi yellow">
+    <div class="label">差距 &lt; 2萬FYC</div>
+    <div class="value">3</div>
+  </div>
+  <div class="kpi red">
+    <div class="label">未達標</div>
+    <div class="value">14</div>
+  </div>
+</div>
+
+<!-- 115/02 – 115/04（本期結算） -->
+<div class="period-group">
+  <div class="period-label">結算區間 115/02 – 115/04 ▸ 115.04.27前受理、115.05.07前入帳</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>累積 FYC</th>
+          <th>級距</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th class="right">試算獎金</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">高聖芳</td>
+          <td class="fyc">159,392</td>
+          <td><span class="badge badge-18">18%</span></td>
+          <td><span class="gap">已達頂級</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:100%;background:#22c55e;"></div></div>
+              <span class="bar-pct">100%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#16a34a;">28,691</td>
+        </tr>
+        <tr>
+          <td class="name">林君溥</td>
+          <td class="fyc">32,781</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap near">差 7,219 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:82%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">82%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">陳錦紅</td>
+          <td class="fyc">10,733</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 29,267 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:27%;background:#ef4444;"></div></div>
+              <span class="bar-pct">27%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 115/03 – 115/05 -->
+<div class="period-group">
+  <div class="period-label">結算區間 115/03 – 115/05</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>累積 FYC</th>
+          <th>級距</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th class="right">試算獎金</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">陳冠辰</td>
+          <td class="fyc">140,441</td>
+          <td><span class="badge badge-15">15%</span></td>
+          <td><span class="gap near">差 9,559 → 18%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:94%;background:#22c55e;"></div></div>
+              <span class="bar-pct">94%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#059669;">21,066</td>
+        </tr>
+        <tr>
+          <td class="name">蔡亦程</td>
+          <td class="fyc">124,918</td>
+          <td><span class="badge badge-15">15%</span></td>
+          <td><span class="gap near">差 25,082 → 18%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:83%;background:#22c55e;"></div></div>
+              <span class="bar-pct">83%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#059669;">18,738</td>
+        </tr>
+        <tr>
+          <td class="name">孫桂英</td>
+          <td class="fyc">62,664</td>
+          <td><span class="badge badge-10">10%</span></td>
+          <td><span class="gap">差 27,336 → 12%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:70%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">70%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#a16207;">6,266</td>
+        </tr>
+        <tr>
+          <td class="name">蘇慶恩</td>
+          <td class="fyc">48,033</td>
+          <td><span class="badge badge-5">5%</span></td>
+          <td><span class="gap">差 11,967 → 10%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:80%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">80%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#c2410c;">2,402</td>
+        </tr>
+        <tr>
+          <td class="name">林宸禾</td>
+          <td class="fyc">39,203</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap very-near">差 797 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:98%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">98%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">林淑慧</td>
+          <td class="fyc">38,463</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap very-near">差 1,537 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:96%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">96%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">劉家榮</td>
+          <td class="fyc">10,092</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 29,908 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:25%;background:#ef4444;"></div></div>
+              <span class="bar-pct">25%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">林佩怡</td>
+          <td class="fyc">7,206</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 32,794 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:18%;background:#ef4444;"></div></div>
+              <span class="bar-pct">18%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 115/04 – 115/06（第 1 個月） -->
+<div class="period-group">
+  <div class="period-label">結算區間 115/04 – 115/06</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>累積 FYC</th>
+          <th>級距</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th class="right">試算獎金</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="name">李秉芳</td>
+          <td class="fyc">43,246</td>
+          <td><span class="badge badge-5">5%</span></td>
+          <td><span class="gap">差 16,754 → 10%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:72%;background:#f59e0b;"></div></div>
+              <span class="bar-pct">72%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#c2410c;">2,162</td>
+        </tr>
+        <tr>
+          <td class="name">秦慧娟</td>
+          <td class="fyc">21,771</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 18,229 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:54%;background:#ef4444;"></div></div>
+              <span class="bar-pct">54%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">廖婉辛</td>
+          <td class="fyc">5,451</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 34,549 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:14%;background:#ef4444;"></div></div>
+              <span class="bar-pct">14%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">李敏櫻</td>
+          <td class="fyc">4,788</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 35,212 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:12%;background:#ef4444;"></div></div>
+              <span class="bar-pct">12%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">施江燁</td>
+          <td class="fyc">2,031</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 37,969 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:5%;background:#ef4444;"></div></div>
+              <span class="bar-pct">5%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">陳羿晴</td>
+          <td class="fyc">873</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 39,127 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:2%;background:#ef4444;"></div></div>
+              <span class="bar-pct">2%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">廖寶福</td>
+          <td class="fyc">603</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 39,397 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:2%;background:#ef4444;"></div></div>
+              <span class="bar-pct">2%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+        <tr>
+          <td class="name">虞哲煬</td>
+          <td class="fyc">530</td>
+          <td><span class="badge badge-0">未達標</span></td>
+          <td><span class="gap">差 39,470 → 5%</span></td>
+          <td>
+            <div class="progress-wrap">
+              <div class="bar-bg"><div class="bar-fill" style="width:1%;background:#ef4444;"></div></div>
+              <span class="bar-pct">1%</span>
+            </div>
+          </td>
+          <td class="amt" style="color:#cbd5e1;">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">本表僅供參考，實際發放金額以業務行政部計算核發為主</div>
+
+</body>
+</html>

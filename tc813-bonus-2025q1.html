@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>115年第1工 中銘 TC813 特定商品保費獎勵賀報</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #F0D080;
+      --gold-dark: #8B6914;
+      --bg: #0A0E1A;
+      --card-bg: #111827;
+      --card-border: #1F2D45;
+      --text: #E8EAF0;
+      --text-muted: #8892A4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 60px 20px 48px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, #1a2540 0%, var(--bg) 70%);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle 400px at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+        radial-gradient(circle 400px at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+      background-size: 200%;
+      animation: shimmer 3s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% center; }
+      100% { background-position: -200% center; }
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 6vw, 52px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #fff 30%, var(--gold-light) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .hero-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 24px auto;
+    }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding: 24px 20px;
+      background: rgba(201,168,76,0.05);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    /* ── Section ── */
+    .section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .section-header .line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
+    }
+
+    /* ── Product Group ── */
+    .product-group {
+      margin-bottom: 40px;
+    }
+
+    .product-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 14px;
+    }
+
+    .product-label .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ── Table ── */
+    .table-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--card-border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: rgba(201,168,76,0.08);
+    }
+
+    thead th {
+      padding: 12px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-align: left;
+    }
+
+    thead th:last-child {
+      text-align: right;
+    }
+
+    tbody tr {
+      border-top: 1px solid var(--card-border);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: rgba(201,168,76,0.04);
+    }
+
+    tbody td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text);
+    }
+
+    tbody td:last-child {
+      text-align: right;
+      font-weight: 700;
+      color: var(--gold-light);
+      font-size: 15px;
+    }
+
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 900;
+      margin-right: 8px;
+    }
+
+    .rank-1 { background: linear-gradient(135deg, #FFD700, #FFA500); color: #000; }
+    .rank-2 { background: linear-gradient(135deg, #C0C0C0, #A0A0A0); color: #000; }
+    .rank-3 { background: linear-gradient(135deg, #CD7F32, #8B4513); color: #fff; }
+    .rank-other { background: rgba(255,255,255,0.08); color: var(--text-muted); }
+
+    .period-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    /* ── Spotlight Cards ── */
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .spotlight-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .spotlight-card.top1::before {
+      background: linear-gradient(90deg, transparent, #FFD700, #FFA500, #FFD700, transparent);
+    }
+
+    .spotlight-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .spotlight-name {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .spotlight-amt {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+    }
+
+    .spotlight-amt span {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .spotlight-detail {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .crown {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-size: 28px;
+      opacity: 0.4;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 32px 20px 48px;
+      color: var(--text-muted);
+      font-size: 12px;
+      border-top: 1px solid var(--card-border);
+    }
+
+    .footer .brand {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    /* ── Confetti dots ── */
+    .confetti-wrap {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .confetti-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0%   { opacity: 0; transform: translateY(-20px) rotate(0deg); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+    }
+
+    @media (max-width: 600px) {
+      .stats-bar { gap: 24px; }
+      .stat-num { font-size: 22px; }
+      thead th, tbody td { padding: 10px 12px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Confetti -->
+<div class="confetti-wrap" id="confetti"></div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">115 年第 1 工 · 特定商品加碼獎勵</div>
+  <h1 class="hero-title">中銘 TC813<br>業績獎勵賀報</h1>
+  <p class="hero-sub">感謝每一位夥伴的努力，成績已獲公司肯定</p>
+  <div class="hero-divider"></div>
+  <p style="font-size:13px;color:var(--text-muted);">公告日期：115 年 4 月</p>
+</div>
+
+<!-- Stats -->
+<div class="stats-bar">
+  <div class="stat">
+    <div class="stat-num">12</div>
+    <div class="stat-label">得獎人數</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">15</div>
+    <div class="stat-label">得獎筆數</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">6</div>
+    <div class="stat-label">涵蓋商品</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">$396,285</div>
+    <div class="stat-label">獎勵總金額</div>
+  </div>
+</div>
+
+<!-- Spotlight -->
+<div class="section">
+  <div class="section-header">
+    <h2>TOP 得獎亮點</h2>
+    <div class="line"></div>
+  </div>
+
+  <div class="spotlight-grid">
+    <div class="spotlight-card top1">
+      <span class="crown">👑</span>
+      <div class="spotlight-label">單筆最高</div>
+      <div class="spotlight-name">蔡亦程</div>
+      <div class="spotlight-amt">$110,236 <span>元</span></div>
+      <div class="spotlight-detail">商品：PF55/60/65 · 3年期</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-label">跨商品多項得獎</div>
+      <div class="spotlight-name">蔡亦程</div>
+      <div class="spotlight-amt">$212,528 <span>元（合計）</span></div>
+      <div class="spotlight-detail">PF55/60/65 + PFA · 共 2 項</div>
+    </div>
+    <div class="spotlight-card">
+      <div class="spotlight-label">跨商品多項得獎</div>
+      <div class="spotlight-name">陳冠辰</div>
+      <div class="spotlight-amt">$66,897 <span>元（合計）</span></div>
+      <div class="spotlight-detail">PF55/60/65 + PFK · 共 2 項</div>
+    </div>
+  </div>
+
+  <!-- Product: PAL -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PAL</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-other">1</span>汪淑玲</td>
+            <td>PAL <span class="period-tag">6年期</span></td>
+            <td>1,718</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product: PF55/60/65 -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PF55/60/65</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-1">1</span>蔡亦程</td>
+            <td>PF55/60/65 <span class="period-tag">3年期</span></td>
+            <td>110,236</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-2">2</span>謝麗芳</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>17,873</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-3">3</span>陳冠辰</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>14,346</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">4</span>林淑慧</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>8,262</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">5</span>林君溥</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>3,952</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">6</span>陳錦紅</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>2,229</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">7</span>張嘉芸</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>1,744</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">8</span>許文山</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>1,744</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-other">9</span>汪淑玲</td>
+            <td>PF55/60/65 <span class="period-tag">6年期</span></td>
+            <td>2,660</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product: PFA -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PFA</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-1">1</span>蔡亦程</td>
+            <td>PFA <span class="period-tag">3年期</span></td>
+            <td>102,292</td>
+          </tr>
+          <tr>
+            <td><span class="rank-badge rank-2">2</span>黃琳堯</td>
+            <td>PFA <span class="period-tag">6年期</span></td>
+            <td>3,042</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product: PFC -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PFC</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-other">1</span>蘇慶恩</td>
+            <td>PFC <span class="period-tag">6年期</span></td>
+            <td>894</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product: PFK -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PFK</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-other">1</span>陳冠辰</td>
+            <td>PFK <span class="period-tag">2年期</span></td>
+            <td>52,551</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Product: PFU -->
+  <div class="product-group">
+    <div class="product-label"><span class="dot"></span>PFU</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>業務員姓名</th>
+            <th>商品</th>
+            <th>獎勵金額（元）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="rank-badge rank-other">1</span>李秉芳</td>
+            <td>PFU <span class="period-tag">2年期</span></td>
+            <td>58,243</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="brand">中銘 TC813 · 115 年第 1 工</div>
+  <p>資料來源：富邦人壽 115 年第 1 工特定商品加碼獎勵明細</p>
+  <p style="margin-top:6px;">本頁由 Keri 自動整理產出 · 2026-04-17</p>
+</div>
+
+<script>
+  // Generate confetti dots
+  const wrap = document.getElementById('confetti');
+  const colors = ['#C9A84C','#F0D080','#FFD700','#fff'];
+  for (let i = 0; i < 30; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'confetti-dot';
+    dot.style.left = Math.random() * 100 + '%';
+    dot.style.animationDuration = (8 + Math.random() * 14) + 's';
+    dot.style.animationDelay = (Math.random() * 12) + 's';
+    dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+    dot.style.width = dot.style.height = (3 + Math.random() * 4) + 'px';
+    dot.style.opacity = '0';
+    wrap.appendChild(dot);
+  }
+</script>
+
+</body>
+</html>
