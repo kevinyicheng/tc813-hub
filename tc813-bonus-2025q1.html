@@ -668,23 +668,13 @@
     });
   }
 
-  // 嘗試自動播放；若被瀏覽器攔截，顯示小按鈕
-  function initMusic() {
-    try {
-      playFanfare();
-      document.getElementById('musicBtn').style.display = 'none';
-    } catch (e) {
-      showMusicBtn();
-    }
-  }
-
+  // 現代瀏覽器 AudioContext 初始為 suspended，無法自動播放
+  // → 頁面載入後直接顯示按鈕，讓使用者點一下觸發
   function showMusicBtn() {
-    const btn = document.getElementById('musicBtn');
-    btn.style.display = 'flex';
-    btn.onclick = () => { playFanfare(); btn.style.display = 'none'; };
+    document.getElementById('musicBtn').style.display = 'flex';
   }
 
-  window.addEventListener('load', initMusic);
+  window.addEventListener('load', showMusicBtn);
 
   // Generate confetti dots
   const wrap = document.getElementById('confetti');
