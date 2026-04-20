@@ -629,6 +629,63 @@
 </div>
 
 <script>
+  // ── 頒獎音樂（Web Audio API 合成）────────────────────────
+  function playFanfare() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+
+    // 主旋律：經典頒獎 fanfare（Da da da DAAAA 風格）
+    const melody = [
+      // [freq, startSec, durSec, gainPeak]
+      [392, 0.00, 0.14, 0.35],   // G4
+      [392, 0.15, 0.14, 0.35],   // G4
+      [392, 0.30, 0.14, 0.35],   // G4
+      [622, 0.45, 0.55, 0.45],   // Eb5  ★長音
+      [466, 1.02, 0.28, 0.30],   // Bb4
+      [392, 1.32, 0.18, 0.30],   // G4
+      [622, 1.52, 0.55, 0.45],   // Eb5  ★長音
+      [466, 2.10, 0.28, 0.28],   // Bb4
+      [392, 2.40, 0.90, 0.50],   // G4   ★結尾長音
+    ];
+
+    // 和聲（低八度）
+    const harmony = melody.map(([f, s, d, g]) => [f / 2, s + 0.02, d, g * 0.25]);
+
+    [...melody, ...harmony].forEach(([freq, start, dur, peak]) => {
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t0 = ctx.currentTime + start;
+      gain.gain.setValueAtTime(0.001, t0);
+      gain.gain.linearRampToValueAtTime(peak, t0 + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+      osc.start(t0);
+      osc.stop(t0 + dur + 0.1);
+    });
+  }
+
+  // 嘗試自動播放；若被瀏覽器攔截，顯示小按鈕
+  function initMusic() {
+    try {
+      playFanfare();
+      document.getElementById('musicBtn').style.display = 'none';
+    } catch (e) {
+      showMusicBtn();
+    }
+  }
+
+  function showMusicBtn() {
+    const btn = document.getElementById('musicBtn');
+    btn.style.display = 'flex';
+    btn.onclick = () => { playFanfare(); btn.style.display = 'none'; };
+  }
+
+  window.addEventListener('load', initMusic);
+
   // Generate confetti dots
   const wrap = document.getElementById('confetti');
   const colors = ['#C9A84C','#F0D080','#FFD700','#fff'];
@@ -645,5 +702,21 @@
   }
 </script>
 
+<!-- 備案：手動播放音樂按鈕 -->
+<button id="musicBtn" onclick="playFanfare(); this.style.display='none';" style="
+  display:none; position:fixed; bottom:24px; right:24px;
+  width:52px; height:52px; border-radius:50%; border:none;
+  background:linear-gradient(135deg,#C9A84C,#F0D080);
+  color:#0A0E1A; font-size:22px; cursor:pointer;
+  box-shadow:0 4px 16px rgba(201,168,76,0.5);
+  align-items:center; justify-content:center;
+  z-index:999; animation:btnPulse 1.5s ease-in-out infinite;">🎵</button>
+
+<style>
+@keyframes btnPulse {
+  0%,100% { box-shadow:0 4px 16px rgba(201,168,76,0.4); }
+  50%      { box-shadow:0 4px 24px rgba(201,168,76,0.8); }
+}
+</style>
 </body>
 </html>
