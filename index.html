@@ -79,8 +79,9 @@
     transform: translateY(-6px);
     box-shadow: 0 12px 40px rgba(0,0,0,.12);
   }
-  .card.blue:hover  { border-color: #2563eb; }
-  .card.green:hover { border-color: #16a34a; }
+  .card.blue:hover   { border-color: #2563eb; }
+  .card.green:hover  { border-color: #16a34a; }
+  .card.orange:hover { border-color: #E8501A; }
 
   .card::before {
     content: '';
@@ -88,8 +89,9 @@
     top: 0; left: 0; right: 0;
     height: 6px;
   }
-  .card.blue::before  { background: linear-gradient(90deg, #2563eb, #60a5fa); }
-  .card.green::before { background: linear-gradient(90deg, #16a34a, #4ade80); }
+  .card.blue::before   { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+  .card.green::before  { background: linear-gradient(90deg, #16a34a, #4ade80); }
+  .card.orange::before { background: linear-gradient(90deg, #E8501A, #F5821F); }
 
   .card .icon {
     width: 64px; height: 64px;
@@ -98,16 +100,18 @@
     font-size: 32px;
     margin-bottom: 28px;
   }
-  .card.blue  .icon { background: #eff6ff; }
-  .card.green .icon { background: #f0fdf4; }
+  .card.blue   .icon { background: #eff6ff; }
+  .card.green  .icon { background: #f0fdf4; }
+  .card.orange .icon { background: #fff4ee; }
 
   .card .tag {
     font-size: 12px; font-weight: 700;
     letter-spacing: 1.5px; text-transform: uppercase;
     margin-bottom: 10px;
   }
-  .card.blue  .tag { color: #2563eb; }
-  .card.green .tag { color: #16a34a; }
+  .card.blue   .tag { color: #2563eb; }
+  .card.green  .tag { color: #16a34a; }
+  .card.orange .tag { color: #E8501A; }
 
   .card h2 {
     font-size: 28px; font-weight: 800;
@@ -124,8 +128,9 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 18px; transition: transform .2s;
   }
-  .card.blue  .arrow { background: #eff6ff; color: #2563eb; }
-  .card.green .arrow { background: #f0fdf4; color: #16a34a; }
+  .card.blue   .arrow { background: #eff6ff; color: #2563eb; }
+  .card.green  .arrow { background: #f0fdf4; color: #16a34a; }
+  .card.orange .arrow { background: #fff4ee; color: #E8501A; }
   .card:hover .arrow { transform: translateX(4px); }
 
   /* ── Footer ── */
@@ -160,6 +165,14 @@
       <div class="tag">115 年 1 月</div>
       <h2>特定商品<br>保費獎勵</h2>
       <p>115 年 1 月特定商品保費獎勵<br>業績結算與獎金試算總覽</p>
+      <div class="arrow">→</div>
+    </a>
+
+    <a class="card orange" href="115q2-competition.html">
+      <div class="icon">🎯</div>
+      <div class="tag">115 年第二季</div>
+      <h2>競賽獎勵<br>懶人包</h2>
+      <p>FYC 達標／超標／高標獎金一覽<br>FYP 競賽獎勵說明</p>
       <div class="arrow">→</div>
     </a>
 

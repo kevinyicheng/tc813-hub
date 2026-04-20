@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>115年 第二季競賽獎勵懶人包</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", sans-serif;
+    font-size: 17px;
+    background: #f5f5f5;
+    color: #2c2c2c;
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #E8501A 0%, #F5821F 100%);
+    color: white;
+    padding: 32px 20px 28px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .header h1 span { font-size: 1.15rem; font-weight: 400; opacity: .85; display: block; margin-bottom: 4px; }
+  .badge-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 14px; }
+  .badge {
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: .95rem;
+    font-weight: 600;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 24px 16px 48px; }
+
+  /* ── SECTION ── */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #E8501A;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #E8501A;
+  }
+  .section-title .icon { font-size: 1.4rem; }
+
+  .sub-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #444;
+    margin: 20px 0 10px;
+    padding-left: 10px;
+    border-left: 4px solid #F5821F;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+  }
+
+  /* ── REACH GOAL ── */
+  .reach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .reach-card {
+    background: #fff8f5;
+    border: 2px solid #F5821F;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .reach-card .group-label {
+    font-size: .9rem;
+    font-weight: 700;
+    color: #E8501A;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .reach-card .condition {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .reach-card .condition strong { color: #222; font-size: 1.1rem; }
+  .reach-card .reward {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #E8501A;
+  }
+  .reach-card .reward-unit { font-size: .85rem; font-weight: 600; }
+
+  .newbie-bonus {
+    background: #fffbf0;
+    border: 1px dashed #F5821F;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: .97rem;
+    color: #666;
+    margin-top: 4px;
+  }
+  .newbie-bonus strong { color: #c94a00; }
+
+  /* ── MONTH TABLE ── */
+  .month-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .97rem;
+    margin-top: 12px;
+  }
+  .month-table th {
+    background: #f0f0f0;
+    padding: 7px 10px;
+    text-align: center;
+    font-weight: 700;
+    color: #555;
+  }
+  .month-table td {
+    padding: 7px 10px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    color: #444;
+  }
+
+  /* ── REWARD TABLE ── */
+  .reward-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+  .reward-table th {
+    background: #E8501A;
+    color: white;
+    padding: 9px 12px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .reward-table th:first-child { text-align: left; border-radius: 6px 0 0 0; }
+  .reward-table th:last-child { border-radius: 0 6px 0 0; }
+  .reward-table td {
+    padding: 9px 12px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    vertical-align: middle;
+  }
+  .reward-table td:first-child { text-align: left; font-weight: 600; }
+  .reward-table tr:hover { background: #fff8f5; }
+  .amount { font-weight: 800; color: #c94a00; }
+  .dash { color: #bbb; }
+
+  /* ── HIGH STANDARD ── */
+  .formula-box {
+    background: #fff4ee;
+    border: 1px solid #f5c4a8;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .formula-box .formula { font-size: 1.1rem; font-weight: 700; color: #c94a00; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .two-col-label {
+    font-size: .9rem;
+    font-weight: 700;
+    color: #888;
+    margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: .5px;
+  }
+
+  .super-badge {
+    background: linear-gradient(135deg, #c94a00, #E8501A);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 20px;
+    text-align: center;
+    margin-top: 14px;
+  }
+  .super-badge .label { font-size: .95rem; opacity: .9; margin-bottom: 4px; }
+  .super-badge .val { font-size: 1.8rem; font-weight: 900; }
+
+  /* ── BONUS CHIPS ── */
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .bonus-chip {
+    background: #fff8f5;
+    border: 1px solid #f5c4a8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: .97rem;
+  }
+  .bonus-chip .chip-label { font-weight: 700; color: #c94a00; margin-bottom: 4px; }
+  .bonus-chip .chip-value { color: #555; font-size: .97rem; }
+
+  /* ── FYP ── */
+  .fyp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .fyp-card {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+    transition: border-color .2s;
+  }
+  .fyp-card:hover { border-color: #F5821F; }
+  .fyp-card.tier1 { border-color: #E8501A; background: #fff4ee; }
+  .fyp-card .fyp-target { font-size: 1.05rem; font-weight: 700; color: #555; margin-bottom: 6px; }
+  .fyp-card .fyp-per { font-size: .88rem; color: #999; margin-bottom: 4px; }
+  .fyp-card .fyp-amount { font-size: 1.55rem; font-weight: 900; color: #E8501A; }
+  .fyp-card .fyp-unit { font-size: .88rem; font-weight: 600; }
+
+  .info-box {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: .97rem;
+    color: #666;
+    margin-top: 10px;
+  }
+  .info-box strong { color: #333; }
+
+  .accumulate-note {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #2e7d32;
+    text-align: center;
+    margin-top: 14px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #2c2c2c;
+    color: #ccc;
+    padding: 28px 20px;
+    font-size: .93rem;
+    line-height: 1.8;
+  }
+  .footer-inner { max-width: 900px; margin: 0 auto; }
+  .footer h3 { color: #fff; font-size: 1.05rem; margin-bottom: 12px; }
+  .footer .doc-ref {
+    background: #3a3a3a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .footer .doc-ref span { color: #F5821F; font-weight: 700; }
+  .footer ul { padding-left: 18px; margin-top: 8px; }
+  .footer ul li { margin-bottom: 4px; }
+  .footer .divider { border: none; border-top: 1px solid #444; margin: 18px 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .header h1 { font-size: 1.4rem; }
+    .reach-grid { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .reach-card .reward { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <h1>
+    <span>富邦人壽 115年</span>
+    第二季競賽獎勵懶人包
+  </h1>
+  <div class="badge-row">
+    <div class="badge">📅 競賽期間：115/3/26 ~ 115/6/25</div>
+    <div class="badge">⏱ 結案截止：115/7/27</div>
+    <div class="badge">👤 CA / NCT 以上職級適用</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════
+       SECTION 1：FYC 競賽
+  ══════════════════════════════════════ -->
+  <div class="section-title">
+    <span class="icon">💰</span>
+    FYC 季競賽（個人險 FYC，不含團險/跨售/加碼）
+  </div>
+
+  <!-- FYC 定義說明 -->
+  <div class="card" style="border-left: 5px solid #c94a00; background: #fff9f7;">
+    <div style="font-size:1rem;font-weight:800;color:#c94a00;margin-bottom:10px">📌 「個人險 FYC」的範圍——達標門檻怎麼算？</div>
+    <div style="font-size:.97rem;color:#444;margin-bottom:12px">
+      達標、超標、高標的 <strong>門檻計算</strong>，只看<strong style="color:#c94a00">純個人險 FYC</strong>，以下三類<strong style="color:#c94a00">不算進去</strong>：
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:14px">
+      <div style="background:#fee;border:1px solid #f5b8b8;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:1.3rem;margin-bottom:4px">🚫</div>
+        <div style="font-weight:700;color:#c00;margin-bottom:4px">團險 FYC</div>
+        <div style="font-size:.88rem;color:#666">團險新件的業績</div>
+      </div>
+      <div style="background:#fee;border:1px solid #f5b8b8;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:1.3rem;margin-bottom:4px">🚫</div>
+        <div style="font-weight:700;color:#c00;margin-bottom:4px">跨售 FYC</div>
+        <div style="font-size:.88rem;color:#666">產險、證券、北富銀商品等整合行銷</div>
+      </div>
+      <div style="background:#fee;border:1px solid #f5b8b8;border-radius:8px;padding:12px;text-align:center">
+        <div style="font-size:1.3rem;margin-bottom:4px">🚫</div>
+        <div style="font-weight:700;color:#c00;margin-bottom:4px">加碼 FYC</div>
+        <div style="font-size:.88rem;color:#666">特定商品加碼、回購加碼、房貸加碼等</div>
+      </div>
+    </div>
+    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;font-size:.97rem;color:#664d00">
+      ⚠️ <strong>重點：</strong>加碼商品的業績會讓你的「競賽 FYC」變大（用於超標、高標計算），<br>但<strong>「有沒有達標」只看純個人險 FYC</strong>——達標門檻不能靠加碼灌水，要靠真實業績！
+    </div>
+  </div>
+
+  <!-- 1. 達標獎勵 -->
+  <div class="sub-title">① 達標獎勵</div>
+  <div class="card">
+    <div class="reach-grid">
+      <div class="reach-card">
+        <div class="group-label">個人組</div>
+        <div class="condition">每月皆 <strong>≥ 5萬</strong><br>或 季累計 <strong>≥ 18萬</strong></div>
+        <div class="reward">25,000 <span class="reward-unit">元</span></div>
+      </div>
+      <div class="reach-card">
+        <div class="group-label">新人組</div>
+        <div class="condition">每月皆 <strong>≥ 4萬</strong><br>或 季累計 <strong>≥ 13萬</strong></div>
+        <div class="reward">25,000 <span class="reward-unit">元</span></div>
+      </div>
+    </div>
+    <div class="newbie-bonus">
+      🌟 <strong>報聘1年內新人特別優惠</strong>：每月皆達 3萬 或 季累計達 10萬 → 獎金 <strong>15,000 元</strong>（與新人組獎金擇優發放）
+    </div>
+    <table class="month-table" style="margin-top:14px">
+      <tr>
+        <th>月份</th>
+        <th>4月</th>
+        <th>5月</th>
+        <th>6月</th>
+      </tr>
+      <tr>
+        <td>業績受理日</td>
+        <td>3/26 ~ 4/27</td>
+        <td>4/28 ~ 5/25</td>
+        <td>5/26 ~ 6/25</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- 2. 超標獎勵 -->
+  <div class="sub-title">② 超標獎勵　<small style="font-weight:400;color:#999">（須先取得達標獎勵）</small></div>
+  <div class="card">
+    <table class="reward-table">
+      <thead>
+        <tr>
+          <th>競賽 FYC</th>
+          <th>個人組</th>
+          <th>新人組</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>≥ 20萬</td>
+          <td class="dash">—</td>
+          <td class="amount">+10,000 元</td>
+        </tr>
+        <tr>
+          <td>≥ 25萬</td>
+          <td class="amount">+10,000 元</td>
+          <td class="amount">+20,000 元</td>
+        </tr>
+        <tr style="background:#fff8f5">
+          <td>超過 25萬後，<br>每增加 10萬</td>
+          <td class="amount">+15,000 元</td>
+          <td class="amount">+15,000 元</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box" style="margin-top:10px">超過 25萬後段獎金 <strong>無上限</strong>，愈衝愈多！</div>
+  </div>
+
+  <!-- 3. 高標獎勵 -->
+  <div class="sub-title">③ 高標獎勵　<small style="font-weight:400;color:#999">（須先取得達標獎勵，且個人險 FYC 成長率 &gt; 0）</small></div>
+  <div class="card">
+    <div class="formula-box">
+      <div>獎金公式</div>
+      <div class="formula">高標獎金 × 成長倍數 ＋ 超高產能獎金</div>
+      <div style="font-size:.8rem;color:#888;margin-top:4px">個人險 FYC 成長率 ＝ 競賽期間個人險 FYC ÷ 基期 − 1</div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="two-col-label">📊 高標獎金</div>
+        <table class="reward-table">
+          <thead><tr><th>競賽 FYC</th><th>獎金</th></tr></thead>
+          <tbody>
+            <tr><td>≥ 100萬</td><td class="amount">25,000 元</td></tr>
+            <tr><td>≥ 70萬</td><td class="amount">15,000 元</td></tr>
+            <tr><td>≥ 50萬</td><td class="amount">7,500 元</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="two-col-label">✖ 成長倍數</div>
+        <table class="reward-table">
+          <thead><tr><th>FYC 成長率</th><th>倍數</th></tr></thead>
+          <tbody>
+            <tr><td>≥ 50%</td><td class="amount">× 3</td></tr>
+            <tr><td>≥ 30%</td><td class="amount">× 2</td></tr>
+            <tr><td>≥ 15%</td><td class="amount">× 1.5</td></tr>
+            <tr><td>&gt; 0%</td><td class="amount">× 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="super-badge">
+      <div class="label">⚡ 超高產能加碼（競賽 FYC ≥ 200萬）</div>
+      <div class="val">＋ 50,000 元</div>
+    </div>
+  </div>
+
+  <!-- 4. 業績加碼 -->
+  <div class="sub-title">④ 特定商品業績加碼</div>
+  <div class="card">
+    <div class="bonus-grid">
+      <div class="bonus-chip">
+        <div class="chip-label">重大傷病特定商品</div>
+        <div class="chip-value">SDG/SDH/SDJ/SDKA/SDL/SDN/FDC…等</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">FYC ＋ 50%</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">長照特定商品</div>
+        <div class="chip-value">LTK1/LTM1/LTN1/LAR1</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">FYC ＋ 50%</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">醫療保障特定商品</div>
+        <div class="chip-value">HSW/HSY/CLW/CLX/ADH/HAA/HAB…等</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">FYC ＋ 50%</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">長年期分紅特定商品</div>
+        <div class="chip-value">PAE/PAF/PAI…等（繳費年期 ≥ 10年）</div>
+        <div style="font-size:1rem;font-weight:800;color:#c94a00;margin-top:6px">FYC ＋ 30%</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">微型保單加碼</div>
+        <div class="chip-value">依 115年 4~6月微型保單推動辦法</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">專案獎金 × 5</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">團險新件加碼</div>
+        <div class="chip-value">FYC ＋50%（最高加碼 3萬）</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">最高 ＋ 3萬</div>
+      </div>
+      <div class="bonus-chip">
+        <div class="chip-label">人壽房貸加碼</div>
+        <div class="chip-value">FYC ＋50%（最高加碼 3萬）</div>
+        <div style="font-size:1rem;font-weight:800;color:#E8501A;margin-top:6px">最高 ＋ 3萬</div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:12px">
+      回購客戶（生存金保單/投資型月配息保單）購買特定商品，FYC 可額外加計 <strong>20%</strong>，可與特定商品加碼疊算。
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════
+       SECTION 2：FYP 競賽
+  ══════════════════════════════════════ -->
+  <div class="section-title">
+    <span class="icon">📈</span>
+    FYP 競賽（累計 FYP，不含投資型）
+  </div>
+
+  <!-- FYP 達標 -->
+  <div class="sub-title">① FYP 獎勵　<small style="font-weight:400;color:#999">（每達百萬皆有獎金，最高 50萬元上限，擇優發放）</small></div>
+  <div class="card">
+    <div class="fyp-grid">
+      <div class="fyp-card tier1">
+        <div class="fyp-target">累計 FYP ≥ 1,000萬</div>
+        <div class="fyp-per">每達百萬</div>
+        <div class="fyp-amount">7,000 <span class="fyp-unit">元</span></div>
+      </div>
+      <div class="fyp-card">
+        <div class="fyp-target">累計 FYP ≥ 500萬</div>
+        <div class="fyp-per">每達百萬</div>
+        <div class="fyp-amount">5,000 <span class="fyp-unit">元</span></div>
+      </div>
+      <div class="fyp-card">
+        <div class="fyp-target">累計 FYP ≥ 200萬</div>
+        <div class="fyp-per">每達百萬</div>
+        <div class="fyp-amount">3,000 <span class="fyp-unit">元</span></div>
+      </div>
+      <div class="fyp-card">
+        <div class="fyp-target">累計 FYP ≥ 100萬</div>
+        <div class="fyp-per">每達百萬</div>
+        <div class="fyp-amount">1,000 <span class="fyp-unit">元</span></div>
+      </div>
+    </div>
+    <div class="info-box">
+      各欄位擇優發放，上限 <strong>50萬元</strong>。<br>
+      舉例：累計 FYP 達 600萬，以「≥500萬」計，共 6次 × 5,000元 = 30,000元。
+    </div>
+  </div>
+
+  <!-- FYP 成長加碼 -->
+  <div class="sub-title">② FYP 成長加碼</div>
+  <div class="card" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <div style="font-size:.9rem;color:#555;margin-bottom:6px">同時符合以下兩個條件：</div>
+      <div style="font-size:.95rem;font-weight:700;color:#333">✅ 累計 FYP（不含投資型）≥ <span style="color:#E8501A">150萬</span></div>
+      <div style="font-size:.95rem;font-weight:700;color:#333;margin-top:4px">✅ 累計 FYP ≥ <span style="color:#E8501A">第一季累計 FYP</span></div>
+    </div>
+    <div style="text-align:center;background:#fff4ee;border:2px solid #F5821F;border-radius:10px;padding:14px 24px">
+      <div style="font-size:.8rem;color:#999;margin-bottom:4px">加碼獎金</div>
+      <div style="font-size:1.8rem;font-weight:900;color:#E8501A">3,000 <span style="font-size:.85rem">元</span></div>
+    </div>
+  </div>
+
+  <!-- 高FYP加碼 -->
+  <div class="sub-title">③ 高 FYP 加碼</div>
+  <div class="card">
+    <table class="reward-table">
+      <thead>
+        <tr><th>累計 FYP</th><th>加碼獎金</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>≥ 800萬</td><td class="amount">13,000 元</td></tr>
+        <tr><td>≥ 400萬</td><td class="amount">5,000 元</td></tr>
+      </tbody>
+    </table>
+    <div class="accumulate-note">
+      🎉 以上三種 FYP 獎勵可同時累計！
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <div class="footer-inner">
+    <h3>📋 公文出處</h3>
+    <div class="doc-ref">
+      <span>FYC 競賽辦法</span>　(115)富壽業活發字第 040 號　115年3月25日　發文者：業務活動部
+    </div>
+    <div class="doc-ref">
+      <span>FYP 獎勵辦法</span>　(115)富壽業活發字第 044 號　115年3月25日　發文者：業務活動部
+    </div>
+
+    <hr class="divider">
+    <h3>⚠️ 重要注意事項</h3>
+    <ul>
+      <li>佣金率為零之商品（如員工專案商品）不計入競賽業績。</li>
+      <li>新契約或加保新附約須在競賽期間內受理並於結案日前結案之 FYC 方計算。</li>
+      <li>非競賽期間受理之保單，其後續衍生之首年續期業費不計入競賽業績。</li>
+      <li>非競賽期間受理之保單，若競賽期間辦理契約撤銷期變更產生之業績，亦不計入。</li>
+      <li>獎勵規範條件：業務品質停招月數累計 6 個月或單次記點達 6 點者，即取消獎金。</li>
+      <li>工作暨職場紀律：單次達 2 支小過或累計 3 支小過，獎金發放 50%；單次大過以上，取消獎金。</li>
+      <li>本競賽獎勵將列入獎勵取得資格者之個人所得。</li>
+      <li>如有業績相關問題，請洽業務活動部：詹衛青 02-21765188分機27713 / 高玉穗 分機25370</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
