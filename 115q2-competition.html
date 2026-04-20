@@ -593,5 +593,72 @@
   </div>
 </div>
 
+
+<!-- ═══ 背景音樂 ═══ -->
+<audio id="bgm" loop preload="auto">
+  <source src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 浮動音樂按鈕 -->
+<div id="music-btn" style="
+  position:fixed;bottom:24px;right:24px;z-index:9999;
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,0.15);backdrop-filter:blur(8px);
+  border:2px solid rgba(255,255,255,0.4);
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;cursor:pointer;
+  box-shadow:0 4px 16px rgba(0,0,0,0.3);
+  transition:transform 0.2s,background 0.2s;
+  user-select:none;
+" title="開關音樂">🎵</div>
+
+<script>
+(function(){
+  var audio = document.getElementById('bgm');
+  var btn = document.getElementById('music-btn');
+  var playing = false;
+
+  function tryPlay(){
+    audio.play().then(function(){
+      playing = true;
+      btn.textContent = '🔊';
+    }).catch(function(){});
+  }
+
+  // 第一次任意點擊自動播放
+  function onFirstInteraction(){
+    document.removeEventListener('click', onFirstInteraction);
+    document.removeEventListener('touchstart', onFirstInteraction);
+    tryPlay();
+  }
+  document.addEventListener('click', onFirstInteraction);
+  document.addEventListener('touchstart', onFirstInteraction);
+
+  // 直接嘗試（部分瀏覽器允許）
+  tryPlay();
+
+  // 浮動按鈕切換
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(playing){
+      audio.pause();
+      playing = false;
+      btn.textContent = '🔇';
+    } else {
+      tryPlay();
+    }
+  });
+
+  btn.addEventListener('mouseover', function(){
+    btn.style.transform = 'scale(1.12)';
+    btn.style.background = 'rgba(255,255,255,0.25)';
+  });
+  btn.addEventListener('mouseout', function(){
+    btn.style.transform = 'scale(1)';
+    btn.style.background = 'rgba(255,255,255,0.15)';
+  });
+})();
+</script>
+
 </body>
 </html>
