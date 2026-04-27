@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三本柱「件數再+1」加碼獎勵辦法</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Noto Sans TC", sans-serif;
+    background: #f5f5f5;
+    color: #333;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #C8001E 0%, #E8380D 100%);
+    color: white;
+    padding: 32px 20px 28px;
+    text-align: center;
+  }
+  .header .brand {
+    font-size: 16px;
+    letter-spacing: 2px;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .header .period {
+    background: rgba(255,255,255,0.2);
+    display: inline-block;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+  .header .notice-ref {
+    font-size: 14px;
+    opacity: 0.7;
+    margin-top: 6px;
+  }
+
+  /* Container */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  /* Section */
+  .section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #C8001E;
+    border-left: 4px solid #C8001E;
+    padding-left: 10px;
+    margin-bottom: 16px;
+  }
+
+  /* Phase Cards */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .phase-card {
+    background: #fff8f7;
+    border: 1px solid #f0d0cc;
+    border-radius: 10px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .phase-card .phase-label {
+    background: #C8001E;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 20px;
+    padding: 2px 10px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .phase-card .date-range {
+    font-size: 17px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .phase-card .meta {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.8;
+  }
+  .phase-card .meta span { display: block; }
+
+  /* Reward Table */
+  .reward-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+  }
+  .reward-table th {
+    background: #f9f0ee;
+    color: #C8001E;
+    font-size: 16px;
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 2px solid #e8d0cc;
+  }
+  .reward-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 17px;
+  }
+  .reward-table tr:last-child td { border-bottom: none; }
+  .reward-table .amount {
+    font-weight: 700;
+    color: #C8001E;
+    font-size: 18px;
+  }
+  .reward-table .highlight-row td {
+    background: #fff3f0;
+    font-weight: 700;
+  }
+
+  /* Two-path */
+  .path-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .path-card {
+    border-radius: 10px;
+    padding: 16px;
+    border: 2px solid #e0e0e0;
+  }
+  .path-card.path-a { border-color: #4a90d9; background: #f0f6ff; }
+  .path-card.path-b { border-color: #E8380D; background: #fff3f0; }
+  .path-card .path-label {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .path-card.path-a .path-label { color: #2a70b9; }
+  .path-card.path-b .path-label { color: #C8001E; }
+  .path-card .path-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  .path-card .path-desc {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.7;
+  }
+  .path-card .max-amount {
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 700;
+  }
+  .path-card.path-a .max-amount { color: #2a70b9; }
+  .path-card.path-b .max-amount { color: #C8001E; }
+
+  .not-overlap {
+    margin-top: 12px;
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 16px;
+    color: #7a5f00;
+  }
+
+  /* Rules */
+  .rule-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+  .rule-num {
+    background: #C8001E;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .rule-text { font-size: 17px; line-height: 1.6; }
+  .rule-text strong { color: #C8001E; }
+
+  /* Product section */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .product-col {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 14px;
+  }
+  .product-col .col-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #C8001E;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .product-codes {
+    font-size: 14px;
+    color: #555;
+    line-height: 2;
+  }
+  .product-codes span {
+    display: inline-block;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin: 3px 2px;
+    font-family: monospace;
+    font-size: 14px;
+  }
+
+  /* Notes */
+  .note-list { list-style: none; }
+  .note-list li {
+    font-size: 16px;
+    color: #555;
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f5f5;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .note-list li:before {
+    content: "▸";
+    color: #C8001E;
+    position: absolute;
+    left: 0;
+    font-size: 11px;
+    top: 8px;
+  }
+  .note-list li:last-child { border-bottom: none; }
+
+  /* Tag */
+  .tag-new {
+    background: #E8380D;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* Progress Tracker */
+  .progress-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-top: 4px solid #2a70b9;
+  }
+  .progress-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2a70b9;
+    border-left: 4px solid #2a70b9;
+    padding-left: 10px;
+    margin-bottom: 6px;
+  }
+  .progress-updated {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 16px;
+    padding-left: 14px;
+  }
+  .progress-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .progress-table th {
+    background: #eef4fb;
+    color: #2a70b9;
+    font-size: 15px;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 2px solid #c5d8f0;
+  }
+  .progress-table td {
+    padding: 13px 14px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+  .progress-table tr:last-child td { border-bottom: none; }
+  .done-badge {
+    background: #52c41a;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    display: inline-block;
+  }
+  .progress-fyc {
+    font-weight: 700;
+    color: #C8001E;
+    font-size: 17px;
+  }
+
+  /* Per-person progress cards */
+  .person-progress-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .person-card {
+    border: 2px solid #c5d8f0;
+    border-radius: 10px;
+    padding: 14px;
+    background: #f8fbff;
+  }
+  .person-card .person-name {
+    font-size: 17px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  .person-card .pieces-count {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2a70b9;
+    line-height: 1;
+  }
+  .person-card .pieces-label {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+  }
+  .bar-wrap {
+    background: #dde9f8;
+    border-radius: 20px;
+    height: 10px;
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    background: linear-gradient(90deg, #2a70b9, #4a9de8);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.3s;
+  }
+  .gap-badge {
+    display: inline-block;
+    background: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffc107;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .gap-badge.reached {
+    background: #d4edda;
+    color: #155724;
+    border-color: #52c41a;
+  }
+  .progress-note {
+    margin-top: 14px;
+    background: #fff8e6;
+    border: 1px solid #ffd666;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #7a5f00;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    padding: 16px;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 500px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .path-grid { grid-template-columns: 1fr; }
+    .product-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="brand">富邦人壽 業務公告</div>
+  <h1>三本柱「件數再+1」<br>加碼獎勵辦法</h1>
+  <div class="period">活動期間：115/03/26 ～ 6/30</div>
+  <div class="notice-ref">依第128號公文 + 第172號調整公文整合</div>
+</div>
+
+<div class="container">
+
+  <!-- 獎勵期間 -->
+  <div class="section">
+    <div class="section-title">獎勵期間（三階段）</div>
+    <div class="phase-grid">
+      <div class="phase-card">
+        <div class="phase-label">第一階段</div>
+        <div class="date-range">3/26 ～ 4/27</div>
+        <div class="meta">
+          <span>結案：5/25</span>
+          <span>簽收：6/10</span>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">第二階段</div>
+        <div class="date-range">4/28 ～ 5/25</div>
+        <div class="meta">
+          <span>結案：6/25</span>
+          <span>簽收：7/10</span>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label">第三階段</div>
+        <div class="date-range">5/26 ～ 6/30</div>
+        <div class="meta">
+          <span>結案：7/27</span>
+          <span>簽收：8/10</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 計件規則 -->
+  <div class="section">
+    <div class="section-title">計件規則</div>
+    <div class="rule-item">
+      <div class="rule-num">1</div>
+      <div class="rule-text">單件 <strong>FYC ≥ 1萬元</strong>（含）計入 1 件</div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">2</div>
+      <div class="rule-text">
+        <strong>第一階段</strong>：同一<strong>要保人</strong>或<strong>被保險人</strong>同一商品歸戶 1 件，擇優適用
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">3</div>
+      <div class="rule-text">
+        <strong>第二、三階段</strong> <span class="tag-new">172號調整</span>：同一<strong>被保險人</strong>同一商品歸戶 1 件
+      </div>
+    </div>
+    <div class="rule-item">
+      <div class="rule-num">4</div>
+      <div class="rule-text">新人資格認定參照業務活動部「第二季競賽」競賽辦法</div>
+    </div>
+  </div>
+
+  <!-- 獎勵金額 -->
+  <div class="section">
+    <div class="section-title">獎勵金額（兩種路徑擇高領取）</div>
+
+    <div class="path-grid">
+      <!-- 路徑A -->
+      <div class="path-card path-a">
+        <div class="path-label">路徑 A｜分段累積</div>
+        <div class="path-title">每段達 2 件逐步疊加</div>
+        <div class="path-desc">
+          任一階段達 2 件：+1,000元<br>
+          （新人 +2,000元）<br><br>
+          連續兩段達 2 件：再+3,000元<br>
+          連續三段達 2 件：再+8,000元
+        </div>
+        <div class="max-amount">最高 $12,000</div>
+        <div style="font-size:12px;color:#555;margin-top:2px;">新人最高 $13,000</div>
+      </div>
+
+      <!-- 路徑B -->
+      <div class="path-card path-b">
+        <div class="path-label">路徑 B｜跨階通算 <span class="tag-new">172號新增</span></div>
+        <div class="path-title">三段累積衝 8 件</div>
+        <div class="path-desc">
+          條件：<br>
+          每個階段各 <strong>≥ 1件</strong><br>
+          且三段累積 <strong>≥ 8件</strong><br><br>
+          直接發放最高獎勵金額
+        </div>
+        <div class="max-amount">直接 $12,000</div>
+        <div style="font-size:12px;color:#555;margin-top:2px;">新人直接 $13,000</div>
+      </div>
+    </div>
+
+    <div class="not-overlap">
+      ⚠️ 路徑 A 與路徑 B <strong>不重複發放</strong>，擇高採計其一
+    </div>
+  </div>
+
+  <!-- 獎勵商品 -->
+  <div class="section">
+    <div class="section-title">獎勵商品（三本柱系列）</div>
+    <div class="product-grid">
+      <div class="product-col">
+        <div class="col-title">台幣</div>
+        <div class="product-codes">
+          <span>ICH</span><span>PAO</span><span>PAC</span><span>PAE</span><span>PAF</span>
+          <span>PAI</span><span>PAK</span><span>PAL</span><span>PAN</span><span>PAG</span>
+          <span>PAJ</span><span>SBA</span><span>SBC</span><span>XMM</span><span>XMN</span>
+          <span>XMP</span>
+        </div>
+      </div>
+      <div class="product-col">
+        <div class="col-title">美元現金流</div>
+        <div class="product-codes">
+          <span>FCE</span><span>FEF</span><span>PF55</span><span>PF60</span><span>PF65</span>
+          <span>PFC</span><span>PFE</span><span>PFF</span><span>PFI</span><span>PFN</span>
+          <span>PFO</span><span>PFV</span><span>PFW</span><span>SAZ</span>
+        </div>
+      </div>
+      <div class="product-col">
+        <div class="col-title">美元高保障</div>
+        <div class="product-codes">
+          <span>FAK1</span><span>FAT</span><span>FAX</span><span>FAZ</span><span>FBM</span>
+          <span>FBO</span><span>FBP</span><span>FBQ</span><span>FBS</span><span>FBU</span>
+          <span>FCF</span><span>FED</span><span>OIB</span><span>PFA</span><span>PFD</span>
+          <span>PFG</span><span>PFH</span><span>PFK</span><span>PFP</span><span>PFU</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 注意事項 -->
+  <div class="section">
+    <div class="section-title">注意事項</div>
+    <ul class="note-list">
+      <li>保費以獎勵期間內受理，並依期間條件完成結案與簽收之首期實收保費計算</li>
+      <li>本獎勵為件數獎勵，AG/SI 件數不計入增員主管</li>
+      <li>共同招攬件依業績歸屬人數分別計算</li>
+      <li>獎勵金計算至整數，小數點以下四捨五入</li>
+      <li>通訊處另有展業費獎勵（累積單位業務同仁獎勵總額20%），展業費需達3,000元始予核發</li>
+      <li>獎勵結算前將進行業績核確，若發生退保、解約等情形，將依扣除後保費重新核算</li>
+      <li>獎勵計算下截日前1年內若停招月數累計達6個月或單次記點達6點以上者，即取消獎勵</li>
+      <li>各項獎勵結算時如已離職（含轉任AG/SI），即取消獎勵；惟退休或退休轉任AG/SI/RSA/HRA者不在此限</li>
+    </ul>
+  </div>
+
+  <!-- 進度追蹤 -->
+  <div class="progress-section">
+    <div class="progress-title">目前進度追蹤</div>
+    <div class="progress-updated">更新：115/04/27｜第一階段（3/26～4/27）｜目標：每人累計 8 件</div>
+    <table class="progress-table">
+      <thead>
+        <tr>
+          <th>同仁</th>
+          <th>商品</th>
+          <th>保費</th>
+          <th>FYC</th>
+          <th>狀態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>林君溥</strong></td>
+          <td>PFNA（20年期）</td>
+          <td>3.9萬</td>
+          <td class="progress-fyc">$12,000</td>
+          <td><span class="done-badge">✓ 完成 1 件</span></td>
+        </tr>
+        <tr>
+          <td><strong>李秉芳</strong></td>
+          <td>PF60</td>
+          <td>20萬</td>
+          <td class="progress-fyc">$37,000</td>
+          <td><span class="done-badge">✓ 完成 1 件</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 個人達標進度 -->
+    <div class="person-progress-grid">
+      <!-- 林君溥：1/8 -->
+      <div class="person-card">
+        <div class="person-name">林君溥</div>
+        <div class="pieces-count">1</div>
+        <div class="pieces-label">件 ／ 目標 8 件</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:12.5%"></div>
+        </div>
+        <span class="gap-badge">還差 7 件</span>
+      </div>
+      <!-- 李秉芳：1/8 -->
+      <div class="person-card">
+        <div class="person-name">李秉芳</div>
+        <div class="pieces-count">1</div>
+        <div class="pieces-label">件 ／ 目標 8 件</div>
+        <div class="bar-wrap">
+          <div class="bar-fill" style="width:12.5%"></div>
+        </div>
+        <span class="gap-badge">還差 7 件</span>
+      </div>
+    </div>
+
+    <div class="progress-note">
+      ⚠️ 獎勵以<strong>個人</strong>件數計算，目前尚無人達標（路徑B需三階段累計 ≥ 8 件，且每階段 ≥ 1 件）
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  富邦人壽 115年富壽行銷(業)發字第128號 + 第172號｜整合版說明
+</div>
+
+</body>
+</html>
