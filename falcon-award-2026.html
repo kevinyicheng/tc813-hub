@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>115年獵鷹獎勵專案 × TC813 加碼</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* ── TC813 Design Tokens（自含）── */
+:root {
+  --brand:       #0093C1;
+  --brand-alt:   #00A59B;
+  --brand-dark:  #014865;
+  --accent:      #00D4F0;
+  --success:     #30DAA2;
+  --gold:        #FFC94F;
+  --orange:      #FF8933;
+  --rose:        #E03E57;
+  --mint:        #30DAA2;
+  --surface:     #FFFFFF;
+  --surface-muted: #E8F2F7;
+  --surface-dark:  #014865;
+  --text:        #0F172A;
+  --text-strong: #111111;
+  --text-muted:  #64748B;
+  --text-on-dark:#F5F5F5;
+  --font-sans:   'Noto Sans TC', 'PingFang TC', sans-serif;
+  --font-en:     'Montserrat', sans-serif;
+  --font-display:'Noto Sans TC', sans-serif;
+  --fs-cover:    3.75em;
+  --fs-heading:  2.75em;
+  --fs-subtitle: 2.125em;
+  --fs-body:     1.75em;
+  --fs-aux:      1.5em;
+  --fs-meta:     1.25em;
+  --lh-tight: 1.25;
+  --lh-cozy:  1.5;
+  --lh-body:  1.7;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-line {
+  opacity: 0;
+  animation: fadeInUp 0.45s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 0.12s);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #0a0a0a;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+html.scroll-mode, html.scroll-mode body { height: auto; overflow: auto; }
+
+.deck { position: relative; width: 100%; height: 100vh; }
+
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em 4.5em 5.5em;
+  font-size: clamp(9px, 1.2vw, 15px);
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+html.scroll-mode .deck { height: auto; }
+html.scroll-mode .slide { position: relative; display: flex !important; width: 100%; min-height: 56.25vw; }
+
+html.grid-mode body { overflow: auto; background: #1a1a1a; }
+html.grid-mode .deck {
+  height: auto; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 12px; padding: 60px 16px 16px;
+}
+html.grid-mode .slide {
+  position: relative !important; display: flex !important;
+  aspect-ratio: 16/9; font-size: clamp(3px, 0.38vw, 5px) !important;
+  cursor: pointer; border-radius: 6px; overflow: hidden;
+  outline: 2px solid transparent; transition: outline 0.15s;
+}
+html.grid-mode .slide:hover { outline-color: var(--brand); }
+html.grid-mode .slide.grid-current { outline-color: var(--orange); }
+html.grid-mode .slide::after {
+  content: attr(data-slide-num); position: absolute; bottom: 8px; right: 10px;
+  font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5);
+  font-family: var(--font-sans); pointer-events: none;
+}
+
+.slide h1 { font-family: var(--font-display); font-weight: 900; font-size: var(--fs-cover);   line-height: var(--lh-tight); color: var(--text-strong); letter-spacing: 0.02em; }
+.slide h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-heading); line-height: var(--lh-tight); color: var(--text-strong); letter-spacing: 0.02em; }
+.slide h3 { font-family: var(--font-sans);    font-weight: 700; font-size: var(--fs-subtitle);line-height: var(--lh-tight); color: var(--text-strong); }
+.slide p, .slide li { font-size: var(--fs-body); line-height: var(--lh-body); }
+.slide .meta {
+  font-family: var(--font-sans); font-size: var(--fs-meta);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted);
+}
+
+.slide.cover {
+  background: var(--surface-dark); color: var(--text-on-dark);
+  justify-content: flex-end; padding-bottom: 5em;
+}
+.slide.cover h1, .slide.cover h2 { color: var(--text-on-dark); }
+.slide.cover .meta { color: rgba(245,245,245,0.5); }
+
+.slide.dark { background: var(--surface-dark); color: var(--text-on-dark); }
+.slide.dark h1, .slide.dark h2 { color: var(--text-on-dark); }
+.slide.dark .meta { color: rgba(245,245,245,0.5); }
+
+.slide-grid {
+  background-color: var(--surface);
+  background-image:
+    linear-gradient(rgba(0,147,193,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,147,193,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.slide-pg {
+  position: absolute; right: 5em; bottom: 1.8em;
+  font-size: var(--fs-meta); color: var(--text-muted);
+  font-family: var(--font-sans); font-weight: 600;
+}
+.slide.cover .slide-pg, .slide.dark .slide-pg { color: rgba(245,245,245,0.35); }
+
+.slide-sig {
+  position: absolute; left: 5em; bottom: 1.8em;
+  display: flex; align-items: center; gap: 0.6em;
+  font-size: var(--fs-meta); color: var(--text-muted);
+  font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.06em;
+}
+.slide.cover .slide-sig, .slide.dark .slide-sig { color: rgba(245,245,245,0.35); }
+.slide-sig .dot { width: 0.35em; height: 0.35em; border-radius: 50%; background: var(--brand); flex-shrink: 0; }
+.slide.cover .slide-sig .dot, .slide.dark .slide-sig .dot { background: var(--accent); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  padding: 0.3em 0.9em; border-radius: 999px;
+  background: rgba(0,147,193,0.10); color: var(--brand);
+  font-size: var(--fs-meta); font-weight: 700;
+  font-family: var(--font-sans); letter-spacing: 0.02em;
+}
+.pill.gold { background: rgba(255,201,79,0.15); color: #b88a00; }
+
+.ctrl-bar {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(10,10,10,0.55); backdrop-filter: blur(16px);
+  border-radius: 999px; padding: 8px 14px; z-index: 100;
+  opacity: 1; transition: opacity 0.4s ease;
+}
+.ctrl-bar.hidden { opacity: 0; pointer-events: none; }
+.ctrl-bar button {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.75); padding: 6px 8px;
+  border-radius: 6px; transition: background 0.15s; display: flex; align-items: center;
+}
+.ctrl-bar button:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.ctrl-bar button svg { width: 18px; height: 18px; }
+.ctrl-bar .counter {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.6); min-width: 52px; text-align: center;
+}
+
+@media print {
+  html, body { height: auto; overflow: visible; background: #fff; }
+  .ctrl-bar { display: none !important; }
+  .deck { height: auto; display: block; }
+  .slide {
+    position: relative !important; inset: auto !important; display: flex !important;
+    page-break-after: always; break-after: page; width: 100vw; height: 56.25vw;
+  }
+}
+
+/* ═══════════════════════════
+   本簡報專用樣式
+   ═══════════════════════════ */
+
+.cover-glow { position: absolute; border-radius: 50%; pointer-events: none; }
+.cover-glow-1 {
+  width: 55em; height: 55em; top: -20em; right: -15em;
+  background: radial-gradient(circle, rgba(0,212,240,0.12) 0%, transparent 65%);
+}
+.cover-glow-2 {
+  width: 40em; height: 40em; bottom: -18em; left: -10em;
+  background: radial-gradient(circle, rgba(0,165,155,0.10) 0%, transparent 65%);
+}
+.cover-eagle {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 55%;
+  background: linear-gradient(135deg, rgba(0,147,193,0.08) 0%, rgba(0,165,155,0.05) 100%);
+  clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+.cover-deco-line {
+  width: 4em; height: 0.2em;
+  background: linear-gradient(90deg, var(--accent), var(--brand-alt));
+  border-radius: 999px; margin-bottom: 1em;
+}
+
+.big-number {
+  font-family: var(--font-en), var(--font-sans);
+  font-weight: 800; font-size: 9em; line-height: 1;
+  letter-spacing: -0.02em; color: var(--gold);
+}
+.big-number-unit {
+  font-family: var(--font-en), var(--font-sans);
+  font-weight: 700; font-size: 2.5em; color: var(--gold);
+  vertical-align: super; margin-right: 0.1em;
+}
+
+.reward-cards { display: grid; gap: 1.2em; margin-top: 1.5em; }
+.reward-cards.two-col { grid-template-columns: 1fr 1fr; }
+.reward-cards.three-col { grid-template-columns: 1fr 1fr 1fr; }
+
+.reward-card {
+  background: var(--surface); border: 1px solid rgba(0,0,0,0.07);
+  border-radius: 0.75em; padding: 1.4em 1.6em;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  position: relative; overflow: hidden;
+}
+.reward-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 0.22em; border-radius: 999px 999px 0 0;
+}
+.reward-card.company::before { background: linear-gradient(90deg, var(--brand), var(--accent)); }
+.reward-card.tc813::before   { background: linear-gradient(90deg, var(--mint), var(--brand-alt)); }
+.reward-card.extra::before   { background: linear-gradient(90deg, var(--gold), var(--orange)); }
+
+.reward-card-amount {
+  font-family: var(--font-en), var(--font-sans);
+  font-weight: 800; font-size: 2.8em; line-height: 1; margin-bottom: 0.2em;
+}
+.reward-card.company .reward-card-amount { color: var(--brand); }
+.reward-card.tc813 .reward-card-amount   { color: var(--mint); }
+.reward-card.extra .reward-card-amount   { color: var(--gold); }
+
+.reward-card-title { font-size: var(--fs-aux); font-weight: 700; color: var(--text-strong); margin-bottom: 0.5em; }
+.reward-card-desc  { font-size: var(--fs-meta); color: var(--text-muted); line-height: 1.55; }
+.reward-card-tag {
+  display: inline-block; margin-top: 0.6em;
+  padding: 0.2em 0.6em; border-radius: 999px;
+  font-size: calc(var(--fs-meta) * 0.85); font-weight: 700;
+}
+.reward-card.company .reward-card-tag { background: rgba(0,147,193,0.10); color: var(--brand); }
+.reward-card.tc813 .reward-card-tag   { background: rgba(48,218,162,0.12); color: #1ea87a; }
+.reward-card.extra .reward-card-tag   { background: rgba(255,201,79,0.15); color: #a07000; }
+
+.bullet-list { list-style: none; margin-top: 1.2em; display: flex; flex-direction: column; gap: 0.9em; }
+.bullet-list li { display: flex; align-items: flex-start; gap: 0.75em; font-size: var(--fs-body); line-height: var(--lh-body); }
+.bullet-dot { width: 0.45em; height: 0.45em; border-radius: 50%; background: var(--brand); flex-shrink: 0; margin-top: 0.55em; }
+.bullet-dot.gold { background: var(--gold); }
+.bullet-dot.mint { background: var(--mint); }
+
+.section-part {
+  font-family: var(--font-en), var(--font-sans); font-weight: 800; font-size: 12em;
+  color: rgba(255,255,255,0.04); position: absolute; right: 0.5em; bottom: -0.15em;
+  line-height: 1; pointer-events: none; letter-spacing: -0.04em;
+}
+.section-deco { width: 3em; height: 0.2em; border-radius: 999px; margin-bottom: 0.8em; }
+.section-deco.brand { background: linear-gradient(90deg, var(--accent), var(--brand-alt)); }
+.section-deco.mint  { background: linear-gradient(90deg, var(--mint), var(--accent)); }
+
+.split { display: grid; gap: 3em; align-items: start; margin-top: 1.5em; }
+.split.two { grid-template-columns: 1fr 1fr; }
+
+.summary-bar { display: flex; gap: 1.5em; margin-top: 1.5em; align-items: center; }
+.summary-item { display: flex; align-items: center; gap: 0.6em; }
+.summary-item-dot { width: 0.5em; height: 0.5em; border-radius: 50%; flex-shrink: 0; }
+.summary-divider { width: 1px; height: 2.5em; background: rgba(0,0,0,0.12); flex-shrink: 0; }
+
+.slide.closer {
+  background: var(--surface-dark); color: var(--text-on-dark);
+  background-image:
+    radial-gradient(ellipse at 20% 30%, rgba(0,147,193,0.15) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(0,165,155,0.10) 0%, transparent 55%),
+    linear-gradient(rgba(0,147,193,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,147,193,0.03) 1px, transparent 1px);
+  background-size: auto, auto, 32px 32px, 32px 32px;
+}
+.slide.closer h2 { color: var(--text-on-dark); }
+.slide.closer .meta { color: rgba(245,245,245,0.5); }
+.slide.closer .slide-pg, .slide.closer .slide-sig { color: rgba(245,245,245,0.35); }
+.slide.closer .slide-sig .dot { background: var(--accent); }
+
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 0.5em;
+  margin-top: 2em; padding: 0.75em 2em; border-radius: 999px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-alt));
+  color: #fff; font-size: var(--fs-aux); font-weight: 700; letter-spacing: 0.04em;
+  box-shadow: 0 4px 20px rgba(0,147,193,0.35);
+}
+
+.def-list { display: flex; flex-direction: column; gap: 1em; margin-top: 1.2em; }
+.def-item { display: flex; gap: 1em; align-items: flex-start; }
+.def-num {
+  font-family: var(--font-en), var(--font-sans); font-weight: 800;
+  font-size: var(--fs-subtitle); color: var(--brand); line-height: 1.2;
+  min-width: 1.8em; flex-shrink: 0;
+}
+.def-body { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--text); }
+
+.notice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin-top: 1.5em; }
+.notice-item {
+  background: var(--surface-muted); border-radius: 0.6em;
+  padding: 1em 1.2em; border-left: 0.2em solid var(--brand);
+}
+.notice-item.danger { border-left-color: var(--rose); }
+.notice-item.gold   { border-left-color: var(--gold); }
+.notice-item-label { font-size: calc(var(--fs-meta) * 0.9); font-weight: 700; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 0.3em; }
+.notice-item-text  { font-size: var(--fs-body); font-weight: 600; color: var(--text-strong); line-height: 1.45; }
+
+.fee-box {
+  background: rgba(255,201,79,0.06); border: 1px solid rgba(255,201,79,0.25);
+  border-radius: 0.75em; padding: 1.2em 1.5em; margin-top: 1.2em;
+}
+
+strong.brand { color: var(--brand); font-weight: 700; }
+strong.gold  { color: #a07000; font-weight: 700; }
+strong.mint  { color: #1ea87a; font-weight: 700; }
+strong.rose  { color: var(--rose); font-weight: 700; }
+
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- 01 封面 -->
+  <section class="slide cover">
+    <div class="cover-glow cover-glow-1"></div>
+    <div class="cover-glow cover-glow-2"></div>
+    <div class="cover-eagle"></div>
+    <div class="cover-deco-line animate-line" style="--i:0"></div>
+    <p class="animate-line meta" style="--i:1">富邦人壽獵鷹獎勵專案 × TC813 加碼</p>
+    <h1 class="animate-line" style="--i:2">增員就是<br>最好的投資</h1>
+    <p class="animate-line" style="--i:3; margin-top:0.8em; color:rgba(245,245,245,0.6); font-size:var(--fs-aux);">
+      115 年 4 月 17 日公告 ｜ 115/4 — 115/12 工作月 ｜ 限額 1,000 名
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">01 / 10</div>
+  </section>
+
+  <!-- 02 最高獎勵總覽 -->
+  <section class="slide slide-grid">
+    <p class="animate-line meta" style="--i:0">每帶進一名符合資格的新人，你最高可領</p>
+    <div class="animate-line" style="--i:1; margin-top:0.3em; display:flex; align-items:baseline; gap:0.1em;">
+      <span class="big-number-unit">$</span>
+      <span class="big-number">22,000</span>
+    </div>
+    <div class="summary-bar animate-line" style="--i:2">
+      <div class="summary-item">
+        <div class="summary-item-dot" style="background:var(--brand)"></div>
+        <span style="font-size:var(--fs-body);">富邦人壽公司</span>
+        <strong style="font-family:var(--font-en);font-size:var(--fs-subtitle);color:var(--brand);margin-left:0.3em;">$10,000</strong>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <div class="summary-item-dot" style="background:var(--mint)"></div>
+        <span style="font-size:var(--fs-body);">TC813 加碼</span>
+        <strong style="font-family:var(--font-en);font-size:var(--fs-subtitle);color:#1ea87a;margin-left:0.3em;">$12,000</strong>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-item">
+        <span style="font-size:var(--fs-meta);color:var(--text-muted);">+ 面談費另計</span>
+      </div>
+    </div>
+    <p class="animate-line" style="--i:3; margin-top:1.5em; color:var(--text-muted); font-size:var(--fs-meta);">
+      ＊本頁為最高可領金額，各項目均有資格條件，詳見後續說明。
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">02 / 10</div>
+  </section>
+
+  <!-- 03 Section Part 01 -->
+  <section class="slide dark">
+    <div class="section-part">01</div>
+    <div class="section-deco brand animate-line" style="--i:0"></div>
+    <p class="animate-line meta" style="--i:1">Part 01</p>
+    <h2 class="animate-line" style="--i:2">富邦人壽<br>公司獎勵</h2>
+    <p class="animate-line" style="--i:3; margin-top:1em; color:rgba(245,245,245,0.55); font-size:var(--fs-body);">
+      總計最高 $10,000 ／ 每帶1名新人
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">03 / 10</div>
+  </section>
+
+  <!-- 04 公司獎勵詳細 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">公司獎勵說明</h2>
+    <div class="reward-cards two-col animate-line" style="--i:1">
+      <div class="reward-card company">
+        <div class="reward-card-amount">$3,000</div>
+        <div class="reward-card-title">報聘推動獎勵金</div>
+        <div class="reward-card-desc">
+          於專案期間報聘，且符合「新人定義」即可領取。<br><br>
+          <strong class="brand">核發條件：</strong>被增員者於報聘後<strong class="brand">第 4 個月</strong>仍持續任職 CA 以上職級。
+        </div>
+        <div class="reward-card-tag">第 5 個月統一核發</div>
+      </div>
+      <div class="reward-card company">
+        <div class="reward-card-amount">$7,000</div>
+        <div class="reward-card-title">活動加碼獎勵金</div>
+        <div class="reward-card-desc">
+          在①的基礎上，新人於報聘第 1～6 個工作月，<strong class="brand">平均活動參與率達 70%</strong> 以上。<br><br>
+          <strong class="brand">核發條件：</strong>被增員者於報聘後<strong class="brand">第 7 個月</strong>仍持續任職 CA 以上職級。
+        </div>
+        <div class="reward-card-tag">第 8 個月統一核發</div>
+      </div>
+    </div>
+    <p class="animate-line" style="--i:2; margin-top:1.2em; color:var(--text-muted); font-size:var(--fs-meta);">
+      ＊跨區增員同樣適用。限額以符合新人定義者到職日滿 1,000 名認定，到職日早於或等於額滿當工作月皆適用。
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">04 / 10</div>
+  </section>
+
+  <!-- 05 Section Part 02 -->
+  <section class="slide dark">
+    <div class="section-part">02</div>
+    <div class="section-deco mint animate-line" style="--i:0"></div>
+    <p class="animate-line meta" style="--i:1">Part 02</p>
+    <h2 class="animate-line" style="--i:2">TC813<br>加碼獎勵</h2>
+    <p class="animate-line" style="--i:3; margin-top:1em; color:rgba(245,245,245,0.55); font-size:var(--fs-body);">
+      再加碼 $12,000 ／ 每帶1名新人
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">05 / 10</div>
+  </section>
+
+  <!-- 06 TC813 加碼詳細 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">TC813 加碼說明</h2>
+    <div class="reward-cards three-col animate-line" style="--i:1">
+      <div class="reward-card tc813">
+        <div class="reward-card-amount">$3,000</div>
+        <div class="reward-card-title">加發獎勵金</div>
+        <div class="reward-card-desc">
+          在公司①報聘推動獎勵金的基礎上，TC813 另行加發。<br><br>
+          <strong class="mint">期間：</strong>115/5/4 — 115/12/25 報聘有效，<strong class="mint">無名額上限</strong>。
+        </div>
+        <div class="reward-card-tag">符合公司①即可領</div>
+      </div>
+      <div class="reward-card tc813">
+        <div class="reward-card-amount">$2,000</div>
+        <div class="reward-card-title">FYC 達標獎</div>
+        <div class="reward-card-desc">
+          新人於<strong class="mint">報聘起算 3 個月內</strong>，累計達成<br>
+          <strong class="mint">FYC $45,000</strong> 以上。
+        </div>
+        <div class="reward-card-tag">達標即申請核發</div>
+      </div>
+      <div class="reward-card tc813">
+        <div class="reward-card-amount">$7,000</div>
+        <div class="reward-card-title">六月出席達標獎</div>
+        <div class="reward-card-desc">
+          新人報聘起算 6 個月，<strong class="mint">每個月</strong>出席率均達<strong class="mint"> 70% </strong>以上。<br><br>
+          注意：公司②為「平均」達 70%，TC813 這項是「每月」皆須達標。
+        </div>
+        <div class="reward-card-tag">第 7 個月後核發</div>
+      </div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">06 / 10</div>
+  </section>
+
+  <!-- 07 面談費 -->
+  <section class="slide slide-grid">
+    <h2 class="animate-line" style="--i:0">面談費申請 <span class="pill gold" style="vertical-align:middle;margin-left:0.4em;">額外加給</span></h2>
+    <div class="split two animate-line" style="--i:1; margin-top:1.5em;">
+      <div class="fee-box">
+        <div style="font-size:var(--fs-meta);font-weight:700;letter-spacing:0.06em;color:#a07000;margin-bottom:0.6em;">每月面談費</div>
+        <div style="font-family:var(--font-en);font-weight:800;font-size:4em;line-height:1;color:var(--gold);">$3,000</div>
+        <div style="font-size:var(--fs-body);color:var(--text-muted);margin-top:0.5em;">每月上限，<strong style="color:var(--text-strong);">申請制</strong>。</div>
+      </div>
+      <div>
+        <div style="font-size:var(--fs-subtitle);font-weight:700;color:var(--text-strong);margin-bottom:0.6em;">如何申請？</div>
+        <ul class="bullet-list">
+          <li><div class="bullet-dot gold"></div><span>在<strong class="gold">佈告欄</strong>填寫增員名單</span></li>
+          <li><div class="bullet-dot gold"></div><span>完成<strong class="gold">增員面談紀錄表</strong></span></li>
+          <li><div class="bullet-dot gold"></div><span>每完成一名準增員，可申請 <strong class="gold">$200 面談費</strong></span></li>
+          <li><div class="bullet-dot" style="background:var(--text-muted)"></div><span style="color:var(--text-muted);">同一位準增員僅限申請一次</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="animate-line" style="--i:2; margin-top:1.5em; font-size:var(--fs-meta); color:var(--text-muted);">
+      ＊面談費為 TC813 單位自行補貼，與公司獎勵分開計算。
+    </p>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">07 / 10</div>
+  </section>
+
+  <!-- 08 新人定義 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">誰算「新人」？<span class="pill" style="vertical-align:middle;margin-left:0.6em;">被增員者資格</span></h2>
+    <div class="def-list animate-line" style="--i:1">
+      <div class="def-item">
+        <div class="def-num">01</div>
+        <div class="def-body">於<strong class="brand">專案期間新聘</strong>之行銷專員（CA），包含由 AG/SI 報聘 CA 者。</div>
+      </div>
+      <div class="def-item">
+        <div class="def-num">02</div>
+        <div class="def-body">
+          曾任本公司業務同仁，<strong class="brand">離職或轉任 AG/SI 滿 3 年</strong>後，於專案期間重新報聘 CA 職級者。<br>
+          <span style="font-size:var(--fs-meta);color:var(--text-muted);">注：報聘 CA 前僅曾任職於內勤或其他關係企業的同仁不在此限。</span>
+        </div>
+      </div>
+      <div class="def-item">
+        <div class="def-num" style="color:var(--text-muted);font-size:var(--fs-body);font-family:var(--font-sans);font-weight:700;min-width:1.8em;padding-top:0.2em;">例</div>
+        <div class="def-body" style="background:var(--surface-muted);border-radius:0.5em;padding:0.8em 1em;">
+          <strong class="brand">甲君</strong> 於 112/01 工作月離職、115/01 工作月報聘 CA 生效。<br>
+          離職期間 112/01 ～ 114/12 已滿 3 年，<strong class="brand">故甲君得適用本專案辦法</strong>。
+        </div>
+      </div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">08 / 10</div>
+  </section>
+
+  <!-- 09 注意事項 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">注意事項</h2>
+    <div class="notice-grid animate-line" style="--i:1">
+      <div class="notice-item danger">
+        <div class="notice-item-label">名額限制</div>
+        <div class="notice-item-text">全國限額 <strong style="color:var(--rose);">1,000 名</strong>，額滿為止。先帶先得！</div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-item-label">專案期間</div>
+        <div class="notice-item-text">115 年<strong class="brand">第 4 工作月</strong>至<strong class="brand">第 12 工作月</strong></div>
+      </div>
+      <div class="notice-item">
+        <div class="notice-item-label">跨區增員</div>
+        <div class="notice-item-text">跨區增員亦<strong class="brand">完整適用</strong>本專案獎勵</div>
+      </div>
+      <div class="notice-item gold">
+        <div class="notice-item-label">增員異動規則</div>
+        <div class="notice-item-text">以<strong class="gold">報聘工作月當下的增員者</strong>為準。如公司同意異動，則依核算時之異動後增員者計算，但彼時增員者須仍任職 CA 以上。</div>
+      </div>
+      <div class="notice-item" style="grid-column:span 2;">
+        <div class="notice-item-label">疑義處理</div>
+        <div class="notice-item-text">公告後有適用疑義時，依<strong class="brand">業務企劃部統一解釋</strong>為準。公司得依業務營運及法令需要，適時補充及修訂本辦法。</div>
+      </div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">09 / 10</div>
+  </section>
+
+  <!-- 10 Closer -->
+  <section class="slide closer">
+    <p class="animate-line meta" style="--i:0">現在就行動</p>
+    <h2 class="animate-line" style="--i:1">帶一個人進來<br>最快第 5 個月<br>入帳 <span style="color:var(--gold);font-family:var(--font-en);">$22,000</span></h2>
+    <div class="animate-line" style="--i:2; margin-top:1.8em; display:flex; gap:1.5em; flex-wrap:wrap;">
+      <div style="font-size:var(--fs-meta);color:rgba(245,245,245,0.55);">
+        <div style="font-weight:700;color:rgba(245,245,245,0.85);margin-bottom:0.3em;">公司①報聘獎勵</div>
+        $3,000 ＋ TC813 加碼 $3,000 → 符合即發
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
+      <div style="font-size:var(--fs-meta);color:rgba(245,245,245,0.55);">
+        <div style="font-weight:700;color:rgba(245,245,245,0.85);margin-bottom:0.3em;">FYC 達標</div>
+        3 個月內衝 $45,000 FYC → 再得 $2,000
+      </div>
+      <div style="width:1px;background:rgba(255,255,255,0.12);"></div>
+      <div style="font-size:var(--fs-meta);color:rgba(245,245,245,0.55);">
+        <div style="font-weight:700;color:rgba(245,245,245,0.85);margin-bottom:0.3em;">持續出席</div>
+        公司 $7,000 ＋ TC813 $7,000 → 第 8 個月全領
+      </div>
+    </div>
+    <div class="cta-btn animate-line" style="--i:3;">
+      立即填寫增員名單，申請面談費
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813</div>
+    <div class="slide-pg">10 / 10</div>
+  </section>
+
+</div>
+
+<!-- 控制列 -->
+<div class="ctrl-bar">
+  <button onclick="prev()" title="上一張 ←">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 10</span>
+  <button onclick="next()" title="下一張 →">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <button onclick="toggleMode()" title="投影片 ↔ 捲動模式">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+  </button>
+  <button onclick="window.print()" title="列印 / 匯出 PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  </button>
+  <button onclick="toggleGrid()" title="光桌一覽 G">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
+  <button id="btn-fs" onclick="document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()" title="全螢幕 F">
+    <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+    <svg id="icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg>
+  </button>
+</div>
+
+<script>
+document.addEventListener('fullscreenchange', () => {
+  const inFS = !!document.fullscreenElement;
+  document.getElementById('icon-fs-enter').style.display = inFS ? 'none' : '';
+  document.getElementById('icon-fs-exit').style.display  = inFS ? ''     : 'none';
+});
+(function () {
+  const bar = document.querySelector('.ctrl-bar');
+  let hideTimer;
+  function showBar() {
+    bar.classList.remove('hidden');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => bar.classList.add('hidden'), 5000);
+  }
+  document.addEventListener('mousemove', showBar);
+  document.addEventListener('keydown',   showBar);
+  document.addEventListener('touchstart', showBar, { passive: true });
+  bar.addEventListener('mouseenter', () => { clearTimeout(hideTimer); bar.classList.remove('hidden'); });
+  bar.addEventListener('mouseleave', showBar);
+  showBar();
+})();
+</script>
+
+<script>
+let mode = 'slide', current = 0;
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+slides.forEach(s => { s.setAttribute('data-orig-style', s.getAttribute('style') || ''); });
+
+function resetAnimations(slide) {
+  slide.querySelectorAll('.animate-line').forEach(el => {
+    el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+  });
+}
+function render() {
+  if (mode === 'slide') {
+    slides.forEach((s, i) => {
+      s.style.position = 'absolute'; s.style.inset = '0';
+      s.style.display = i === current ? 'flex' : 'none';
+      if (i === current) resetAnimations(s);
+    });
+  } else {
+    slides.forEach(s => { s.style.position = 'relative'; s.style.display = 'flex'; });
+  }
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+}
+function next() { if (current < slides.length - 1) { current++; render(); } }
+function prev() { if (current > 0)                  { current--; render(); } }
+function toggleMode() {
+  mode = mode === 'slide' ? 'scroll' : 'slide';
+  document.body.classList.toggle('scroll-mode');
+  document.documentElement.classList.toggle('scroll-mode');
+  render();
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ')  { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft')                     { e.preventDefault(); prev(); }
+  if (e.key === 'f' || e.key === 'F')            { document.documentElement.requestFullscreen?.(); }
+  if (e.key === 'g' || e.key === 'G')            { toggleGrid(); }
+  if (e.key === 'Escape') {
+    if (document.body.classList.contains('grid-mode')) { toggleGrid(); }
+    else if (document.fullscreenElement)               { document.exitFullscreen(); }
+  }
+});
+window.addEventListener('beforeprint', () => {
+  slides.forEach(s => { s.style.position = ''; s.style.inset = ''; s.style.display = ''; });
+});
+window.addEventListener('afterprint', () => { render(); });
+function toggleGrid() {
+  const isGrid = document.body.classList.toggle('grid-mode');
+  document.documentElement.classList.toggle('grid-mode');
+  if (isGrid) {
+    slides.forEach((s, i) => {
+      s.style.cssText = s.getAttribute('data-orig-style') || '';
+      s.setAttribute('data-slide-num', i + 1);
+      s.classList.toggle('grid-current', i === current);
+      s._gridClick = () => { current = i; toggleGrid(); render(); };
+      s.addEventListener('click', s._gridClick);
+    });
+    requestAnimationFrame(() => {
+      const cur = document.querySelector('.grid-current');
+      if (cur) cur.scrollIntoView({ block: 'center', behavior: 'instant' });
+    });
+  } else {
+    slides.forEach(s => {
+      if (s._gridClick) { s.removeEventListener('click', s._gridClick); delete s._gridClick; }
+      s.classList.remove('grid-current');
+    });
+    render();
+  }
+}
+if (window.innerWidth <= 768) {
+  mode = 'scroll';
+  document.body.classList.add('scroll-mode');
+  document.documentElement.classList.add('scroll-mode');
+}
+let touchStartX = 0, touchStartY = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+document.addEventListener('touchend', e => {
+  if (mode !== 'slide') return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+  if (dx < 0) next(); else prev();
+});
+render();
+</script>
+</body>
+</html>
