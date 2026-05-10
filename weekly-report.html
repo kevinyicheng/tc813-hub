@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TC813 週報・115/05/04–115/05/10</title>
+
+<link rel="stylesheet" href="../Ai工作區/kevin-design-system/css/variables.css">
+
+<style>
+
+/* ══════════════════════════════════════════════════════
+   Dark theme override
+   ══════════════════════════════════════════════════════ */
+:root {
+  --surface-dark: #0e0d12;
+  --text-on-dark: #f4f0e6;
+}
+
+/* ══════════════════════════════════════════════════════
+   進場動畫
+   ══════════════════════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-line {
+  opacity: 0;
+  animation: fadeInUp 0.45s ease-out forwards;
+  animation-delay: calc(var(--i, 0) * 0.12s);
+}
+
+/* ══════════════════════════════════════════════════════
+   DECK 版型
+   ══════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: #0a0a0a;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+html.scroll-mode, html.scroll-mode body {
+  height: auto;
+  overflow: auto;
+}
+
+.deck {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2em 4.5em 5.5em;
+  font-size: clamp(9px, 1.2vw, 15px);
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+html.scroll-mode .deck {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: #0a0a0a;
+}
+
+html.scroll-mode .slide {
+  position: relative;
+  display: flex !important;
+  width: 100%;
+  min-height: 56.25vw;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  html.scroll-mode .slide {
+    font-size: clamp(11px, 2.8vw, 15px);
+    padding: 1.5em 2em 4em;
+    min-height: 0;
+    height: auto;
+    overflow: visible;
+  }
+  html.scroll-mode .slide .slide-sig { left: 2em; }
+  html.scroll-mode .slide .slide-pg  { right: 2em; }
+}
+
+html.grid-mode body { overflow: auto; background: #1a1a1a; }
+html.grid-mode .deck {
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+  padding: 64px 20px 20px;
+}
+
+html.grid-mode .slide {
+  position: relative !important;
+  display: flex !important;
+  overflow: hidden !important;
+  cursor: pointer;
+  border-radius: 8px;
+  outline: 2px solid transparent;
+  transition: outline 0.15s;
+}
+
+html.grid-mode .slide:hover { outline-color: var(--brand); }
+html.grid-mode .slide.grid-current { outline-color: var(--orange); }
+
+html.grid-mode .slide::after {
+  content: attr(data-slide-num);
+  position: absolute;
+  bottom: calc(8px / var(--grid-zoom, 1));
+  right:  calc(10px / var(--grid-zoom, 1));
+  font-size: calc(11px / var(--grid-zoom, 1));
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-sans);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.slide h1 { font-family: var(--font-display); font-weight: 900; font-size: var(--fs-cover);    line-height: var(--lh-tight); color: var(--text-strong); letter-spacing: 0.02em; }
+.slide h2 { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-heading);  line-height: var(--lh-tight); color: var(--text-strong); letter-spacing: 0.02em; }
+.slide h3 { font-family: var(--font-sans);    font-weight: 700; font-size: var(--fs-subtitle); line-height: var(--lh-tight); color: var(--text-strong); }
+.slide p, .slide li { font-size: var(--fs-body); line-height: var(--lh-body); }
+
+.slide .meta {
+  font-family: var(--font-sans); font-size: var(--fs-meta);
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.slide.cover {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  justify-content: flex-end;
+  padding-bottom: 5em;
+}
+
+.slide.cover h1, .slide.cover h2 { color: var(--text-on-dark); }
+.slide.cover .meta { color: rgba(245,245,245,0.5); }
+
+.slide.dark {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+
+.slide.dark h1, .slide.dark h2, .slide.dark h3 { color: var(--text-on-dark); }
+.slide.dark p { color: rgba(245,245,245,0.75); }
+.slide.dark .meta { color: rgba(245,245,245,0.5); }
+
+.slide-pg {
+  position: absolute; right: 5em; bottom: 1.8em;
+  font-size: var(--fs-meta); color: var(--text-muted);
+  font-family: var(--font-sans); font-weight: 600;
+}
+
+.slide.cover .slide-pg, .slide.dark .slide-pg { color: rgba(245,245,245,0.35); }
+
+.slide-sig {
+  position: absolute; left: 5em; bottom: 1.8em;
+  display: flex; align-items: center; gap: 0.6em;
+  font-size: var(--fs-meta); color: var(--text-muted);
+  font-family: var(--font-sans); font-weight: 600; letter-spacing: 0.06em;
+}
+
+.slide.cover .slide-sig, .slide.dark .slide-sig { color: rgba(245,245,245,0.35); }
+
+.slide-sig .dot {
+  width: 0.35em; height: 0.35em;
+  border-radius: 50%; background: var(--brand);
+  flex-shrink: 0;
+}
+
+.slide.dark .slide-sig .dot { background: var(--accent); }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4em;
+  padding: 0.3em 0.9em; border-radius: 999px;
+  background: rgba(0,147,193,0.10); color: var(--brand);
+  font-size: var(--fs-meta); font-weight: 700;
+  font-family: var(--font-sans); letter-spacing: 0.02em;
+}
+
+.pill.success { background: rgba(48,218,162,0.12); color: #1ea87a; }
+.pill.gold    { background: rgba(255,201,79,0.15);  color: #b88a00; }
+.pill.danger  { background: rgba(224,62,87,0.10);   color: var(--danger); }
+
+.text-brand   { color: var(--brand); }
+.text-success { color: var(--success); }
+.text-muted   { color: var(--text-muted); }
+
+/* ── Lightbox ── */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 999;
+  background: rgba(0,0,0,0.88);
+  align-items: center; justify-content: center;
+}
+
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 6px; }
+
+/* ── 控制列 ── */
+.ctrl-bar {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(10,10,10,0.55);
+  backdrop-filter: blur(16px);
+  border-radius: 999px;
+  padding: 8px 14px;
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.ctrl-bar.hidden { opacity: 0; pointer-events: none; }
+
+.ctrl-bar button {
+  background: none; border: none; cursor: pointer;
+  color: rgba(255,255,255,0.75); padding: 6px 8px;
+  border-radius: 6px; transition: background 0.15s; display: flex; align-items: center;
+}
+
+.ctrl-bar button:hover { background: rgba(255,255,255,0.12); color: #fff; }
+.ctrl-bar button svg { width: 18px; height: 18px; }
+
+.ctrl-bar .counter {
+  font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.6); min-width: 52px; text-align: center;
+}
+
+@media print {
+  html, body { height: auto; overflow: visible; background: #fff; }
+  .ctrl-bar, .lightbox { display: none !important; }
+  .deck { height: auto; display: block; }
+  .slide {
+    position: relative !important; inset: auto !important;
+    display: flex !important;
+    page-break-after: always;
+    break-after: page;
+    width: 100vw; height: 56.25vw;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   Custom styles for weekly-report
+   ══════════════════════════════════════════════════════ */
+
+.section-title {
+  font-size: clamp(32px, 4vw, 56px);
+  margin: 0 0 1.2em 0;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+.section-title em { font-style: normal; color: var(--accent); }
+
+/* 報件賀報 item list */
+.item-list { display: flex; flex-direction: column; gap: 0.8em; }
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1em;
+  align-items: center;
+  padding: 1em 1.2em;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.8em;
+  color: rgba(245,245,245,0.85);
+}
+
+.item-num {
+  font-family: var(--font-sans);
+  font-size: 0.8em;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+}
+
+.item-title {
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.item-meta {
+  font-family: var(--font-sans);
+  font-size: 0.75em;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.no-report {
+  text-align: center;
+  padding: 3em 2em;
+  color: rgba(255,255,255,0.5);
+  font-size: 1.2em;
+}
+
+/* KPI Grid */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.kpi-card {
+  padding: 1.5em;
+  border-radius: 0.8em;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.kpi-card.total {
+  background: rgba(255,255,255,0.08);
+  color: rgba(245,245,245,0.95);
+}
+
+.kpi-card.success {
+  background: rgba(48,218,162,0.15);
+  color: #1ea87a;
+  border-color: rgba(48,218,162,0.3);
+}
+
+.kpi-card.gold {
+  background: rgba(255,201,79,0.15);
+  color: #b88a00;
+  border-color: rgba(255,201,79,0.3);
+}
+
+.kpi-card.danger {
+  background: rgba(224,62,87,0.15);
+  color: #e03e57;
+  border-color: rgba(224,62,87,0.3);
+}
+
+.kpi-label {
+  font-size: 0.75em;
+  font-weight: 600;
+  color: inherit;
+  opacity: 0.85;
+  margin-bottom: 0.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kpi-value {
+  font-size: 2.2em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Bonus Table */
+.bonus-table-wrap {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.6em;
+  overflow: hidden;
+  margin-top: 1em;
+}
+
+.bonus-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+}
+
+.bonus-table th {
+  background: rgba(0,147,193,0.15);
+  padding: 0.8em 1em;
+  text-align: left;
+  font-weight: 700;
+  color: rgba(245,245,245,0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.bonus-table td {
+  padding: 0.8em 1em;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(245,245,245,0.75);
+}
+
+.bonus-table tr:last-child td { border-bottom: none; }
+
+.progress-bar {
+  background: rgba(0,147,193,0.2);
+  border-radius: 999px;
+  height: 4px;
+  overflow: hidden;
+  margin: 0.4em 0;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--brand);
+  border-radius: 999px;
+}
+
+/* Awards & Notices */
+.bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bullet-list li {
+  margin-bottom: 1.2em;
+  padding-left: 1.6em;
+  position: relative;
+  color: rgba(245,245,245,0.8);
+  line-height: 1.6;
+  font-size: 0.95em;
+}
+
+.bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
+.award-item {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.8em;
+  padding: 1.2em;
+  margin-bottom: 1em;
+}
+
+.award-title {
+  font-weight: 700;
+  color: rgba(245,245,245,0.95);
+  font-size: 1em;
+  margin-bottom: 0.4em;
+}
+
+.award-recipient {
+  font-size: 0.9em;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 0.3em;
+}
+
+.award-desc {
+  font-size: 0.85em;
+  color: rgba(245,245,245,0.6);
+  margin-bottom: 0.4em;
+}
+
+.award-amount {
+  font-size: 1.1em;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+</style>
+</head>
+<body>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div class="deck">
+
+  <!-- 1. Cover -->
+  <section class="slide cover">
+    <h1 class="animate-line" style="--i:0">TC813 週報</h1>
+    <p class="animate-line meta" style="--i:1;margin-top:0.8em;">115/05/04–115/05/10</p>
+    <div class="slide-sig"><span class="dot"></span>TC813 通訊處</div>
+    <div class="slide-pg">01 / 11</div>
+  </section>
+
+  <!-- 2. Daily Report Mon -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">週一，<em>115/05/04</em>。</h2>
+    <div class="item-list">
+      <div class="no-report">📭 今日無報件</div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Daily</div>
+    <div class="slide-pg">02 / 11</div>
+  </section>
+
+  <!-- 3. Daily Report Tue -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">週二，<em>115/05/05</em>。</h2>
+    <div class="item-list">
+      <div class="no-report">📭 今日無報件</div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Daily</div>
+    <div class="slide-pg">03 / 11</div>
+  </section>
+
+  <!-- 4. Daily Report Wed -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">週三，<em>115/05/06</em>。</h2>
+    <div class="item-list">
+      <div class="no-report">📭 今日無報件</div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Daily</div>
+    <div class="slide-pg">04 / 11</div>
+  </section>
+
+  <!-- 5. Daily Report Thu -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">週四，<em>115/05/07</em>。</h2>
+    <div class="item-list">
+      <div class="no-report">📭 今日無報件</div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Daily</div>
+    <div class="slide-pg">05 / 11</div>
+  </section>
+
+  <!-- 6. Daily Report Fri -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">週五，<em>115/05/08</em>。</h2>
+    <div class="item-list">
+      <div class="animate-line item" style="--i:0">
+        <span class="item-num">01</span>
+        <span class="item-title">虞哲煬</span>
+        <span class="item-meta">FYP $34,191 / FYC $13,676 / 1 件</span>
+      </div>
+      <div class="animate-line item" style="--i:1">
+        <span class="item-num">02</span>
+        <span class="item-title">陳冠辰</span>
+        <span class="item-meta">FYP $45,629 / FYC $18,397 / 1 件</span>
+      </div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Daily</div>
+    <div class="slide-pg">06 / 11</div>
+  </section>
+
+  <!-- 7. Bonus 115/02–115/04 -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">季獎金追蹤，<em>115/02–115/04</em>。</h2>
+    <div class="animate-line kpi-grid" style="--i:0">
+      <div class="kpi-card total">
+        <div class="kpi-label">總人數</div>
+        <div class="kpi-value">3</div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">達標</div>
+        <div class="kpi-value">1</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">差距近</div>
+        <div class="kpi-value">0</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">未達標</div>
+        <div class="kpi-value">2</div>
+      </div>
+    </div>
+    <div class="bonus-table-wrap">
+      <table class="bonus-table">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>累積FYC</th>
+            <th>級距</th>
+            <th>試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>高聖芳</td>
+            <td>$224,258</td>
+            <td><span class="pill success">18%</span></td>
+            <td><strong>$40,366</strong></td>
+          </tr>
+          <tr>
+            <td>陳錦紅</td>
+            <td>$12,862</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>林君溥</td>
+            <td>$39,300</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Bonus</div>
+    <div class="slide-pg">07 / 11</div>
+  </section>
+
+  <!-- 8. Bonus 115/03–115/05 -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">季獎金追蹤，<em>115/03–115/05</em>。</h2>
+    <div class="animate-line kpi-grid" style="--i:0">
+      <div class="kpi-card total">
+        <div class="kpi-label">總人數</div>
+        <div class="kpi-value">9</div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">達標</div>
+        <div class="kpi-value">2</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">差距近</div>
+        <div class="kpi-value">3</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">未達標</div>
+        <div class="kpi-value">4</div>
+      </div>
+    </div>
+    <div class="bonus-table-wrap">
+      <table class="bonus-table">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>累積FYC</th>
+            <th>級距</th>
+            <th>試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>陳冠辰</td>
+            <td>$219,243</td>
+            <td><span class="pill success">18%</span></td>
+            <td><strong>$39,464</strong></td>
+          </tr>
+          <tr>
+            <td>蔡亦程</td>
+            <td>$159,106</td>
+            <td><span class="pill success">18%</span></td>
+            <td><strong>$28,639</strong></td>
+          </tr>
+          <tr>
+            <td>孫桂英</td>
+            <td>$93,334</td>
+            <td><span class="pill gold">12%</span></td>
+            <td>$11,200</td>
+          </tr>
+          <tr>
+            <td>蘇慶恩</td>
+            <td>$51,978</td>
+            <td><span class="pill gold">5%</span></td>
+            <td>$2,599</td>
+          </tr>
+          <tr>
+            <td>林淑慧</td>
+            <td>$44,925</td>
+            <td><span class="pill gold">5%</span></td>
+            <td>$2,246</td>
+          </tr>
+          <tr>
+            <td>林宸禾</td>
+            <td>$46,370</td>
+            <td><span class="pill gold">5%</span></td>
+            <td>$2,319</td>
+          </tr>
+          <tr>
+            <td>蔡錫文</td>
+            <td>$3,941</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>劉家榮</td>
+            <td>$16,003</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>林佩怡</td>
+            <td>$9,675</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Bonus</div>
+    <div class="slide-pg">08 / 11</div>
+  </section>
+
+  <!-- 9. Bonus 115/04–115/06 -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">季獎金追蹤，<em>115/04–115/06</em>。</h2>
+    <div class="animate-line kpi-grid" style="--i:0">
+      <div class="kpi-card total">
+        <div class="kpi-label">總人數</div>
+        <div class="kpi-value">9</div>
+      </div>
+      <div class="kpi-card success">
+        <div class="kpi-label">達標</div>
+        <div class="kpi-value">0</div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-label">差距近</div>
+        <div class="kpi-value">1</div>
+      </div>
+      <div class="kpi-card danger">
+        <div class="kpi-label">未達標</div>
+        <div class="kpi-value">8</div>
+      </div>
+    </div>
+    <div class="bonus-table-wrap">
+      <table class="bonus-table">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>累積FYC</th>
+            <th>級距</th>
+            <th>試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>李秉芳</td>
+            <td>$48,261</td>
+            <td><span class="pill gold">5%</span></td>
+            <td>$2,413</td>
+          </tr>
+          <tr>
+            <td>秦慧娟</td>
+            <td>$23,038</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>李敏櫻</td>
+            <td>$15,380</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>施江燁</td>
+            <td>$3,827</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>廖寶福</td>
+            <td>$1,716</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>古佳凌</td>
+            <td>$0</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>陳羿晴</td>
+            <td>$1,304</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>虞哲煬</td>
+            <td>$1,190</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+          <tr>
+            <td>廖婉辛</td>
+            <td>$6,309</td>
+            <td><span class="pill danger">0%</span></td>
+            <td>$0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Bonus</div>
+    <div class="slide-pg">09 / 11</div>
+  </section>
+
+  <!-- 10. Company Awards -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">公司獎勵，<em>TC813 同仁</em>。</h2>
+    <div class="animate-line" style="--i:0">
+      <div class="award-item">
+        <div class="award-title">車險新件衝刺獎</div>
+        <div class="award-recipient">林君溥</div>
+        <div class="award-desc">115Q1，車險 10 件達標</div>
+        <div class="award-amount">$1,500</div>
+      </div>
+      <div class="award-item">
+        <div class="award-title">優質保障獎</div>
+        <div class="award-recipient">高聖芳</div>
+        <div class="award-desc">115Q1，51 件</div>
+        <div class="award-amount">$5,000</div>
+      </div>
+      <div class="award-item">
+        <div class="award-title">優質保障獎</div>
+        <div class="award-recipient">汪淑玲</div>
+        <div class="award-desc">115Q1，50 件</div>
+        <div class="award-amount">$3,000</div>
+      </div>
+      <div class="award-item">
+        <div class="award-title">房貸獎勵</div>
+        <div class="award-recipient">林君溥</div>
+        <div class="award-desc">跨售達標</div>
+        <div class="award-amount">$500</div>
+      </div>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>Awards</div>
+    <div class="slide-pg">10 / 11</div>
+  </section>
+
+  <!-- 11. Public Notices -->
+  <section class="slide dark">
+    <h2 class="animate-line section-title" style="--i:0">公文佈達。</h2>
+    <ul class="bullet-list">
+      <li class="animate-line" style="--i:0"><strong>強制汽車責任保險保額提高至 300 萬元</strong>（115/07/01 施行）
+        <div style="margin-top: 0.3em; font-size: 0.9em; color: rgba(245,245,245,0.6);">
+          死亡給付、第一等級失能給付：200 萬 → 300 萬；駕傷險保額若與強制險不同，須簽 KYC
+        </div>
+      </li>
+      <li class="animate-line" style="--i:1"><strong>醫療保險要保書改版</strong>（115/05/26 起）
+        <div style="margin-top: 0.3em; font-size: 0.9em; color: rgba(245,245,245,0.6);">
+          不需再填「同意投保」字樣；舊版健康聲明書可續用至 115/07/31
+        </div>
+      </li>
+      <li class="animate-line" style="--i:2"><strong>KOL 三本柱活動</strong>（05/22 09:00-10:00）
+        <div style="margin-top: 0.3em; font-size: 0.9em; color: rgba(245,245,245,0.6);">
+          主題：商品領航力・聲量變現
+        </div>
+      </li>
+    </ul>
+    <div class="slide-sig"><span class="dot"></span>Notice</div>
+    <div class="slide-pg">11 / 11</div>
+  </section>
+
+</div>
+
+<!-- 控制列 -->
+<div class="ctrl-bar">
+  <button onclick="prev()" title="上一張 ←">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 11</span>
+  <button onclick="next()" title="下一張 →">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <button onclick="toggleMode()" title="投影片 ↔ 捲動模式">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+  </button>
+  <button onclick="window.print()" title="列印 / 匯出 PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  </button>
+  <button onclick="toggleGrid()" title="光桌一覽 G">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
+  <button id="btn-fs" onclick="document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()" title="全螢幕 F">
+    <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+    <svg id="icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg>
+  </button>
+</div>
+
+<script>
+document.addEventListener('fullscreenchange', () => {
+  const inFS = !!document.fullscreenElement;
+  document.getElementById('icon-fs-enter').style.display = inFS ? 'none' : '';
+  document.getElementById('icon-fs-exit').style.display  = inFS ? ''     : 'none';
+});
+
+(function () {
+  const bar = document.querySelector('.ctrl-bar');
+  let hideTimer;
+  function showBar() {
+    bar.classList.remove('hidden');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => bar.classList.add('hidden'), 5000);
+  }
+  document.addEventListener('mousemove', showBar);
+  document.addEventListener('keydown',   showBar);
+  document.addEventListener('touchstart', showBar, { passive: true });
+  bar.addEventListener('mouseenter', () => { clearTimeout(hideTimer); bar.classList.remove('hidden'); });
+  bar.addEventListener('mouseleave', showBar);
+  showBar();
+})();
+</script>
+
+<script>
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+document.addEventListener('click', e => {
+  const img = e.target.closest('.slide img');
+  if (!img || img.closest('.lightbox')) return;
+  lightboxImg.src = img.src;
+  lightbox.classList.add('active');
+  e.stopPropagation();
+});
+lightbox.addEventListener('click', e => { if (e.target !== lightboxImg) closeLightbox(); });
+function closeLightbox() { lightbox.classList.remove('active'); }
+
+let mode    = 'slide';
+let current = 0;
+const slides  = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+
+slides.forEach(s => { s.setAttribute('data-orig-style', s.getAttribute('style') || ''); });
+
+function resetAnimations(slide) {
+  slide.querySelectorAll('.animate-line').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+}
+
+function render() {
+  if (mode === 'slide') {
+    slides.forEach((s, i) => {
+      s.style.position = 'absolute';
+      s.style.inset    = '0';
+      s.style.display  = i === current ? 'flex' : 'none';
+      if (i === current) resetAnimations(s);
+    });
+  } else {
+    slides.forEach(s => {
+      s.style.position = 'relative';
+      s.style.display  = 'flex';
+    });
+  }
+  counter.textContent = (current + 1) + ' / ' + slides.length;
+}
+
+function next() { if (current < slides.length - 1) { current++; render(); } }
+function prev() { if (current > 0)                  { current--; render(); } }
+
+function toggleMode() {
+  mode = mode === 'slide' ? 'scroll' : 'slide';
+  document.body.classList.toggle('scroll-mode');
+  document.documentElement.classList.toggle('scroll-mode');
+  render();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ')  { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft')                     { e.preventDefault(); prev(); }
+  if (e.key === 'f' || e.key === 'F')            { document.documentElement.requestFullscreen?.(); }
+  if (e.key === 'g' || e.key === 'G')            { toggleGrid(); }
+  if (e.key === 'Escape') {
+    if (document.body.classList.contains('grid-mode'))   { toggleGrid(); }
+    else if (lightbox.classList.contains('active'))       { closeLightbox(); }
+    else if (document.fullscreenElement)                  { document.exitFullscreen(); }
+  }
+});
+
+window.addEventListener('beforeprint', () => {
+  slides.forEach(s => { s.style.position = ''; s.style.inset = ''; s.style.display = ''; });
+});
+window.addEventListener('afterprint', () => { render(); });
+
+function toggleGrid() {
+  const isGrid = document.body.classList.toggle('grid-mode');
+  document.documentElement.classList.toggle('grid-mode');
+  if (isGrid) {
+    requestAnimationFrame(() => {
+      const natW = window.innerWidth;
+      const natH = window.innerHeight;
+      const thumbW = (slides[0]?.getBoundingClientRect().width) || 360;
+      const zoom   = thumbW / natW;
+
+      slides.forEach((s, i) => {
+        const orig = s.getAttribute('data-orig-style') || '';
+        s.style.cssText = orig +
+          `;width:${natW}px;height:${natH}px;zoom:${zoom};--grid-zoom:${zoom}`;
+        s.setAttribute('data-slide-num', i + 1);
+        s.classList.toggle('grid-current', i === current);
+        s._gridClick = () => { current = i; toggleGrid(); render(); };
+        s.addEventListener('click', s._gridClick);
+      });
+      requestAnimationFrame(() => {
+        const cur = document.querySelector('.slide.grid-current');
+        if (cur) cur.scrollIntoView({ block: 'center', behavior: 'instant' });
+      });
+    });
+  } else {
+    slides.forEach(s => {
+      s.style.cssText = s.getAttribute('data-orig-style') || '';
+      if (s._gridClick) { s.removeEventListener('click', s._gridClick); delete s._gridClick; }
+      s.classList.remove('grid-current');
+    });
+    render();
+  }
+}
+
+if (window.innerWidth <= 768) {
+  mode = 'scroll';
+  document.body.classList.add('scroll-mode');
+  document.documentElement.classList.add('scroll-mode');
+}
+
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', e => {
+  if (mode !== 'slide') return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+  if (dx < 0) next(); else prev();
+});
+
+render();
+</script>
+
+</body>
+</html>
