@@ -146,7 +146,7 @@ html.scroll-mode, html.scroll-mode body {
   display: none;
   flex-direction: column;
   justify-content: center;
-  padding: 2em 4.5em 5.5em;
+  padding: 1.2em 4.5em 5.5em;
   font-size: clamp(9px, 1.2vw, 15px);
   overflow: hidden;
   background: var(--surface);
@@ -285,7 +285,7 @@ html.grid-mode .slide::after {
 
 .text-brand   { color: var(--brand); }
 .text-success { color: var(--success); }
-.text-gold    { color: var(--gold); }
+.text-gold    { color: var(--mint); }
 .text-orange  { color: var(--orange); }
 .text-danger  { color: var(--danger); }
 .text-muted   { color: var(--text-muted); }
@@ -389,7 +389,7 @@ html.grid-mode .slide::after {
 }
 
 .report-card-amount {
-  color: var(--gold);
+  color: var(--mint);
   font-weight: 700;
 }
 
@@ -436,7 +436,7 @@ html.grid-mode .slide::after {
 }
 
 .progress-bar.top {
-  background: linear-gradient(90deg, var(--gold), #e6b800);
+  background: linear-gradient(90deg, var(--mint), #20a882);
   color: var(--navy);
 }
 
@@ -457,21 +457,51 @@ html.grid-mode .slide::after {
 
 .bonus-table th {
   background: var(--light-bg);
-  padding: 0.8em;
+  padding: 0.9em 0.8em;
   text-align: left;
   font-weight: 700;
   border-bottom: 2px solid var(--brand);
-  font-size: 1.425em;
+  font-size: 1.2em;
+  color: var(--text-strong);
 }
 
 .bonus-table td {
-  padding: 0.8em;
+  padding: 1.2em 0.8em;
   border-bottom: 1px solid var(--divider-soft);
-  font-size: 1.425em;
+  font-size: 1.2em;
+  vertical-align: middle;
 }
 
 .bonus-table tr:hover {
   background: var(--light-bg);
+}
+
+.bonus-progress-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  width: 100%;
+}
+
+.bonus-progress-bar-bg {
+  flex: 1;
+  height: 0.6em;
+  background: var(--light-bg);
+  border-radius: 0.3em;
+  overflow: hidden;
+}
+
+.bonus-progress-bar-fill {
+  height: 100%;
+  background: var(--mint);
+  border-radius: 0.3em;
+}
+
+.bonus-progress-pct {
+  font-size: 0.95em;
+  color: var(--text-muted);
+  min-width: 3em;
+  text-align: right;
 }
 
 .badge {
@@ -499,7 +529,7 @@ html.grid-mode .slide::after {
 }
 
 .amount {
-  color: var(--gold);
+  color: var(--mint);
   font-weight: 700;
 }
 
@@ -528,7 +558,7 @@ html.grid-mode .slide::after {
 
 .award-money {
   font-size: 1.95em;
-  color: var(--gold);
+  color: var(--mint);
   font-weight: 700;
 }
 
@@ -844,14 +874,16 @@ html.grid-mode .slide::after {
 
   <!-- Slide 07: Bonus 115/02-115/04 -->
   <section class="slide">
-    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/02–115/04</h2>
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 結算區間 115/02–115/04</h2>
     <table class="bonus-table">
       <thead>
         <tr>
           <th>姓名</th>
           <th>累積 FYC</th>
           <th>級距</th>
-          <th>獎金</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th>試算獎金</th>
         </tr>
       </thead>
       <tbody>
@@ -859,18 +891,24 @@ html.grid-mode .slide::after {
           <td>高聖芳</td>
           <td>224,258</td>
           <td><span class="badge success">18%</span></td>
+          <td style="color: var(--mint); font-weight: 700;">已達頂級</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 100%;"></div></div><span class="bonus-progress-pct">100%</span></div></td>
           <td><span class="amount">$40,366</span></td>
         </tr>
         <tr>
           <td>林君溥</td>
           <td>39,300</td>
-          <td><span class="badge warning">差 700</span></td>
+          <td><span class="badge warning">未達標</span></td>
+          <td style="color: var(--orange); font-weight: 700;">差 700 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 82%;"></div></div><span class="bonus-progress-pct">82%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>陳錦紅</td>
           <td>12,862</td>
           <td><span class="badge danger">未達標</span></td>
+          <td style="color: var(--rose);">差 27,138 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 29%;"></div></div><span class="bonus-progress-pct">29%</span></div></td>
           <td>$0</td>
         </tr>
       </tbody>
@@ -881,14 +919,16 @@ html.grid-mode .slide::after {
 
   <!-- Slide 08: Bonus 115/03-115/05 -->
   <section class="slide">
-    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/03–115/05</h2>
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 結算區間 115/03–115/05</h2>
     <table class="bonus-table">
       <thead>
         <tr>
           <th>姓名</th>
           <th>累積 FYC</th>
           <th>級距</th>
-          <th>獎金</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th>試算獎金</th>
         </tr>
       </thead>
       <tbody>
@@ -896,54 +936,72 @@ html.grid-mode .slide::after {
           <td>陳冠辰</td>
           <td>219,243</td>
           <td><span class="badge success">18%</span></td>
+          <td style="color: var(--mint); font-weight: 700;">已達頂級</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 100%;"></div></div><span class="bonus-progress-pct">100%</span></div></td>
           <td><span class="amount">$39,464</span></td>
         </tr>
         <tr>
           <td>蔡亦程</td>
           <td>159,106</td>
           <td><span class="badge success">18%</span></td>
+          <td style="color: var(--mint); font-weight: 700;">已達頂級</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 100%;"></div></div><span class="bonus-progress-pct">100%</span></div></td>
           <td><span class="amount">$28,639</span></td>
         </tr>
         <tr>
           <td>孫桂英</td>
           <td>93,334</td>
-          <td><span class="badge warning">12% / 差 26,666</span></td>
+          <td><span class="badge warning">12%</span></td>
+          <td>差 26,666 → 15%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 78%;"></div></div><span class="bonus-progress-pct">78%</span></div></td>
           <td><span class="amount">$11,200</span></td>
         </tr>
         <tr>
           <td>蘇慶恩</td>
           <td>51,978</td>
-          <td><span class="badge warning">5% / 差 8,022</span></td>
+          <td><span class="badge warning">5%</span></td>
+          <td style="color: var(--orange); font-weight: 700;">差 8,022 → 10%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 57%;"></div></div><span class="bonus-progress-pct">57%</span></div></td>
           <td><span class="amount">$2,599</span></td>
         </tr>
         <tr>
           <td>林宸禾</td>
           <td>46,370</td>
-          <td><span class="badge warning">5% / 差 13,630</span></td>
+          <td><span class="badge warning">5%</span></td>
+          <td>差 13,630 → 10%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 51%;"></div></div><span class="bonus-progress-pct">51%</span></div></td>
           <td><span class="amount">$2,319</span></td>
         </tr>
         <tr>
           <td>林淑慧</td>
           <td>44,925</td>
-          <td><span class="badge warning">5% / 差 15,075</span></td>
+          <td><span class="badge warning">5%</span></td>
+          <td>差 15,075 → 10%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 50%;"></div></div><span class="bonus-progress-pct">50%</span></div></td>
           <td><span class="amount">$2,246</span></td>
         </tr>
         <tr>
           <td>劉家榮</td>
           <td>16,003</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 23,997 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 18%;"></div></div><span class="bonus-progress-pct">18%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>林佩怡</td>
           <td>9,675</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 30,325 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 11%;"></div></div><span class="bonus-progress-pct">11%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>蔡錫文</td>
           <td>3,941</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 36,059 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 4%;"></div></div><span class="bonus-progress-pct">4%</span></div></td>
           <td>$0</td>
         </tr>
       </tbody>
@@ -954,69 +1012,89 @@ html.grid-mode .slide::after {
 
   <!-- Slide 09: Bonus 115/04-115/06 -->
   <section class="slide">
-    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/04–115/06</h2>
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 結算區間 115/04–115/06</h2>
     <table class="bonus-table">
       <thead>
         <tr>
           <th>姓名</th>
           <th>累積 FYC</th>
           <th>級距</th>
-          <th>獎金</th>
+          <th>距下一級</th>
+          <th>進度</th>
+          <th>試算獎金</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>李秉芳</td>
           <td>48,261</td>
-          <td><span class="badge warning">5% / 差 11,739</span></td>
+          <td><span class="badge warning">5%</span></td>
+          <td style="color: var(--orange); font-weight: 700;">差 11,739 → 10%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 55%;"></div></div><span class="bonus-progress-pct">55%</span></div></td>
           <td><span class="amount">$2,413</span></td>
         </tr>
         <tr>
           <td>秦慧娟</td>
           <td>23,038</td>
-          <td><span class="badge warning">未達標 / 差 16,962</span></td>
+          <td><span class="badge danger">未達標</span></td>
+          <td style="color: var(--orange); font-weight: 700;">差 16,962 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 26%;"></div></div><span class="bonus-progress-pct">26%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>李敏櫻</td>
           <td>15,380</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 24,620 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 17%;"></div></div><span class="bonus-progress-pct">17%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>廖婉辛</td>
           <td>6,309</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 33,691 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 7%;"></div></div><span class="bonus-progress-pct">7%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>施江燁</td>
           <td>3,827</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 36,173 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 4%;"></div></div><span class="bonus-progress-pct">4%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>廖寶福</td>
           <td>1,716</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 38,284 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 2%;"></div></div><span class="bonus-progress-pct">2%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>陳羿晴</td>
           <td>1,304</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 38,696 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 2%;"></div></div><span class="bonus-progress-pct">2%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>虞哲煬</td>
           <td>1,190</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 38,810 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 1%;"></div></div><span class="bonus-progress-pct">1%</span></div></td>
           <td>$0</td>
         </tr>
         <tr>
           <td>古佳凌</td>
           <td>0</td>
           <td><span class="badge danger">未達標</span></td>
+          <td>差 40,000 → 5%</td>
+          <td><div class="bonus-progress-bar"><div class="bonus-progress-bar-bg"><div class="bonus-progress-bar-fill" style="width: 0%;"></div></div><span class="bonus-progress-pct">0%</span></div></td>
           <td>$0</td>
         </tr>
       </tbody>
@@ -1064,7 +1142,14 @@ html.grid-mode .slide::after {
       <strong>保額調整：</strong><br>
       • 死亡：200 萬 → <span class="text-gold">300 萬</span><br>
       • 第一等級失能：200 萬 → <span class="text-gold">300 萬</span><br>
-      • 總給付上限：220 萬 → <span class="text-gold">320 萬</span>
+      • 總給付上限：220 萬 → <span class="text-gold">320 萬</span><br>
+      <br>
+      <strong>🔍 KYC規範異動實務說明：</strong><br>
+      本次強制險保額調整涉及「駕駛人傷害險」與「強制汽車責任險」保額不一致的情況。<br>
+      若客戶原保單中，駕駛人傷害險保額＜強制險新保額時，須於要保書簽署時:<br>
+      • 特別確認客戶是否同意將駕駛人傷害險保額提升至強制險相同額度<br>
+      • 若客戶不願更新，應於要保書備註說明，避免日後理賠爭議<br>
+      • 此為新版KYC規範重點，簽署時務必與客戶確認
     </p>
     <p class="animate-line" style="--i:3; margin-top: 1em; font-size: var(--fs-body); color: var(--text-muted);">
       <strong>費率版本：</strong> 20260501
@@ -1115,7 +1200,7 @@ html.grid-mode .slide::after {
           <span style="font-size: 1.8em; font-weight: bold;">KOL 三本柱</span><br>
           <span style="font-size: 1.2em; color: var(--text-light);">聲量變現</span>
         </div>
-        <div style="background: var(--light-bg); padding: 1.5em; border-radius: 0.5em; border-left: 4px solid var(--gold); margin-bottom: 1em;">
+        <div style="background: var(--light-bg); padding: 1.5em; border-radius: 0.5em; border-left: 4px solid var(--mint); margin-bottom: 1em;">
           <div style="font-size: 1.25em; line-height: 2;">
             <strong>📅 日期：</strong>05/22（五）<br>
             <strong>⏰ 時間：</strong>09:00 - 10:00<br>
