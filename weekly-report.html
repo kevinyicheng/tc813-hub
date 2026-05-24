@@ -479,6 +479,29 @@ html.grid-mode .slide::after {
   border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 .top-table tbody tr:last-child td { border-bottom: none; }
+
+/* 當月進度全員表格（緊湊版） */
+.month-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.35em;
+}
+.month-table th {
+  background: #e2e8f0;
+  color: #475569;
+  font-weight: 700;
+  padding: 0.35em 0.6em;
+  text-align: left;
+  font-size: 0.9em;
+  letter-spacing: 0.03em;
+}
+.month-table td {
+  padding: 0.28em 0.6em;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  vertical-align: middle;
+}
+.month-table tbody tr:last-child td { border-bottom: none; }
+.month-table tbody tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
 .rank-num {
   font-weight: 900;
   color: var(--brand);
@@ -504,7 +527,7 @@ html.grid-mode .slide::after {
     <h1 class="animate-line" style="--i:1">TC813 週報</h1>
     <p class="animate-line meta" style="--i:2;margin-top:0.5em;">第 21 週 · 115/05/18–05/22</p>
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">01 / 06</div>
+    <div class="slide-pg">01 / 07</div>
   </section>
 
   <!-- ── 02 報件賀報 ── -->
@@ -569,22 +592,22 @@ html.grid-mode .slide::after {
     </div>
 
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">02 / 06</div>
+    <div class="slide-pg">02 / 07</div>
   </section>
 
-  <!-- ── 03 當月單位進度 ── -->
+  <!-- ── 03 當月單位進度・有件名單 ── -->
   <section class="slide cream">
-    <h2 class="animate-line" style="--i:0">📊 當月單位進度</h2>
-    <p class="animate-line meta" style="--i:1;margin-top:0.3em;">截至 115/05/24 累計</p>
+    <h2 class="animate-line" style="--i:0">📊 當月單位進度・有件名單</h2>
+    <p class="animate-line meta" style="--i:1;margin-top:0.3em;">截至 115/05/24 累計｜共 16 人出件</p>
 
     <div class="month-stats animate-line" style="--i:2">
       <div class="stat-card">
         <div class="stat-value">41</div>
-        <div class="stat-label">累積簽單件數</div>
+        <div class="stat-label">累積件數</div>
       </div>
       <div class="stat-card teal">
         <div class="stat-value">694K</div>
-        <div class="stat-label">累積 FYC</div>
+        <div class="stat-label">累積FYC</div>
       </div>
       <div class="stat-card green">
         <div class="stat-value">9.47M</div>
@@ -592,69 +615,83 @@ html.grid-mode .slide::after {
       </div>
       <div class="stat-card gold">
         <div class="stat-value">3.77M</div>
-        <div class="stat-label">累積換算CSM</div>
+        <div class="stat-label">累積CSM</div>
       </div>
     </div>
 
-    <div class="animate-line" style="--i:3">
-      <table class="top-table">
+    <div class="slide-content animate-line" style="--i:3">
+      <table class="month-table">
         <thead>
           <tr>
-            <th style="width:3em">排名</th>
+            <th style="width:2.5em">排名</th>
             <th>姓名</th>
-            <th style="text-align:right">累積FYC</th>
+            <th>直轄主管</th>
             <th style="text-align:right">件數</th>
+            <th style="text-align:right">累積FYC</th>
             <th style="text-align:right">累積保費</th>
-            <th style="text-align:right">換算CSM</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><span class="rank-num rank-1">①</span></td>
-            <td>李秉芳</td>
-            <td style="text-align:right;font-weight:700">109,053</td>
-            <td style="text-align:right">1</td>
-            <td style="text-align:right">573,963</td>
-            <td style="text-align:right">229,585</td>
-          </tr>
-          <tr>
-            <td><span class="rank-num rank-2">②</span></td>
-            <td>孫桂英</td>
-            <td style="text-align:right;font-weight:700">105,051</td>
-            <td style="text-align:right">2</td>
-            <td style="text-align:right">540,716</td>
-            <td style="text-align:right">335,338</td>
-          </tr>
-          <tr>
-            <td><span class="rank-num rank-3">③</span></td>
-            <td>蔡亦程</td>
-            <td style="text-align:right;font-weight:700">71,325</td>
-            <td style="text-align:right">5</td>
-            <td style="text-align:right">1,798,298</td>
-            <td style="text-align:right">431,852</td>
-          </tr>
-          <tr>
-            <td><span class="rank-num">④</span></td>
-            <td>陳冠辰</td>
-            <td style="text-align:right;font-weight:700">70,409</td>
-            <td style="text-align:right">3</td>
-            <td style="text-align:right">452,536</td>
-            <td style="text-align:right">613,338</td>
-          </tr>
-          <tr>
-            <td><span class="rank-num">⑤</span></td>
-            <td>高聖芳</td>
-            <td style="text-align:right;font-weight:700">64,254</td>
-            <td style="text-align:right">5</td>
-            <td style="text-align:right">597,701</td>
-            <td style="text-align:right">226,708</td>
-          </tr>
+          <tr><td><span class="rank-num rank-1">①</span></td><td>李秉芳</td><td>李秉芳</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:700">109,053</td><td style="text-align:right">573,963</td></tr>
+          <tr><td><span class="rank-num rank-2">②</span></td><td>孫桂英</td><td>孫桂英</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:700">105,051</td><td style="text-align:right">540,716</td></tr>
+          <tr><td><span class="rank-num rank-3">③</span></td><td>蔡亦程</td><td>蔡亦程</td><td style="text-align:right">5</td><td style="text-align:right;font-weight:700">71,325</td><td style="text-align:right">1,798,298</td></tr>
+          <tr><td><span class="rank-num">④</span></td><td>陳冠辰</td><td>陳冠辰</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:700">70,409</td><td style="text-align:right">452,536</td></tr>
+          <tr><td><span class="rank-num">⑤</span></td><td>高聖芳</td><td>廖寶福</td><td style="text-align:right">5</td><td style="text-align:right;font-weight:700">64,254</td><td style="text-align:right">597,701</td></tr>
+          <tr><td><span class="rank-num">⑥</span></td><td>汪淑玲</td><td>汪淑玲</td><td style="text-align:right">5</td><td style="text-align:right;font-weight:700">53,777</td><td style="text-align:right">142,647</td></tr>
+          <tr><td><span class="rank-num">⑦</span></td><td>李敏櫻</td><td>李敏櫻</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:700">39,521</td><td style="text-align:right">211,376</td></tr>
+          <tr><td><span class="rank-num">⑧</span></td><td>黃琳堯</td><td>黃琳堯</td><td style="text-align:right">4</td><td style="text-align:right;font-weight:700">38,883</td><td style="text-align:right">504,376</td></tr>
+          <tr><td><span class="rank-num">⑨</span></td><td>施昕余</td><td>施昕余</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:700">36,539</td><td style="text-align:right">617,989</td></tr>
+          <tr><td><span class="rank-num">⑩</span></td><td>秦慧娟</td><td>李敏櫻</td><td style="text-align:right">3</td><td style="text-align:right;font-weight:700">30,610</td><td style="text-align:right">2,267,348</td></tr>
+          <tr><td><span class="rank-num">⑪</span></td><td>謝麗芳</td><td>謝麗芳</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:700">29,916</td><td style="text-align:right">119,920</td></tr>
+          <tr><td><span class="rank-num">⑫</span></td><td>林君溥</td><td>蔡亦程</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:700">19,872</td><td style="text-align:right">63,000</td></tr>
+          <tr><td><span class="rank-num">⑬</span></td><td>虞哲煬</td><td>虞哲煬</td><td style="text-align:right">2</td><td style="text-align:right;font-weight:700">13,676</td><td style="text-align:right">634,191</td></tr>
+          <tr><td><span class="rank-num">⑭</span></td><td>林淑慧</td><td>林淑慧</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:700">6,080</td><td style="text-align:right">38,000</td></tr>
+          <tr><td><span class="rank-num">⑮</span></td><td>張嘉芸</td><td>張嘉芸</td><td style="text-align:right;color:#94a3b8">—</td><td style="text-align:right;font-weight:700">4,500</td><td style="text-align:right">900,000</td></tr>
+          <tr><td><span class="rank-num">⑯</span></td><td>陳羿晴</td><td>孫桂英</td><td style="text-align:right">1</td><td style="text-align:right;font-weight:700">608</td><td style="text-align:right">5,068</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">03 / 06</div>
+    <div class="slide-pg">03 / 07</div>
+  </section>
+
+  <!-- ── 04 當月單位進度・尚未出件 ── -->
+  <section class="slide cream">
+    <h2 class="animate-line" style="--i:0">📊 當月單位進度・尚未出件</h2>
+    <p class="animate-line meta" style="--i:1;margin-top:0.3em;">截至 115/05/24｜共 13 人尚未出件，加油！</p>
+
+    <div class="slide-content animate-line" style="--i:2">
+      <table class="month-table">
+        <thead>
+          <tr>
+            <th>姓名</th>
+            <th>直轄主管</th>
+            <th style="text-align:right">累積件數</th>
+            <th style="text-align:right">累積FYC</th>
+            <th style="text-align:right">累積保費</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>廖寶福</td><td>廖寶福</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>林宸禾</td><td>蔡錫文</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>蘇慶恩</td><td>虞哲煬</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>古佳凌</td><td>陳冠辰</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>蔡錫文</td><td>蔡錫文</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>劉家榮</td><td>劉家榮</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>陳汶萍</td><td>劉家榮</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>甯鍶蒨</td><td>陳冠辰</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>施建宏</td><td>施建宏</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>林佩怡</td><td>劉家榮</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>廖婉辛</td><td>李秉芳</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>施江燁</td><td>蔡錫文</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+          <tr><td>陳錦紅</td><td>林淑慧</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td><td style="text-align:right;color:#94a3b8">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
+    <div class="slide-pg">04 / 07</div>
   </section>
 
   <!-- ── 04 季獎金 115/03–115/05 ── -->
@@ -780,7 +817,7 @@ html.grid-mode .slide::after {
     </div>
 
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">04 / 06</div>
+    <div class="slide-pg">05 / 07</div>
   </section>
 
   <!-- ── 05 季獎金 115/04–115/06 ── -->
@@ -906,7 +943,7 @@ html.grid-mode .slide::after {
     </div>
 
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">05 / 06</div>
+    <div class="slide-pg">06 / 07</div>
   </section>
 
   <!-- ── 07 季獎金 115/05–115/07 ── -->
@@ -987,7 +1024,7 @@ html.grid-mode .slide::after {
     </div>
 
     <div class="slide-sig"><span class="dot"></span>Keri · TC813</div>
-    <div class="slide-pg">06 / 06</div>
+    <div class="slide-pg">07 / 07</div>
   </section>
 
 </div>
