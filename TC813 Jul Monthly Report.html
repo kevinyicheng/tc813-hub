@@ -312,27 +312,27 @@ html.grid-mode .slide::after {
 .bonus-hdr { display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; }
 .bonus-hdr-left { display:flex; flex-direction:column; gap:0.2em; }
 .bonus-big { text-align:right; }
-.bonus-big-num { font-size:4.5em; font-weight:900; line-height:1; color:#000; letter-spacing:-0.03em; }
-.bonus-big-lbl { font-size:0.82em; color:var(--text-muted); font-weight:500; margin-bottom:0.2em; }
-.bonus-big-total { font-size:0.82em; color:var(--text-muted); margin-top:0.25em; }
-.tier-bar { display:flex; gap:0.45em; flex-wrap:wrap; margin:0.6em 0 0.5em; }
-.tc { padding:0.2em 0.6em; font-size:0.78em; font-weight:700; border:1.5px solid; border-radius:2px; white-space:nowrap; }
-.tc4   { color:#64748b; border-color:#64748b; }
-.tc6   { color:#0891b2; border-color:#0891b2; }
-.tc8   { color:#2563eb; border-color:#2563eb; }
-.tc10  { color:#16a34a; border-color:#16a34a; }
-.tc125 { color:#d97706; border-color:#d97706; }
-.tc15  { color:#ea580c; border-color:#ea580c; }
-.tc175 { color:#dc2626; border-color:#dc2626; }
-.tc20  { color:#111;    border-color:#111; background:#f5f5f5; }
+.bonus-big-num { font-size:4.27em; font-weight:900; line-height:1; color:#000; letter-spacing:-0.03em; }
+.bonus-big-lbl { font-size:1.07em; color:var(--text-muted); font-weight:500; margin-bottom:0.2em; }
+.bonus-big-total { font-size:1.07em; color:var(--text-muted); margin-top:0.25em; }
+.tier-bar { display:flex; gap:0.5em; flex-wrap:wrap; margin:0.7em 0 0.6em; }
+.tc { padding:0.67em 1.13em; font-size:1.27em; font-weight:700; border:1.5px solid; border-radius:2px; white-space:nowrap; }
+.tc4   { color:#3531a0; border-color:#3531a0; }
+.tc6   { color:#0d6171; border-color:#0d6171; }
+.tc8   { color:#1f6f24; border-color:#1f6f24; }
+.tc10  { color:#1f6f24; border-color:#1f6f24; }
+.tc125 { color:#7a6f00; border-color:#7a6f00; }
+.tc15  { color:#7a6f00; border-color:#7a6f00; }
+.tc175 { color:#b34715; border-color:#b34715; }
+.tc20  { color:#b34715; border-color:#b34715; }
 .bonus-cols { display:grid; grid-template-columns:1fr 1px 1fr; gap:0 1.8em; flex:1; min-height:0; overflow:hidden; }
 .bonus-col-div { background:#e8e8e8; }
 .btbl2 { width:100%; border-collapse:collapse; font-size:1.33em; }
-.btbl2 thead th { text-align:left; font-size:0.72em; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:0 0.5em 0.3em; border-bottom:2px solid #111; }
+.btbl2 thead th { text-align:left; font-size:0.8em; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:0 0.5em 0.35em; border-bottom:2px solid #111; }
 .btbl2 thead th.r { text-align:right; }
 .btbl2 tbody tr { border-bottom:1px solid #f2f2f2; }
 .btbl2 tbody tr:last-child { border-bottom:2px solid #111; font-weight:900; }
-.btbl2 tbody td { padding:0.32em 0.5em; vertical-align:middle; }
+.btbl2 tbody td { padding:0.4em 0.7em; vertical-align:middle; }
 .btbl2 td.r { text-align:right; }
 .btbl2 td.rk { color:var(--text-muted); font-size:0.82em; font-weight:600; }
 .btbl2 td.nm { font-weight:700; }
@@ -640,9 +640,9 @@ html.grid-mode .slide::after {
     <!-- header -->
     <div class="bonus-hdr animate-line" style="--i:0">
       <div class="bonus-hdr-left">
-        <div class="body-eyebrow">115 · YEAR-END BONUS FORECAST</div>
-        <div style="font-size:2.2em;font-weight:900;color:#000;line-height:1.1;margin-top:0.1em;">年終獎金業績試算</div>
-        <div style="font-size:0.9em;color:var(--text-muted);margin-top:0.2em;">統計區間：115/01–115/06　·　依年度核實業績由高至低排序</div>
+        <div class="body-eyebrow" style="font-size:1.07em;">115 · YEAR-END BONUS FORECAST</div>
+        <div style="font-size:2.53em;font-weight:900;color:#000;line-height:1.05;margin-top:0.1em;">年終獎金業績試算</div>
+        <div style="font-size:1.07em;color:var(--text-muted);margin-top:0.25em;">統計區間：115/01–115/06　·　依年度核實業績由高至低排序</div>
       </div>
       <div class="bonus-big">
         <div class="bonus-big-lbl">已達標 / 總人數</div>
@@ -653,14 +653,14 @@ html.grid-mode .slide::after {
 
     <!-- tier bar -->
     <div class="tier-bar animate-line" style="--i:1">
-      <span class="tc tc4">4% ≥ 80,000</span>
-      <span class="tc tc6">6% ≥ 120,000</span>
-      <span class="tc tc8">8% ≥ 200,000</span>
-      <span class="tc tc10">10% ≥ 300,000</span>
-      <span class="tc tc125">12.5% ≥ 400,000</span>
-      <span class="tc tc15">15% ≥ 500,000</span>
-      <span class="tc tc175">17.5% ≥ 700,000</span>
-      <span class="tc tc20">20% ≥ 900,000</span>
+      <span class="tc tc4">4% &gt;= 80,000</span>
+      <span class="tc tc6">6% &gt;= 120,000</span>
+      <span class="tc tc8">8% &gt;= 200,000</span>
+      <span class="tc tc10">10% &gt;= 300,000</span>
+      <span class="tc tc125">12.5% &gt;= 400,000</span>
+      <span class="tc tc15">15% &gt;= 500,000</span>
+      <span class="tc tc175">17.5% &gt;= 700,000</span>
+      <span class="tc tc20">20% &gt;= 900,000</span>
     </div>
 
     <!-- two-col table -->
