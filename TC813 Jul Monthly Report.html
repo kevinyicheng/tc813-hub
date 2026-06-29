@@ -308,35 +308,48 @@ html.grid-mode .slide::after {
 .divider-item .di-num { font-size:0.8em; font-weight:700; color:var(--text-muted); width:1.5em; }
 .divider-item .di-text { font-weight:700; color:#111; }
 
-/* 年終獎金 */
-.bonus-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:0.7em; margin-bottom:0.6em; }
-.bonus-stat { padding:0.8em 1.2em; border:1px solid #e0e0e0; }
-.bonus-stat-lbl { font-size:0.8em; color:var(--text-muted); font-weight:500; }
-.bonus-stat-val { font-size:2.2em; font-weight:900; color:#000; line-height:1; margin-top:0.1em; }
-.bonus-stat-sub { font-size:0.78em; color:var(--text-muted); margin-top:0.2em; }
-.btbl { width:100%; border-collapse:collapse; font-size:0.88em; }
-.btbl thead th { text-align:left; font-size:0.78em; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:0 0.6em 0.4em; border-bottom:2px solid #000; }
-.btbl thead th.r { text-align:right; }
-.btbl tbody tr { border-bottom:1px solid #f0f0f0; }
-.btbl tbody tr:last-child { border-bottom:none; }
-.btbl tbody td { padding:0.38em 0.6em; vertical-align:middle; }
-.btbl td.r { text-align:right; }
-.btbl td.nm { font-weight:700; font-size:1.05em; }
-.btbl td.fyc { font-weight:600; color:#333; }
-.btbl td.amt { font-weight:900; color:#000; }
-.b-tier { display:inline-block; padding:0.1em 0.5em; font-size:0.82em; font-weight:800; border-radius:2px; }
-.t20  { background:#000; color:#fff; }
-.t175 { background:#1a1a1a; color:#fff; }
-.t125 { background:#1d4ed8; color:#fff; }
-.t10  { background:#d97706; color:#fff; }
-.t8   { background:#7c3aed; color:#fff; }
-.t6   { background:#059669; color:#fff; }
-.t4   { background:#dc2626; color:#fff; }
-.gap-ok   { color:#059669; font-weight:700; }
-.gap-near { color:#d97706; font-weight:700; }
-.gap-far  { color:var(--text-muted); }
-.zero-note { margin-top:0.5em; padding:0.45em 0.8em; background:#f8f8f8; font-size:0.82em; color:var(--text-muted); line-height:1.6; }
-.zero-note strong { color:#111; }
+/* 年終獎金 — Jun p13 風格 */
+.bonus-hdr { display:flex; justify-content:space-between; align-items:flex-start; flex-shrink:0; }
+.bonus-hdr-left { display:flex; flex-direction:column; gap:0.2em; }
+.bonus-big { text-align:right; }
+.bonus-big-num { font-size:4.5em; font-weight:900; line-height:1; color:#000; letter-spacing:-0.03em; }
+.bonus-big-lbl { font-size:0.82em; color:var(--text-muted); font-weight:500; margin-bottom:0.2em; }
+.bonus-big-total { font-size:0.82em; color:var(--text-muted); margin-top:0.25em; }
+.tier-bar { display:flex; gap:0.45em; flex-wrap:wrap; margin:0.6em 0 0.5em; }
+.tc { padding:0.2em 0.6em; font-size:0.78em; font-weight:700; border:1.5px solid; border-radius:2px; white-space:nowrap; }
+.tc4   { color:#64748b; border-color:#64748b; }
+.tc6   { color:#0891b2; border-color:#0891b2; }
+.tc8   { color:#2563eb; border-color:#2563eb; }
+.tc10  { color:#16a34a; border-color:#16a34a; }
+.tc125 { color:#d97706; border-color:#d97706; }
+.tc15  { color:#ea580c; border-color:#ea580c; }
+.tc175 { color:#dc2626; border-color:#dc2626; }
+.tc20  { color:#111;    border-color:#111; background:#f5f5f5; }
+.bonus-cols { display:grid; grid-template-columns:1fr 1px 1fr; gap:0 1.8em; flex:1; min-height:0; overflow:hidden; }
+.bonus-col-div { background:#e8e8e8; }
+.btbl2 { width:100%; border-collapse:collapse; font-size:0.87em; }
+.btbl2 thead th { text-align:left; font-size:0.75em; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:0 0.5em 0.35em; border-bottom:2px solid #111; }
+.btbl2 thead th.r { text-align:right; }
+.btbl2 tbody tr { border-bottom:1px solid #f2f2f2; }
+.btbl2 tbody tr:last-child { border-bottom:2px solid #111; font-weight:900; }
+.btbl2 tbody td { padding:0.32em 0.5em; vertical-align:middle; }
+.btbl2 td.r { text-align:right; }
+.btbl2 td.rk { color:var(--text-muted); font-size:0.82em; font-weight:600; }
+.btbl2 td.nm { font-weight:700; }
+.btbl2 td.fyc { color:#333; }
+.btbl2 td.pct { font-weight:800; }
+.pct20  { color:#111; }
+.pct175 { color:#dc2626; }
+.pct15  { color:#ea580c; }
+.pct125 { color:#d97706; }
+.pct10  { color:#16a34a; }
+.pct8   { color:#2563eb; }
+.pct6   { color:#0891b2; }
+.pct4   { color:#64748b; }
+.btbl2 td.bonus { font-weight:700; color:#16a34a; text-align:right; }
+.btbl2 td.dash { color:#ccc; text-align:right; }
+.btbl2 tr.total td { font-weight:900; color:#000; }
+.btbl2 tr.total td.bonus { color:#16a34a; }
 </style>
 </head>
 <body>
@@ -619,43 +632,85 @@ html.grid-mode .slide::after {
 </section>
 
 <!-- ══ 10 · 年終獎金試算 ══ -->
-<section class="slide">
+<section class="slide" style="padding-top:2em;padding-bottom:4.5em;justify-content:flex-start;">
   <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-section">02.01 · 年終獎金試算（115/01–06）</div>
-  <div class="slide-body">
-    <div class="body-eyebrow animate-line" style="--i:0">ANNUAL BONUS TRACKER</div>
-    <div class="body-title animate-line" style="--i:1">年終獎金試算 <span style="font-size:0.5em;font-weight:500;color:var(--text-muted)">115/01–115/06</span></div>
-    <div class="bonus-stats animate-line" style="--i:2">
-      <div class="bonus-stat"><div class="bonus-stat-lbl">達標人數（FYC ≥ 80,000）</div><div class="bonus-stat-val">15</div><div class="bonus-stat-sub">人 / 27人</div></div>
-      <div class="bonus-stat"><div class="bonus-stat-lbl">年度 FYC 合計（全員）</div><div class="bonus-stat-val">5,555,364</div><div class="bonus-stat-sub">元</div></div>
-      <div class="bonus-stat"><div class="bonus-stat-lbl">預計年終獎金合計</div><div class="bonus-stat-val">650,748</div><div class="bonus-stat-sub">元</div></div>
+  <div class="slide-section">03 · 年終獎金業績試算</div>
+  <div style="display:flex;flex-direction:column;height:100%;padding-top:3em;gap:0;">
+
+    <!-- header -->
+    <div class="bonus-hdr animate-line" style="--i:0">
+      <div class="bonus-hdr-left">
+        <div class="body-eyebrow">115 · YEAR-END BONUS FORECAST</div>
+        <div style="font-size:2.2em;font-weight:900;color:#000;line-height:1.1;margin-top:0.1em;">年終獎金業績試算</div>
+        <div style="font-size:0.9em;color:var(--text-muted);margin-top:0.2em;">統計區間：115/01–115/06　·　依年度核實業績由高至低排序</div>
+      </div>
+      <div class="bonus-big">
+        <div class="bonus-big-lbl">已達標 / 總人數</div>
+        <div class="bonus-big-num">15 / 27</div>
+        <div class="bonus-big-total">預估總獎金 $650,748 元</div>
+      </div>
     </div>
-    <table class="btbl animate-line" style="--i:3">
-      <thead>
-        <tr><th>姓名</th><th>職級</th><th class="r">歷史 FYC 01–05</th><th class="r">六月 FYC</th><th class="r">年度合計</th><th>獎金率</th><th>距下一級</th><th class="r">試算獎金</th></tr>
-      </thead>
-      <tbody>
-        <tr><td class="nm">陳冠辰</td><td>UM</td><td class="r">834,405</td><td class="r">68,753</td><td class="fyc r">903,158</td><td><span class="b-tier t20">20%</span></td><td class="gap-ok">已達頂級 ✓</td><td class="amt r">180,632</td></tr>
-        <tr><td class="nm">蔡亦程</td><td>AM</td><td class="r">839,551</td><td class="r">50,973</td><td class="fyc r">890,524</td><td><span class="b-tier t175">17.5%</span></td><td class="gap-near">差 9,476 → 20%</td><td class="amt r">155,842</td></tr>
-        <tr><td class="nm">高聖芳</td><td>CA</td><td class="r">387,672</td><td class="r">73,259</td><td class="fyc r">460,931</td><td><span class="b-tier t125">12.5%</span></td><td class="gap-near">差 39,069 → 15%</td><td class="amt r">57,616</td></tr>
-        <tr><td class="nm">孫桂英</td><td>AM</td><td class="r">425,604</td><td class="r">24,696</td><td class="fyc r">450,300</td><td><span class="b-tier t125">12.5%</span></td><td class="gap-near">差 49,700 → 15%</td><td class="amt r">56,288</td></tr>
-        <tr><td class="nm">汪淑玲</td><td>MM</td><td class="r">284,785</td><td class="r">89,349</td><td class="fyc r">374,134</td><td><span class="b-tier t10">10%</span></td><td class="gap-near">差 25,866 → 12.5%</td><td class="amt r">37,413</td></tr>
-        <tr><td class="nm">李秉芳</td><td>SP</td><td class="r">326,709</td><td class="r">27,232</td><td class="fyc r">353,941</td><td><span class="b-tier t10">10%</span></td><td class="gap-near">差 46,059 → 12.5%</td><td class="amt r">35,394</td></tr>
-        <tr><td class="nm">林君溥</td><td>CA</td><td class="r">290,631</td><td class="r">1,467</td><td class="fyc r">292,098</td><td><span class="b-tier t8">8%</span></td><td class="gap-far">差 7,902 → 10%</td><td class="amt r">23,368</td></tr>
-        <tr><td class="nm">張嘉芸</td><td>MM</td><td class="r">266,161</td><td class="r">18,035</td><td class="fyc r">284,196</td><td><span class="b-tier t8">8%</span></td><td class="gap-far">差 15,804 → 10%</td><td class="amt r">22,736</td></tr>
-        <tr><td class="nm">施昕余</td><td>MAM</td><td class="r">236,298</td><td class="r">23,784</td><td class="fyc r">260,082</td><td><span class="b-tier t8">8%</span></td><td class="gap-far">差 39,918 → 10%</td><td class="amt r">20,807</td></tr>
-        <tr><td class="nm">黃琳堯</td><td>MM</td><td class="r">185,565</td><td class="r">55,069</td><td class="fyc r">240,634</td><td><span class="b-tier t8">8%</span></td><td class="gap-far">差 59,366 → 10%</td><td class="amt r">19,251</td></tr>
-        <tr><td class="nm">謝麗芳</td><td>MS</td><td class="r">182,405</td><td class="r">18,463</td><td class="fyc r">200,868</td><td><span class="b-tier t8">8%</span></td><td class="gap-far">差 99,132 → 10%</td><td class="amt r">16,069</td></tr>
-        <tr><td class="nm">林淑慧</td><td>SP</td><td class="r">154,549</td><td class="r">10,515</td><td class="fyc r">165,064</td><td><span class="b-tier t6">6%</span></td><td class="gap-far">差 34,936 → 8%</td><td class="amt r">9,904</td></tr>
-        <tr><td class="nm">蘇慶恩</td><td>CA</td><td class="r">125,394</td><td class="r">11,739</td><td class="fyc r">137,133</td><td><span class="b-tier t6">6%</span></td><td class="gap-far">差 62,867 → 8%</td><td class="amt r">8,228</td></tr>
-        <tr><td class="nm">秦慧娟</td><td>CA</td><td class="r">84,782</td><td class="r">7,021</td><td class="fyc r">91,803</td><td><span class="b-tier t4">4%</span></td><td class="gap-far">差 28,197 → 6%</td><td class="amt r">3,672</td></tr>
-        <tr><td class="nm">林宸禾</td><td>CA</td><td class="r">80,453</td><td class="r">7,748</td><td class="fyc r">88,201</td><td><span class="b-tier t4">4%</span></td><td class="gap-far">差 31,799 → 6%</td><td class="amt r">3,528</td></tr>
-      </tbody>
-    </table>
-    <div class="zero-note animate-line" style="--i:4">
-      <strong>未達門檻（FYC &lt; 80,000）12人：</strong>
-      林佩怡 · 劉家榮 · 李敏櫻 · 陳錦紅 · 施江燁 · 甯鍶蒨 · 廖婉辛 · 虞哲煬 · 陳羿晴 · 廖寶福 · 蔡錫文 · 古佳凌
+
+    <!-- tier bar -->
+    <div class="tier-bar animate-line" style="--i:1">
+      <span class="tc tc4">4% ≥ 80,000</span>
+      <span class="tc tc6">6% ≥ 120,000</span>
+      <span class="tc tc8">8% ≥ 200,000</span>
+      <span class="tc tc10">10% ≥ 300,000</span>
+      <span class="tc tc125">12.5% ≥ 400,000</span>
+      <span class="tc tc15">15% ≥ 500,000</span>
+      <span class="tc tc175">17.5% ≥ 700,000</span>
+      <span class="tc tc20">20% ≥ 900,000</span>
     </div>
+
+    <!-- two-col table -->
+    <div class="bonus-cols animate-line" style="--i:2;flex:1;min-height:0;">
+      <table class="btbl2">
+        <thead><tr>
+          <th style="width:2em">#</th><th>姓名</th><th class="r">年度業績</th><th class="r">比例</th><th class="r">獎金試算</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="rk">1</td><td class="nm">陳冠辰</td><td class="fyc r">903,158</td><td class="pct pct20 r">20%</td><td class="bonus">$180,632</td></tr>
+          <tr><td class="rk">2</td><td class="nm">蔡亦程</td><td class="fyc r">890,524</td><td class="pct pct175 r">17.5%</td><td class="bonus">$155,842</td></tr>
+          <tr><td class="rk">3</td><td class="nm">高聖芳</td><td class="fyc r">460,931</td><td class="pct pct125 r">12.5%</td><td class="bonus">$57,616</td></tr>
+          <tr><td class="rk">4</td><td class="nm">孫桂英</td><td class="fyc r">450,300</td><td class="pct pct125 r">12.5%</td><td class="bonus">$56,288</td></tr>
+          <tr><td class="rk">5</td><td class="nm">汪淑玲</td><td class="fyc r">374,134</td><td class="pct pct10 r">10%</td><td class="bonus">$37,413</td></tr>
+          <tr><td class="rk">6</td><td class="nm">李秉芳</td><td class="fyc r">353,941</td><td class="pct pct10 r">10%</td><td class="bonus">$35,394</td></tr>
+          <tr><td class="rk">7</td><td class="nm">林君溥</td><td class="fyc r">292,098</td><td class="pct pct8 r">8%</td><td class="bonus">$23,368</td></tr>
+          <tr><td class="rk">8</td><td class="nm">張嘉芸</td><td class="fyc r">284,196</td><td class="pct pct8 r">8%</td><td class="bonus">$22,736</td></tr>
+          <tr><td class="rk">9</td><td class="nm">施昕余</td><td class="fyc r">260,082</td><td class="pct pct8 r">8%</td><td class="bonus">$20,807</td></tr>
+          <tr><td class="rk">10</td><td class="nm">黃琳堯</td><td class="fyc r">240,634</td><td class="pct pct8 r">8%</td><td class="bonus">$19,251</td></tr>
+          <tr><td class="rk">11</td><td class="nm">謝麗芳</td><td class="fyc r">200,868</td><td class="pct pct8 r">8%</td><td class="bonus">$16,069</td></tr>
+          <tr><td class="rk">12</td><td class="nm">林淑慧</td><td class="fyc r">165,064</td><td class="pct pct6 r">6%</td><td class="bonus">$9,904</td></tr>
+          <tr><td class="rk">13</td><td class="nm">蘇慶恩</td><td class="fyc r">137,133</td><td class="pct pct6 r">6%</td><td class="bonus">$8,228</td></tr>
+          <tr class="total"><td class="rk"></td><td class="nm">合計</td><td class="r"></td><td class="r"></td><td class="bonus">$650,748</td></tr>
+        </tbody>
+      </table>
+      <div class="bonus-col-div"></div>
+      <table class="btbl2">
+        <thead><tr>
+          <th style="width:2em">#</th><th>姓名</th><th class="r">年度業績</th><th class="r">比例</th><th class="r">獎金試算</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="rk">14</td><td class="nm">秦慧娟</td><td class="fyc r">91,803</td><td class="pct pct4 r">4%</td><td class="bonus">$3,672</td></tr>
+          <tr><td class="rk">15</td><td class="nm">林宸禾</td><td class="fyc r">88,201</td><td class="pct pct4 r">4%</td><td class="bonus">$3,528</td></tr>
+          <tr><td class="rk" style="color:#ddd">16</td><td class="nm" style="color:var(--text-muted)">甯鍶蒨</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">17</td><td class="nm" style="color:var(--text-muted)">劉家榮</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">18</td><td class="nm" style="color:var(--text-muted)">陳錦紅</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">19</td><td class="nm" style="color:var(--text-muted)">林佩怡</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">20</td><td class="nm" style="color:var(--text-muted)">陳羿晴</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">21</td><td class="nm" style="color:var(--text-muted)">廖婉辛</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">22</td><td class="nm" style="color:var(--text-muted)">施江燁</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">23</td><td class="nm" style="color:var(--text-muted)">虞哲煬</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">24</td><td class="nm" style="color:var(--text-muted)">廖寶福</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">25</td><td class="nm" style="color:var(--text-muted)">蔡錫文</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">26</td><td class="nm" style="color:var(--text-muted)">李敏櫻</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr><td class="rk" style="color:#ddd">27</td><td class="nm" style="color:var(--text-muted)">古佳凌</td><td class="r dash">—</td><td class="r dash">—</td><td class="dash">—</td></tr>
+          <tr class="total"><td class="rk"></td><td colspan="4" style="font-size:0.85em;color:var(--text-muted);font-weight:500;">未達門檻（年度 FYC &lt; 80,000）共 12 人</td></tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813</div>
   <div class="slide-pg">10 / 10</div>
