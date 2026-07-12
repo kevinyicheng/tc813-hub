@@ -28,7 +28,7 @@ html,body{height:100%;background:#0a0a0a;font-family:var(--font-sans);-webkit-fo
 html.scroll-mode,html.scroll-mode body{height:auto;overflow:auto}
 .deck{position:fixed;top:0;left:0;width:1920px;height:1080px;transform-origin:top left}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
-  padding:2em 4.5em 5.5em;font-size:18px;overflow:hidden;
+  padding:2em 4.5em 5.5em;font-size:20px;overflow:hidden;
   background:var(--surface);color:var(--text);font-family:var(--font-sans)}
 html.scroll-mode .deck{position:relative;width:100%;height:auto;transform:none!important;
   display:flex;flex-direction:column;gap:8px;padding:8px;background:#0a0a0a}
@@ -97,9 +97,9 @@ html.grid-mode .slide::after{content:attr(data-slide-num);position:absolute;
 .kpi-val.sm{font-size:1.9em}
 .kpi-lbl{font-size:0.9em;font-weight:600;color:var(--text-muted);margin-top:0.3em}
 .data-table{width:100%;border-collapse:collapse}
-.data-table th{height:2.8em;padding:0 0.8em;font-size:1em;font-weight:700;color:var(--text-muted);
+.data-table th{height:2.5em;padding:0 0.8em;font-size:1em;font-weight:700;color:var(--text-muted);
   background:var(--surface-muted);text-align:left;border-bottom:2px solid var(--brand)}
-.data-table td{height:3.2em;padding:0 0.8em;font-size:1.1em;border-bottom:1px solid rgba(0,0,0,0.06);vertical-align:middle}
+.data-table td{height:3.0em;padding:0 0.8em;font-size:1.1em;border-bottom:1px solid rgba(0,0,0,0.06);vertical-align:middle}
 .data-table tr:last-child td{border-bottom:none}
 .data-table tr.zero td{color:var(--text-muted)}
 .badge{display:inline-flex;align-items:center;padding:0.15em 0.65em;border-radius:999px;font-size:0.85em;font-weight:700;white-space:nowrap}
