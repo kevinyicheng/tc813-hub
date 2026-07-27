@@ -22,14 +22,14 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#0a0a0a;font-family:var(--font-sans);-webkit-font-smoothing:antialiased;overflow:hidden}
 html.scroll-mode,html.scroll-mode body{height:auto;overflow:auto}
-.deck{position:fixed;top:0;left:0;width:1920px;height:1080px;transform-origin:top left}
+.deck{position:fixed;top:0;left:0;width:1280px;height:960px;transform-origin:top left}
 .slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
-  padding:2em 4.5em 5.5em;font-size:18px;overflow:hidden;
+  padding:2em 4.5em 5.5em;font-size:22px;overflow:hidden;
   background:#f9f7f4;color:#0f172a;font-family:var(--font-sans)}
 html.scroll-mode .deck{position:relative;width:100%;height:auto;transform:none!important;
   display:flex;flex-direction:column;gap:8px;padding:8px;background:#0a0a0a}
 html.scroll-mode .slide{position:relative;display:flex!important;width:100%;
-  min-height:56.25vw;border-radius:4px;font-size:clamp(9px,1.2vw,15px)}
+  min-height:75vw;border-radius:4px;font-size:clamp(9px,1.6vw,18px)}
 @media(max-width:768px){html.scroll-mode .slide{font-size:clamp(11px,2.8vw,15px);padding:1.5em 2em 4em;min-height:0;height:auto;overflow:visible}}
 html.grid-mode body{overflow:auto;background:#1a1a1a}
 html.grid-mode .deck{position:relative;width:100%;transform:none!important;height:auto;
@@ -63,7 +63,7 @@ html.grid-mode .slide::after{content:attr(data-slide-num);position:absolute;
 .ctrl-bar button:hover{background:rgba(255,255,255,0.12);color:#fff}
 .ctrl-bar button svg{width:18px;height:18px}
 .ctrl-bar .counter{font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);min-width:52px;text-align:center}
-@media print{html,body{height:auto;overflow:visible;background:#fff}.ctrl-bar,.lightbox{display:none!important}.deck{height:auto;display:block}.slide{position:relative!important;inset:auto!important;display:flex!important;page-break-after:always;break-after:page;width:100vw;height:56.25vw}}
+@media print{html,body{height:auto;overflow:visible;background:#fff}.ctrl-bar,.lightbox{display:none!important}.deck{height:auto;display:block}.slide{position:relative!important;inset:auto!important;display:flex!important;page-break-after:always;break-after:page;width:100vw;height:75vw}}
 
 /* ── Weekly Report Custom ── */
 .slide-content{display:flex;flex-direction:column;flex:1;min-height:0}
@@ -76,7 +76,7 @@ html.grid-mode .slide::after{content:attr(data-slide-num);position:absolute;
 .kgold{border-top-color:#d97706}.kgold .kn{color:#d97706}
 .kred{border-top-color:#dc2626}.kred .kn{color:#dc2626}
 .kblue{border-top-color:#0093c1}.kblue .kn{color:#0093c1}
-.data-table,.bonus-table,.rank-table{width:100%;border-collapse:collapse;font-size:0.84em}
+.data-table,.bonus-table,.rank-table{width:100%;border-collapse:collapse;font-size:0.92em}
 .data-table th,.bonus-table th,.rank-table th{padding:0.52em 0.65em;background:#e8f2f7;color:#0f172a;font-weight:700;text-align:left;border-bottom:2px solid #cbd5e1;white-space:nowrap}
 .data-table td,.bonus-table td,.rank-table td{padding:0.4em 0.65em;border-bottom:1px solid #e2e8f0}
 .data-table tr:last-child td,.bonus-table tr:last-child td,.rank-table tr:last-child td{border-bottom:none}
@@ -428,7 +428,7 @@ const lb=document.getElementById('lightbox'),lbi=document.getElementById('lightb
 document.addEventListener('click',e=>{const img=e.target.closest('.slide img');if(!img||img.closest('.lightbox'))return;lbi.src=img.src;lb.classList.add('active');e.stopPropagation();});
 lb.addEventListener('click',e=>{if(e.target!==lbi)lb.classList.remove('active');});
 const deckEl=document.querySelector('.deck');
-function fitCanvas(){if(mode!=='slide')return;const s=Math.min(window.innerWidth/1920,window.innerHeight/1080);deckEl.style.transform=`scale(${s})`;}
+function fitCanvas(){if(mode!=='slide')return;const s=Math.min(window.innerWidth/1280,window.innerHeight/960);deckEl.style.transform=`scale(${s})`;}
 window.addEventListener('resize',fitCanvas);
 let mode='slide',current=0;
 const slides=document.querySelectorAll('.slide'),counter=document.getElementById('counter');
