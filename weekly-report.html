@@ -3,418 +3,697 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TC813 週報 · 115/07/20–07/26</title>
+<title>TC813 週報 · 第 31 週 · 115/07/28–08/01</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
-:root{
-  --fubon-blue:#0093C1;--fubon-teal:#00A59B;--sky:#00D4F0;--navy:#014865;--mint:#30DAA2;
-  --gold:#FFC94F;--orange:#FF8933;--rose:#E03E57;
-  --white:#FFFFFF;--bg-cream:#F0F6F9;--light-bg:#E8F2F7;
-  --ink:#0F172A;--ink-strong:#111111;--ink-muted:#64748B;--ink-on-dark:#F5F5F5;
-  --brand:var(--fubon-blue);--brand-dark:var(--navy);--accent:var(--sky);
-  --surface:var(--white);--surface-dark:var(--navy);
-  --text:var(--ink);--text-strong:var(--ink-strong);--text-muted:var(--ink-muted);--text-on-dark:var(--ink-on-dark);
-  --font-zh:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
-  --font-sans:var(--font-zh);--font-display:var(--font-zh);
-  --fs-cover:3.75em;--fs-heading:2.75em;--fs-meta:1.25em;
-  --lh-tight:1.25;--lh-body:1.7;
-}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#0a0a0a;font-family:var(--font-sans);-webkit-font-smoothing:antialiased;overflow:hidden}
-html.scroll-mode,html.scroll-mode body{height:auto;overflow:auto}
-.deck{position:fixed;top:0;left:0;width:1280px;height:960px;transform-origin:top left}
-.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
-  padding:2em 4.5em 5.5em;font-size:22px;overflow:hidden;
-  background:#f9f7f4;color:#0f172a;font-family:var(--font-sans)}
-html.scroll-mode .deck{position:relative;width:100%;height:auto;transform:none!important;
-  display:flex;flex-direction:column;gap:8px;padding:8px;background:#0a0a0a}
-html.scroll-mode .slide{position:relative;display:flex!important;width:100%;
-  min-height:75vw;border-radius:4px;font-size:clamp(9px,1.6vw,18px)}
-@media(max-width:768px){html.scroll-mode .slide{font-size:clamp(11px,2.8vw,15px);padding:1.5em 2em 4em;min-height:0;height:auto;overflow:visible}}
-html.grid-mode body{overflow:auto;background:#1a1a1a}
-html.grid-mode .deck{position:relative;width:100%;transform:none!important;height:auto;
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:16px;padding:64px 20px 20px}
-html.grid-mode .slide{position:relative!important;display:flex!important;overflow:hidden!important;
-  cursor:pointer;border-radius:8px;outline:2px solid transparent;transition:outline .15s}
-html.grid-mode .slide:hover{outline-color:var(--brand)}
-html.grid-mode .slide.grid-current{outline-color:var(--orange)}
-html.grid-mode .slide::after{content:attr(data-slide-num);position:absolute;
-  bottom:calc(8px/var(--grid-zoom,1));right:calc(10px/var(--grid-zoom,1));
-  font-size:calc(11px/var(--grid-zoom,1));font-weight:700;color:rgba(255,255,255,0.5);pointer-events:none;z-index:1}
-.slide h1{font-family:var(--font-display);font-weight:900;font-size:var(--fs-cover);line-height:var(--lh-tight);color:var(--text-strong)}
-.slide h2{font-family:var(--font-display);font-weight:700;font-size:var(--fs-heading);line-height:var(--lh-tight);color:var(--text-strong);margin-bottom:0.55em}
-.slide.cover{background:var(--surface-dark);color:var(--text-on-dark);justify-content:flex-end;padding-bottom:5em}
-.slide.cover h1{color:var(--text-on-dark)}
-.slide-pg{position:absolute;right:5em;bottom:1.8em;font-size:var(--fs-meta);color:#64748b;font-weight:600}
-.slide.cover .slide-pg{color:rgba(245,245,245,0.35)}
-.slide-sig{position:absolute;left:5em;bottom:1.8em;display:flex;align-items:center;gap:0.6em;font-size:var(--fs-meta);color:#64748b;font-weight:600;letter-spacing:0.06em}
-.slide.cover .slide-sig{color:rgba(245,245,245,0.35)}
-.slide-sig .dot{width:0.35em;height:0.35em;border-radius:50%;background:var(--brand);flex-shrink:0}
-.slide.cover .slide-sig .dot{background:var(--accent)}
-.meta{font-size:var(--fs-meta);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,245,245,0.5)}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.animate-line{opacity:0;animation:fadeInUp 0.45s ease-out forwards;animation-delay:calc(var(--i,0)*0.12s)}
-.lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,0.88);align-items:center;justify-content:center}
-.lightbox.active{display:flex}
-.lightbox img{max-width:90vw;max-height:90vh;border-radius:6px}
-.ctrl-bar{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;background:rgba(10,10,10,0.55);backdrop-filter:blur(16px);border-radius:999px;padding:8px 14px;z-index:100;opacity:1;transition:opacity 0.4s ease}
-.ctrl-bar.hidden{opacity:0;pointer-events:none}
-.ctrl-bar button{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.75);padding:6px 8px;border-radius:6px;transition:background .15s;display:flex;align-items:center}
-.ctrl-bar button:hover{background:rgba(255,255,255,0.12);color:#fff}
-.ctrl-bar button svg{width:18px;height:18px}
-.ctrl-bar .counter{font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);min-width:52px;text-align:center}
-@media print{html,body{height:auto;overflow:visible;background:#fff}.ctrl-bar,.lightbox{display:none!important}.deck{height:auto;display:block}.slide{position:relative!important;inset:auto!important;display:flex!important;page-break-after:always;break-after:page;width:100vw;height:75vw}}
 
-/* ── Weekly Report Custom ── */
-.slide-content{display:flex;flex-direction:column;flex:1;min-height:0}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.65em;margin-bottom:0.75em}
-.kpi-card{background:#fff;border-radius:0.45em;padding:0.6em 0.9em;border-top:4px solid #94a3b8}
-.kn{font-size:2.4em;font-weight:900;line-height:1.1}
-.kl{font-size:0.75em;color:#64748b;margin-top:0.15em}
-.kgray{border-top-color:#94a3b8}.kgray .kn{color:#64748b}
-.kgreen{border-top-color:#16a34a}.kgreen .kn{color:#16a34a}
-.kgold{border-top-color:#d97706}.kgold .kn{color:#d97706}
-.kred{border-top-color:#dc2626}.kred .kn{color:#dc2626}
-.kblue{border-top-color:#0093c1}.kblue .kn{color:#0093c1}
-.data-table,.bonus-table,.rank-table{width:100%;border-collapse:collapse;font-size:0.92em}
-.data-table th,.bonus-table th,.rank-table th{padding:0.52em 0.65em;background:#e8f2f7;color:#0f172a;font-weight:700;text-align:left;border-bottom:2px solid #cbd5e1;white-space:nowrap}
-.data-table td,.bonus-table td,.rank-table td{padding:0.4em 0.65em;border-bottom:1px solid #e2e8f0}
-.data-table tr:last-child td,.bonus-table tr:last-child td,.rank-table tr:last-child td{border-bottom:none}
-.rank-table th,.rank-table td{text-align:center}
-.bdg{display:inline-block;padding:0.18em 0.5em;border-radius:999px;font-size:0.76em;font-weight:700;white-space:nowrap}
-.bdg18{background:#dcfce7;color:#166534}.bdg12{background:#dbeafe;color:#1e40af}
-.bdg5{background:#ffedd5;color:#c2410c}.bdg0{background:#f1f5f9;color:#64748b}
-.bar-wrap{background:#e2e8f0;border-radius:999px;height:0.38em;overflow:hidden;min-width:4.5em;display:inline-block;vertical-align:middle}
-.bar-fill{height:100%;border-radius:999px}
-.bf-green{background:#16a34a}.bf-gold{background:#d97706}.bf-gray{background:#94a3b8}
-.g-red{color:#dc2626;font-weight:700}.g-gold{color:#d97706;font-weight:700}.g-green{color:#16a34a;font-weight:700}
-.zero-section{margin-top:0.55em}
-.zero-section h3{font-size:0.82em;font-weight:700;color:#64748b;margin-bottom:0.35em}
-.zero-pills{display:flex;flex-wrap:wrap;gap:0.35em}
-.zpill{background:#f1f5f9;color:#64748b;padding:0.22em 0.65em;border-radius:999px;font-size:0.76em}
-.ann-box{background:#fff;border-radius:0.55em;padding:0.8em 1.1em;margin-top:0.55em;border-left:4px solid #0093c1}
-.ann-list{list-style:none;margin-top:0.35em}
-.ann-list li{padding:0.28em 0;font-size:0.85em;border-bottom:1px solid #f1f5f9;line-height:1.55}
-.ann-list li:last-child{border-bottom:none}
-.ann-list li::before{content:'・';color:#0093c1;font-weight:700}
-.ann-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.65em;margin-top:0.65em}
-.ann-col{background:#fff;border-radius:0.45em;padding:0.75em 0.95em;border-top:3px solid #0093c1}
-.ann-col h3{font-size:0.82em;font-weight:700;color:#0093c1;margin-bottom:0.35em}
-.reward-highlight{background:#fff7ed;border:2px solid #fed7aa;border-radius:0.55em;padding:0.75em 1.1em;display:flex;align-items:center;gap:1.4em;margin-top:0.55em}
-.reward-amt{font-size:2.6em;font-weight:900;color:#d97706;white-space:nowrap}
-.reward-cond{font-size:0.82em;color:#92400e;line-height:1.65}
+/* ══ variables.css inline ══ */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@400;700&display=swap');
+
+:root {
+  --fubon-blue:#0093C1; --fubon-teal:#00A59B;
+  --sky:#00D4F0; --navy:#014865; --mint:#30DAA2;
+  --gold:#FFC94F; --coral:#E99385; --orange:#FF8933; --rose:#E03E57; --purple:#854591;
+  --white:#FFFFFF; --bg-cream:#F0F6F9; --light-bg:#E8F2F7;
+  --ink:#0F172A; --ink-strong:#111111; --ink-muted:#64748B; --ink-on-dark:#F5F5F5;
+  --success:var(--mint); --warning:var(--gold); --danger:var(--rose); --info:var(--fubon-blue);
+  --rule:rgba(0,0,0,0.10); --rule-soft:rgba(0,0,0,0.06);
+  --font-zh:'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+  --font-en:'Montserrat',sans-serif;
+  --font-sans:var(--font-zh); --font-display:var(--font-zh);
+  --fs-cover:3.75em; --fs-heading:2.75em; --fs-subtitle:2.125em;
+  --fs-body:1.75em; --fs-aux:1.5em; --fs-meta:1.25em;
+  --lh-tight:1.25; --lh-cozy:1.5; --lh-body:1.7;
+  --shadow-soft:0 4px 12px rgba(0,0,0,0.08),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-card:0 8px 32px rgba(0,0,0,0.12),0 2px 8px rgba(0,0,0,0.08);
+  --ease-out:cubic-bezier(0.22,1,0.36,1);
+  --dur-fast:140ms; --dur-med:220ms;
+  --brand:var(--fubon-blue); --brand-alt:var(--fubon-teal);
+  --brand-dark:var(--navy); --accent:var(--sky);
+  --surface:var(--white); --surface-muted:var(--light-bg); --surface-dark:var(--navy);
+  --text:var(--ink); --text-strong:var(--ink-strong); --text-muted:var(--ink-muted);
+  --text-on-dark:var(--ink-on-dark);
+  --divider:var(--rule); --divider-soft:var(--rule-soft);
+  --border-rule:1px solid var(--rule); --border-soft:1px solid var(--rule-soft);
+}
+
+/* ══ deck-base CSS (4:3 修改版) ══ */
+@keyframes fadeInUp {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.animate-line {
+  opacity:0;
+  animation:fadeInUp 0.45s ease-out forwards;
+  animation-delay:calc(var(--i,0) * 0.12s);
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+
+html,body {
+  height:100%;
+  background:#0a0a0a;
+  font-family:var(--font-sans);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+}
+html.scroll-mode,html.scroll-mode body { height:auto; overflow:auto; }
+
+/* 固定畫布 1280×960 (4:3) */
+.deck {
+  position:fixed; top:0; left:0;
+  width:1280px; height:960px;
+  transform-origin:top left;
+}
+
+.slide {
+  position:absolute; inset:0;
+  display:none; flex-direction:column;
+  justify-content:flex-start;
+  padding:2em 4.5em 5.5em;
+  font-size:22px;
+  overflow:hidden;
+  background:#f9f7f4;
+  color:var(--text);
+  font-family:var(--font-sans);
+}
+
+html.scroll-mode .deck {
+  position:relative; width:100%; height:auto;
+  transform:none !important;
+  display:flex; flex-direction:column; gap:8px; padding:8px; background:#0a0a0a;
+}
+html.scroll-mode .slide {
+  position:relative; display:flex !important;
+  width:100%; min-height:75vw; border-radius:4px;
+  font-size:clamp(10px,1.7vw,22px);
+}
+@media (max-width:768px) {
+  html.scroll-mode .slide {
+    font-size:clamp(11px,2.8vw,22px);
+    padding:1.5em 2em 4em; min-height:0; height:auto; overflow:visible;
+  }
+  html.scroll-mode .slide .slide-sig { left:2em; }
+  html.scroll-mode .slide .slide-pg  { right:2em; }
+}
+
+html.grid-mode body { overflow:auto; background:#1a1a1a; }
+html.grid-mode .deck {
+  position:relative; width:100%; transform:none !important; height:auto;
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:16px; padding:64px 20px 20px;
+}
+html.grid-mode .slide {
+  position:relative !important; display:flex !important;
+  overflow:hidden !important; cursor:pointer; border-radius:8px;
+  outline:2px solid transparent; transition:outline 0.15s;
+}
+html.grid-mode .slide:hover { outline-color:var(--brand); }
+html.grid-mode .slide.grid-current { outline-color:var(--orange); }
+html.grid-mode .slide::after {
+  content:attr(data-slide-num); position:absolute;
+  bottom:calc(8px/var(--grid-zoom,1)); right:calc(10px/var(--grid-zoom,1));
+  font-size:calc(11px/var(--grid-zoom,1)); font-weight:700;
+  color:rgba(255,255,255,0.5); font-family:var(--font-sans);
+  pointer-events:none; z-index:1;
+}
+
+.slide h1 { font-family:var(--font-display); font-weight:900; font-size:var(--fs-cover);   line-height:var(--lh-tight); color:var(--text-strong); }
+.slide h2 { font-family:var(--font-display); font-weight:700; font-size:var(--fs-heading); line-height:var(--lh-tight); color:var(--text-strong); margin-bottom:0.55em; }
+.slide h3 { font-family:var(--font-sans);    font-weight:700; font-size:var(--fs-subtitle);line-height:var(--lh-tight); color:var(--text-strong); }
+.slide p,.slide li { font-size:var(--fs-body); line-height:var(--lh-body); }
+.slide .meta {
+  font-family:var(--font-sans); font-size:var(--fs-meta);
+  font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--text-muted);
+}
+
+.slide.cover {
+  background:var(--surface-dark); color:var(--text-on-dark);
+  justify-content:flex-end; padding-bottom:5em;
+}
+.slide.cover h1,.slide.cover h2 { color:var(--text-on-dark); }
+.slide.cover .meta { color:rgba(245,245,245,0.5); }
+
+.slide-pg {
+  position:absolute; right:5em; bottom:1.8em;
+  font-size:var(--fs-meta); color:var(--text-muted);
+  font-family:var(--font-sans); font-weight:600;
+}
+.slide.cover .slide-pg { color:rgba(245,245,245,0.35); }
+.slide-sig {
+  position:absolute; left:5em; bottom:1.8em;
+  display:flex; align-items:center; gap:0.6em;
+  font-size:var(--fs-meta); color:var(--text-muted);
+  font-family:var(--font-sans); font-weight:600; letter-spacing:0.06em;
+}
+.slide.cover .slide-sig { color:rgba(245,245,245,0.35); }
+.slide-sig .dot { width:0.35em; height:0.35em; border-radius:50%; background:var(--brand); flex-shrink:0; }
+.slide.cover .slide-sig .dot { background:var(--accent); }
+
+.lightbox { display:none; position:fixed; inset:0; z-index:999; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; }
+.lightbox.active { display:flex; }
+.lightbox img { max-width:90vw; max-height:90vh; border-radius:6px; }
+
+.ctrl-bar {
+  position:fixed; bottom:20px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:6px;
+  background:rgba(10,10,10,0.55); backdrop-filter:blur(16px);
+  border-radius:999px; padding:8px 14px; z-index:100;
+  opacity:1; transition:opacity 0.4s ease;
+}
+.ctrl-bar.hidden { opacity:0; pointer-events:none; }
+.ctrl-bar button {
+  background:none; border:none; cursor:pointer; color:rgba(255,255,255,0.75);
+  padding:6px 8px; border-radius:6px; transition:background 0.15s; display:flex; align-items:center;
+}
+.ctrl-bar button:hover { background:rgba(255,255,255,0.12); color:#fff; }
+.ctrl-bar button svg { width:18px; height:18px; }
+.ctrl-bar .counter { font-family:var(--font-sans); font-size:12px; font-weight:600; color:rgba(255,255,255,0.6); min-width:52px; text-align:center; }
+
+@media print {
+  html,body { height:auto; overflow:visible; background:#fff; }
+  .ctrl-bar,.lightbox { display:none !important; }
+  .deck { height:auto; display:block; }
+  .slide { position:relative !important; inset:auto !important; display:flex !important; page-break-after:always; break-after:page; width:100vw; height:75vw; }
+}
+
+/* ══ 週報專屬 CSS ══ */
+
+.slide-content { display:flex; flex-direction:column; flex:1; min-height:0; }
+
+/* KPI 卡片 */
+.kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:0.45em; margin-bottom:0.5em; }
+.kpi-card { background:#fff; border-radius:0.4em; padding:0.5em 0.55em; border-top:4px solid #94a3b8; box-shadow:0 1px 3px rgba(0,0,0,0.06); }
+.kpi-card.green { border-top-color:#16a34a; }
+.kpi-card.gold  { border-top-color:#d97706; }
+.kpi-card.red   { border-top-color:#dc2626; }
+.kpi-label { font-size:0.72em; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:#64748b; margin-bottom:0.15em; }
+.kpi-val   { font-size:2em; font-weight:800; line-height:1.15; color:var(--ink-strong); }
+.kpi-card.green .kpi-val { color:#15803d; }
+.kpi-card.gold  .kpi-val { color:#b45309; }
+.kpi-card.red   .kpi-val { color:#b91c1c; }
+
+/* 資料表格 */
+.data-table { width:100%; border-collapse:collapse; }
+.data-table thead th {
+  background:#e2e8f0; font-size:0.82em; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.04em;
+  padding:0.52em 0.6em; text-align:left; color:#475569;
+}
+.data-table tbody td { padding:0.4em 0.6em; border-bottom:1px solid rgba(0,0,0,0.06); font-size:0.92em; }
+.data-table tbody tr:last-child td { border-bottom:none; }
+.data-table tbody tr:nth-child(even) td { background:rgba(0,0,0,0.02); }
+
+/* Badge */
+.badge { display:inline-block; padding:0.15em 0.5em; border-radius:0.3em; font-size:0.82em; font-weight:700; white-space:nowrap; }
+.badge-18 { background:#dcfce7; color:#15803d; }
+.badge-15 { background:#d1fae5; color:#065f46; }
+.badge-12 { background:#dbeafe; color:#1d4ed8; }
+.badge-10 { background:#fef3c7; color:#92400e; }
+.badge-5  { background:#ffedd5; color:#c2410c; }
+.badge-0  { background:#f1f5f9; color:#64748b; }
+
+/* 進度條 */
+.prog-wrap { display:flex; align-items:center; gap:0.45em; }
+.prog-bar  { flex:1; height:7px; background:#e2e8f0; border-radius:999px; overflow:hidden; min-width:40px; }
+.prog-fill { height:100%; border-radius:999px; background:#16a34a; }
+.prog-fill.gold { background:#d97706; }
+.prog-fill.red  { background:#dc2626; }
+.prog-pct  { font-size:0.82em; font-weight:700; min-width:3em; text-align:right; color:#475569; }
+
+/* 距下一級 */
+.gap-top  { color:#15803d; font-weight:700; }
+.gap-near { color:#d97706; font-weight:700; }
+.gap-far  { color:#dc2626; }
+
+/* 壯實 */
+.star-mark { color:#d97706; font-weight:700; }
+
+/* 零件名單灰色 */
+.row-zero td { color:#94a3b8; }
+
+/* 副標題 */
+.slide-subtitle { font-size:0.82em; color:#64748b; font-weight:600; margin-bottom:0.5em; margin-top:-0.3em; }
+
 </style>
 </head>
 <body>
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
-<div class="deck">
 
-<!-- 01 Cover -->
-<section class="slide cover">
-  <h1 class="animate-line" style="--i:0">TC813 週報</h1>
-  <p class="animate-line meta" style="--i:1;margin-top:0.6em;">115 / 07 / 20 — 07 / 26 &nbsp;·&nbsp; 第七工作月</p>
-  <div class="slide-sig"><span class="dot"></span>TC813 中銘通訊處</div>
-  <div class="slide-pg">01 / 11</div>
-</section>
-
-<!-- 02 報件賀報 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">報件賀報 <span style="font-size:0.45em;color:#64748b;font-weight:500">115/07/20–07/26</span></h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div class="kpi-grid">
-      <div class="kpi-card kblue"><div class="kn">3</div><div class="kl">當週報件件數</div></div>
-      <div class="kpi-card kgreen"><div class="kn">3</div><div class="kl">有報件人數</div></div>
-      <div class="kpi-card kgray"><div class="kn">$397,432</div><div class="kl">合計總保費</div></div>
-      <div class="kpi-card kgold"><div class="kn">$36,834</div><div class="kl">合計總 FYC</div></div>
-    </div>
-    <table class="data-table">
-      <thead><tr><th>姓名</th><th>職稱</th><th>受理日</th><th>險種</th><th style="text-align:right">總保費</th><th style="text-align:right">總 FYC</th></tr></thead>
-      <tbody>
-        <tr><td><strong>李敏櫻</strong></td><td>SP</td><td>07/21</td><td>VCCT</td><td style="text-align:right">300,000</td><td style="text-align:right">3,600</td></tr>
-        <tr><td><strong>李秉芳</strong></td><td>SP</td><td>07/21</td><td>15OLA6</td><td style="text-align:right">61,432</td><td style="text-align:right">23,532</td></tr>
-        <tr><td><strong>高聖芳</strong></td><td>CA</td><td>07/23</td><td>UNDB</td><td style="text-align:right">36,000</td><td style="text-align:right">9,702</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">02 / 11</div>
-</section>
-
-<!-- 03 當月單位進度 (1-12) -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">當月單位進度 <span style="font-size:0.45em;color:#64748b;font-weight:500">業績期間 115/06/26–07/24</span></h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <table class="data-table">
-      <thead><tr><th>姓名</th><th>職稱</th><th>主管</th><th style="text-align:right">累計件</th><th style="text-align:right">累計 FYP</th><th style="text-align:right">累計 FYC</th><th style="text-align:center">壯實</th></tr></thead>
-      <tbody>
-        <tr><td><strong>陳冠辰</strong></td><td>UM</td><td>陳冠辰</td><td style="text-align:right">9</td><td style="text-align:right">13,975,089</td><td style="text-align:right"><strong style="color:#16a34a">2,684,316</strong></td><td style="text-align:center">✓</td></tr>
-        <tr><td>林君溥</td><td>CA</td><td>蔡亦程</td><td style="text-align:right">4</td><td style="text-align:right">1,135,165</td><td style="text-align:right">72,211</td><td style="text-align:center">✓</td></tr>
-        <tr><td>蔡亦程</td><td>AM</td><td>蔡亦程</td><td style="text-align:right">3</td><td style="text-align:right">4,103,385</td><td style="text-align:right">66,152</td><td style="text-align:center">✓</td></tr>
-        <tr><td>李秉芳</td><td>SP</td><td>李秉芳</td><td style="text-align:right">5</td><td style="text-align:right">1,318,889</td><td style="text-align:right">49,233</td><td style="text-align:center">✓</td></tr>
-        <tr><td>黃琳堯</td><td>MM</td><td>黃琳堯</td><td style="text-align:right">4</td><td style="text-align:right">119,862</td><td style="text-align:right">48,139</td><td style="text-align:center">✓</td></tr>
-        <tr><td>高聖芳</td><td>CA</td><td>廖寶福</td><td style="text-align:right">6</td><td style="text-align:right">175,812</td><td style="text-align:right">43,744</td><td style="text-align:center">✓</td></tr>
-        <tr><td>甯鍶蒨</td><td>CA</td><td>陳冠辰</td><td style="text-align:right">1</td><td style="text-align:right">75,295</td><td style="text-align:right">30,688</td><td style="text-align:center">✓</td></tr>
-        <tr><td>劉家榮</td><td>SP</td><td>劉家榮</td><td style="text-align:right">2</td><td style="text-align:right">49,836</td><td style="text-align:right">19,934</td><td style="text-align:center">—</td></tr>
-        <tr><td>蘇慶恩</td><td>CA</td><td>虞哲煬</td><td style="text-align:right">1</td><td style="text-align:right">62,789</td><td style="text-align:right">19,465</td><td style="text-align:center">—</td></tr>
-        <tr><td>張嘉芸</td><td>MM</td><td>張嘉芸</td><td style="text-align:right">0</td><td style="text-align:right">1,900,000</td><td style="text-align:right">19,300</td><td style="text-align:center">—</td></tr>
-        <tr><td>陳錦紅</td><td>CA</td><td>林淑慧</td><td style="text-align:right">1</td><td style="text-align:right">30,464</td><td style="text-align:right">10,662</td><td style="text-align:center">—</td></tr>
-        <tr><td>林佩怡</td><td>CA</td><td>劉家榮</td><td style="text-align:right">1</td><td style="text-align:right">36,000</td><td style="text-align:right">9,702</td><td style="text-align:center">—</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">03 / 11</div>
-</section>
-
-<!-- 04 當月進度（續） -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">當月單位進度（續）</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <table class="data-table">
-      <thead><tr><th>姓名</th><th>職稱</th><th>主管</th><th style="text-align:right">累計件</th><th style="text-align:right">累計 FYP</th><th style="text-align:right">累計 FYC</th><th style="text-align:center">壯實</th></tr></thead>
-      <tbody>
-        <tr><td>施昕余</td><td>MAM</td><td>施昕余</td><td style="text-align:right">2</td><td style="text-align:right">24,584</td><td style="text-align:right">9,655</td><td style="text-align:center">—</td></tr>
-        <tr><td>孫桂英</td><td>AM</td><td>孫桂英</td><td style="text-align:right">2</td><td style="text-align:right">43,291</td><td style="text-align:right">7,017</td><td style="text-align:center">—</td></tr>
-        <tr><td>林淑慧</td><td>SP</td><td>林淑慧</td><td style="text-align:right">2</td><td style="text-align:right">16,742</td><td style="text-align:right">6,185</td><td style="text-align:center">—</td></tr>
-        <tr><td>林宸禾</td><td>CA</td><td>蔡錫文</td><td style="text-align:right">2</td><td style="text-align:right">19,190</td><td style="text-align:right">5,352</td><td style="text-align:center">—</td></tr>
-        <tr><td>李敏櫻</td><td>SP</td><td>李敏櫻</td><td style="text-align:right">0</td><td style="text-align:right">300,000</td><td style="text-align:right">3,600</td><td style="text-align:center">—</td></tr>
-        <tr><td>汪淑玲</td><td>MM</td><td>汪淑玲</td><td style="text-align:right">1</td><td style="text-align:right">8,120</td><td style="text-align:right">2,926</td><td style="text-align:center">—</td></tr>
-        <tr><td>秦慧娟</td><td>CA</td><td>李敏櫻</td><td style="text-align:right">1</td><td style="text-align:right">11,400</td><td style="text-align:right">1,824</td><td style="text-align:center">—</td></tr>
-        <tr><td>謝麗芳</td><td>MS</td><td>謝麗芳</td><td style="text-align:right">1</td><td style="text-align:right">1,440</td><td style="text-align:right">518</td><td style="text-align:center">—</td></tr>
-      </tbody>
-    </table>
-    <div class="zero-section">
-      <h3>零件名單（8 人）</h3>
-      <div class="zero-pills">
-        <span class="zpill">蔡錫文 DM</span><span class="zpill">施江燁 CA</span><span class="zpill">陳羿晴 CA</span><span class="zpill">廖婉辛 CA</span>
-        <span class="zpill">陳汶萍 CA</span><span class="zpill">虞哲煬 AM</span><span class="zpill">廖寶福 AM</span><span class="zpill">施建宏 UM</span>
-      </div>
-    </div>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">04 / 11</div>
-</section>
-
-<!-- 05 季獎金 115/05–07 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">季業績獎金追蹤 · 115/05–115/07</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div class="kpi-grid">
-      <div class="kpi-card kgray"><div class="kn">4</div><div class="kl">追蹤人數</div></div>
-      <div class="kpi-card kgreen"><div class="kn">3</div><div class="kl">已達標</div></div>
-      <div class="kpi-card kgold"><div class="kn">0</div><div class="kl">差距 &lt; 2 萬</div></div>
-      <div class="kpi-card kred"><div class="kn">1</div><div class="kl">未達標</div></div>
-    </div>
-    <table class="bonus-table">
-      <thead><tr><th>姓名</th><th>累積 FYC</th><th>級距</th><th>距下一級</th><th>進度</th><th style="text-align:right">試算獎金</th></tr></thead>
-      <tbody>
-        <tr><td><strong>高聖芳</strong></td><td>227,354</td><td><span class="bdg bdg18">18%</span></td><td><span class="g-green">已達頂級</span></td><td><div class="bar-wrap"><div class="bar-fill bf-green" style="width:100%"></div></div> 100%</td><td style="text-align:right"><strong>40,924</strong></td></tr>
-        <tr><td>林君溥</td><td>97,113</td><td><span class="bdg bdg12">12%</span></td><td><span class="g-red">差22,887→15%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:65%"></div></div> 65%</td><td style="text-align:right">11,654</td></tr>
-        <tr><td>甯鍶蒨</td><td>91,599</td><td><span class="bdg bdg12">12%</span></td><td><span class="g-red">差28,401→15%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:61%"></div></div> 61%</td><td style="text-align:right">10,992</td></tr>
-        <tr><td>陳錦紅</td><td>18,738</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差21,262→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:12%"></div></div> 12%</td><td style="text-align:right">0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">05 / 11</div>
-</section>
-
-<!-- 06 季獎金 115/06–08 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">季業績獎金追蹤 · 115/06–115/08</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div class="kpi-grid">
-      <div class="kpi-card kgray"><div class="kn">7</div><div class="kl">追蹤人數</div></div>
-      <div class="kpi-card kgreen"><div class="kn">3</div><div class="kl">已達標</div></div>
-      <div class="kpi-card kgold"><div class="kn">3</div><div class="kl">差距 &lt; 2 萬</div></div>
-      <div class="kpi-card kred"><div class="kn">1</div><div class="kl">未達標</div></div>
-    </div>
-    <table class="bonus-table">
-      <thead><tr><th>姓名</th><th>累積 FYC</th><th>級距</th><th>距下一級</th><th>進度</th><th style="text-align:right">試算獎金</th></tr></thead>
-      <tbody>
-        <tr><td><strong>蔡亦程</strong></td><td>188,798</td><td><span class="bdg bdg18">18%</span></td><td><span class="g-green">已達頂級</span></td><td><div class="bar-wrap"><div class="bar-fill bf-green" style="width:100%"></div></div> 100%</td><td style="text-align:right"><strong>33,984</strong></td></tr>
-        <tr><td>陳冠辰</td><td>116,087</td><td><span class="bdg bdg12">12%</span></td><td><span class="g-gold">差3,913→15% ⚡</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:77%"></div></div> 77%</td><td style="text-align:right">13,930</td></tr>
-        <tr><td>孫桂英</td><td>49,274</td><td><span class="bdg bdg5">5%</span></td><td><span class="g-gold">差10,726→10%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:33%"></div></div> 33%</td><td style="text-align:right">2,464</td></tr>
-        <tr><td>蘇慶恩</td><td>39,329</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-gold">差671→5% ⚡</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:26%"></div></div> 26%</td><td style="text-align:right">0</td></tr>
-        <tr><td>林淑慧</td><td>31,054</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-gold">差8,946→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:21%"></div></div> 21%</td><td style="text-align:right">0</td></tr>
-        <tr><td>林宸禾</td><td>27,808</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-gold">差12,192→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:19%"></div></div> 19%</td><td style="text-align:right">0</td></tr>
-        <tr><td>蔡錫文</td><td>3,780</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差36,220→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:3%"></div></div> 3%</td><td style="text-align:right">0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">06 / 11</div>
-</section>
-
-<!-- 07 季獎金 115/07–09 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">季業績獎金追蹤 · 115/07–115/09</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div class="kpi-grid">
-      <div class="kpi-card kgray"><div class="kn">9</div><div class="kl">追蹤人數</div></div>
-      <div class="kpi-card kgreen"><div class="kn">0</div><div class="kl">已達標</div></div>
-      <div class="kpi-card kgold"><div class="kn">1</div><div class="kl">差距 &lt; 2 萬</div></div>
-      <div class="kpi-card kred"><div class="kn">8</div><div class="kl">未達標</div></div>
-    </div>
-    <table class="bonus-table">
-      <thead><tr><th>姓名</th><th>累積 FYC</th><th>級距</th><th>距下一級</th><th>進度</th><th style="text-align:right">試算獎金</th></tr></thead>
-      <tbody>
-        <tr><td>李秉芳</td><td>35,836</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-gold">差4,164→5% ⚡</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gold" style="width:24%"></div></div> 24%</td><td style="text-align:right">0</td></tr>
-        <tr><td>秦慧娟</td><td>10,972</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差29,028→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:7%"></div></div> 7%</td><td style="text-align:right">0</td></tr>
-        <tr><td>李敏櫻</td><td>6,336</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差33,664→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:4%"></div></div> 4%</td><td style="text-align:right">0</td></tr>
-        <tr><td>廖婉辛</td><td>4,795</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差35,205→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:3%"></div></div> 3%</td><td style="text-align:right">0</td></tr>
-        <tr><td>施江燁</td><td>3,323</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差36,677→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:2%"></div></div> 2%</td><td style="text-align:right">0</td></tr>
-        <tr><td>陳羿晴</td><td>277</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差39,723→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:1%"></div></div> &lt;1%</td><td style="text-align:right">0</td></tr>
-        <tr><td>廖寶福</td><td>179</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差39,821→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:1%"></div></div> &lt;1%</td><td style="text-align:right">0</td></tr>
-        <tr><td>虞哲煬</td><td>0</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差40,000→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:0%"></div></div> 0%</td><td style="text-align:right">0</td></tr>
-        <tr><td>古佳凌</td><td>0</td><td><span class="bdg bdg0">未達標</span></td><td><span class="g-red">差40,000→5%</span></td><td><div class="bar-wrap"><div class="bar-fill bf-gray" style="width:0%"></div></div> 0%</td><td style="text-align:right">0</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">07 / 11</div>
-</section>
-
-<!-- 08 八月首二日獎勵辦法 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">公司獎勵佈達 · 八月首二日獎勵辦法</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div style="font-size:0.75em;color:#64748b;margin-bottom:0.55em">(115)富壽業活發字第100號 · 115/07/21 發布</div>
-    <div class="reward-highlight">
-      <div class="reward-amt">$2,288</div>
-      <div class="reward-cond">
-        <strong>獎勵期間：</strong>業績受理日 115/07/28–07/29（結案日 115/09/07 前）<br>
-        <strong>條件 A：</strong>個人險 FYC ≥ 4 萬元<br>
-        <strong>條件 B：</strong>個人險 FYC ≥ 2.5 萬 且 台幣利變商品 FYC ≥ 1.5 萬<br>
-        <strong>符合 A 或 B 任一即可獲獎</strong>
-      </div>
-    </div>
-    <div class="ann-box" style="margin-top:0.6em">
-      <ul class="ann-list">
-        <li>參賽資格：CA/NCT（含）以上；RSA、HRA 承攬合約持續有效</li>
-        <li>個人險計入：傳統型、利變型、分紅型、投資型目標保費 FYC（其他投資型 FYC 不計）</li>
-        <li>台幣利變商品依(115)富壽業活發字第080、093號公告函商品表為準</li>
-        <li>非獎勵期間受理之保單，後續衍生業績均不計入</li>
-        <li>結算前將再次核確業績，退保、解約等致虛增者依實際業績核算</li>
-      </ul>
-    </div>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">08 / 11</div>
-</section>
-
-<!-- 09 長照商品新增入獎勵（339+340合併） -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">公司獎勵佈達 · 長照商品新增納入獎勵辦法</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div style="font-size:0.75em;color:#64748b;margin-bottom:0.55em">115年富壽行銷(業)發字第339號＋第340號 · 7/20 起生效</div>
-    <div style="margin-bottom:0.55em;font-size:0.86em">自 <strong>7/20</strong> 起，以下 4 個長期照顧商品新增納入獎勵辦法：</div>
-    <div style="display:flex;gap:0.45em;margin-bottom:0.75em;flex-wrap:wrap">
-      <span class="bdg" style="background:#e0f2fe;color:#0369a1;font-size:0.86em;padding:0.25em 0.7em">連馨久久 LTQ</span>
-      <span class="bdg" style="background:#e0f2fe;color:#0369a1;font-size:0.86em;padding:0.25em 0.7em">順馨久久 LTT</span>
-      <span class="bdg" style="background:#e0f2fe;color:#0369a1;font-size:0.86em;padding:0.25em 0.7em">詠馨久久 LTS</span>
-      <span class="bdg" style="background:#e0f2fe;color:#0369a1;font-size:0.86em;padding:0.25em 0.7em">和馨久久 LTU</span>
-    </div>
-    <div class="ann-grid">
-      <div class="ann-col">
-        <h3>投資型月配息及生存金再購保障型獎勵（339號）</h3>
-        <ul class="ann-list">
-          <li>上述4商品納入第三季投資型獎勵辦法</li>
-          <li>其他細節以115年富壽行銷(業)發字第285號為準</li>
-          <li>適用商品詳見附件二商品清單</li>
-        </ul>
-      </div>
-      <div class="ann-col">
-        <h3>第七工作月保障型特定商品獎勵（340號）</h3>
-        <ul class="ann-list">
-          <li>單險種單件保額 ≥ 2 萬元：獎勵 <strong style="color:#16a34a">6%</strong>（實收總保費×比例）</li>
-          <li>單險種單件保額 ≥ 1.5 萬元：獎勵 <strong style="color:#d97706">3%</strong></li>
-          <li>其他細節以115年富壽行銷(業)發字第293號為準</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">09 / 11</div>
-</section>
-
-<!-- 10 第三季投資型+保障型獎勵（285號） -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">公司獎勵佈達 · 第三季投資型＋保障型特定商品獎勵</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div style="font-size:0.75em;color:#64748b;margin-bottom:0.55em">115年富壽行銷(業)發字第285號 · 115/06/25 發布</div>
-    <div class="ann-grid">
-      <div class="ann-col">
-        <h3>辦法重點</h3>
-        <ul class="ann-list">
-          <li>受理期間：6/26–9/29；結案 10/27；寬限 11/10</li>
-          <li>對象：CA/NCT（含）以上，RSA、HRA</li>
-          <li>條件：投資型商品或114年後生存金保單，單筆 FYC ≥ 5,000 元</li>
-          <li>依全通路排名給獎（競賽型）</li>
-        </ul>
-      </div>
-      <div class="ann-col">
-        <h3>排名獎勵</h3>
-        <table class="rank-table">
-          <thead><tr><th>排名</th><th>獎勵</th></tr></thead>
-          <tbody>
-            <tr><td>第 1 名</td><td><strong style="color:#d97706">20,000 元</strong></td></tr>
-            <tr><td>第 2–3 名</td><td>15,000 元</td></tr>
-            <tr><td>第 4–10 名</td><td>10,000 元</td></tr>
-            <tr><td>第 11–20 名</td><td>6,000 元</td></tr>
-            <tr><td>第 21–30 名</td><td>4,000 元</td></tr>
-            <tr><td>第 31–50 名</td><td>3,000 元</td></tr>
-            <tr><td>第 51–100 名</td><td>2,000 元</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="ann-box" style="margin-top:0.55em">
-      <div style="font-size:0.78em;font-weight:700;color:#0093c1;margin-bottom:0.25em">適用商品（部分列舉）</div>
-      <div style="font-size:0.74em;color:#64748b;line-height:1.75">
-        醫保安心SDG · 金卡安心SDH · 美好安心FDC · 優卡安心SDJ · 醫靠安心SDKA · 金卡順心SDN ·
-        連馨滿溢LTK1 · 順馨滿溢LTM1 · 詠馨滿溢LTN1 · 和馨LAR1 · 憶心相守LTP ·
-        愛實在HSW1/HSW · 全鑫HSY1/HSY · 精準保護CLW · 真馨相守CLX · 豪愛無憂CLZ · 骨力勇ADH · 在滿溢HAC/HAD
-      </div>
-    </div>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">10 / 11</div>
-</section>
-
-<!-- 11 富邦優惠房貸方案 -->
-<section class="slide">
-  <h2 class="animate-line" style="--i:0">重要公文 · 富邦人壽優惠房貸方案</h2>
-  <div class="slide-content animate-line" style="--i:1">
-    <div style="font-size:0.75em;color:#64748b;margin-bottom:0.55em">附件一、富邦人壽優惠房貸方案 · 適用至 115/12/31</div>
-    <div class="ann-box">
-      <ul class="ann-list">
-        <li>富邦人壽提供客戶優惠房貸方案，可作為客戶資產規劃或保單活化搭配推介</li>
-        <li><strong>首購戶</strong>（名下無房無貸）：最優惠條件，成數最高</li>
-        <li><strong>央行一般戶</strong>（有房無購屋貸款，無週轉金貸款）：次優條件</li>
-        <li><strong>央行一般戶</strong>（有房無購屋貸款，但有週轉金貸款）：條件再次之</li>
-        <li><strong>央行受限戶</strong>（二房）：受央行限制，貸款成數較低</li>
-        <li><strong>央行管制戶/高價戶</strong>（三房以上）：嚴格管制，詳洽房貸窗口</li>
-        <li>各類型貸款利率、成數、還款年限請洽詢公司房貸部門確認最新條件</li>
-      </ul>
-    </div>
-    <div style="margin-top:0.7em;font-size:0.8em;color:#64748b;background:#f8fafc;padding:0.55em 0.9em;border-radius:0.4em;border:1px solid #e2e8f0">
-      ＊詳細利率及成數請以公司最新公告為準，方案適用截止至 115/12/31。
-    </div>
-  </div>
-  <div class="slide-sig"><span class="dot"></span>TC813</div>
-  <div class="slide-pg">11 / 11</div>
-</section>
-
+<div class="lightbox" id="lightbox">
+  <img id="lightbox-img" src="" alt="">
 </div>
 
+<div class="deck">
+
+  <!-- 01 Cover -->
+  <section class="slide cover">
+    <h1 class="animate-line" style="--i:0">TC813 週報</h1>
+    <p class="animate-line meta" style="--i:1;margin-top:0.6em;">第 31 週・115/07/28–08/01</p>
+    <div class="slide-sig"><span class="dot"></span>中銘通訊處 TC813</div>
+    <div class="slide-pg">01 / 08</div>
+  </section>
+
+  <!-- 02 報件賀報 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">報件賀報</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">當週總件數</div>
+          <div class="kpi-val">10</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">累積總保費</div>
+          <div class="kpi-val" style="font-size:1.5em;">6,004,733</div>
+        </div>
+        <div class="kpi-card green">
+          <div class="kpi-label">累積總 FYC</div>
+          <div class="kpi-val">183,779</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">報件人數</div>
+          <div class="kpi-val">7 人</div>
+        </div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>姓名</th><th>職稱</th><th>受理日</th><th>險種</th>
+            <th style="text-align:right;">總保費</th><th style="text-align:right;">總 FYC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>蔡亦程</td><td>AM</td><td>07/28</td><td>20HJB3</td><td style="text-align:right;">18,950</td><td style="text-align:right;">7,690</td></tr>
+          <tr><td>蔡亦程</td><td>AM</td><td>07/28</td><td>15@ALA</td><td style="text-align:right;">711</td><td style="text-align:right;">197</td></tr>
+          <tr><td>蔡亦程</td><td>AM</td><td>07/28</td><td>VCCT</td><td style="text-align:right;font-weight:700;">4,000,000</td><td style="text-align:right;font-weight:700;">38,400</td></tr>
+          <tr><td>李敏櫻</td><td>SP</td><td>07/28</td><td>VCCT</td><td style="text-align:right;">300,000</td><td style="text-align:right;">3,600</td></tr>
+          <tr><td>高聖芳</td><td>CA</td><td>07/28</td><td>UNDB</td><td style="text-align:right;">30,000</td><td style="text-align:right;">8,085</td></tr>
+          <tr><td>汪淑玲</td><td>MM</td><td>07/28</td><td>2PFK</td><td style="text-align:right;font-weight:700;">1,059,380</td><td style="text-align:right;color:#15803d;font-weight:700;">90,047</td></tr>
+          <tr><td>張嘉芸</td><td>MM</td><td>07/29</td><td>FBX</td><td style="text-align:right;">507,978</td><td style="text-align:right;">12,191</td></tr>
+          <tr><td>黃琳堯</td><td>MM</td><td>07/30</td><td>20OLA6</td><td style="text-align:right;">26,344</td><td style="text-align:right;">10,268</td></tr>
+          <tr><td>陳冠辰</td><td>UM</td><td>07/30</td><td>10OLA6</td><td style="text-align:right;">48,900</td><td style="text-align:right;">8,313</td></tr>
+          <tr><td>蔡亦程</td><td>AM</td><td>07/31</td><td>20XWS5</td><td style="text-align:right;">12,470</td><td style="text-align:right;">4,988</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">02 / 08</div>
+  </section>
+
+  <!-- 03 當月進度 有業績組 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">當月單位進度</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <p class="slide-subtitle">截至 115/07/31・有業績組（依 FYC 高→低）</p>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>姓名</th><th>職稱</th><th>主管</th>
+            <th style="text-align:right;">件數</th>
+            <th style="text-align:right;">累計 FYP</th>
+            <th style="text-align:right;">累計 FYC</th>
+            <th style="text-align:center;">壯實</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">汪淑玲</td><td>MM</td><td>汪淑玲</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">1,059,380</td>
+            <td style="text-align:right;color:#15803d;font-weight:700;">90,047</td>
+            <td style="text-align:center;"><span class="star-mark">★</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">蔡亦程</td><td>AM</td><td>蔡亦程</td>
+            <td style="text-align:right;">4</td>
+            <td style="text-align:right;">4,032,131</td>
+            <td style="text-align:right;color:#15803d;font-weight:700;">51,275</td>
+            <td style="text-align:center;"><span class="star-mark">★</span></td>
+          </tr>
+          <tr>
+            <td>張嘉芸</td><td>MM</td><td>張嘉芸</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">507,978</td>
+            <td style="text-align:right;font-weight:700;">12,191</td>
+            <td style="text-align:center;color:#94a3b8;">—</td>
+          </tr>
+          <tr>
+            <td>黃琳堯</td><td>MM</td><td>黃琳堯</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">26,344</td>
+            <td style="text-align:right;font-weight:700;">10,268</td>
+            <td style="text-align:center;color:#94a3b8;">—</td>
+          </tr>
+          <tr>
+            <td>陳冠辰</td><td>UM</td><td>陳冠辰</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">48,900</td>
+            <td style="text-align:right;font-weight:700;">8,313</td>
+            <td style="text-align:center;color:#94a3b8;">—</td>
+          </tr>
+          <tr>
+            <td>高聖芳</td><td>CA</td><td>廖寶福</td>
+            <td style="text-align:right;">1</td>
+            <td style="text-align:right;">30,000</td>
+            <td style="text-align:right;font-weight:700;">8,085</td>
+            <td style="text-align:center;color:#94a3b8;">—</td>
+          </tr>
+          <tr>
+            <td>李敏櫻</td><td>SP</td><td>李敏櫻</td>
+            <td style="text-align:right;">0</td>
+            <td style="text-align:right;">300,000</td>
+            <td style="text-align:right;font-weight:700;">3,600</td>
+            <td style="text-align:center;color:#94a3b8;">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">03 / 08</div>
+  </section>
+
+  <!-- 04 零件名單 1/2 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">當月單位進度 — 零件名單</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <p class="slide-subtitle">截至 115/07/31・累計 FYC = 0（共 21 人，1/2）</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>姓名</th><th>職稱</th><th>主管</th><th style="text-align:right;">件數</th><th style="text-align:right;">累計 FYP</th><th style="text-align:right;">累計 FYC</th></tr>
+        </thead>
+        <tbody>
+          <tr class="row-zero"><td>蔡錫文</td><td>DM</td><td>蔡錫文</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>林宸禾</td><td>CA</td><td>蔡錫文</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>施江燁</td><td>CA</td><td>蔡錫文</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>秦慧娟</td><td>CA</td><td>李敏櫻</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>甯鍶蒨</td><td>CA</td><td>陳冠辰</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>孫桂英</td><td>AM</td><td>孫桂英</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>陳羿晴</td><td>CA</td><td>孫桂英</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>李秉芳</td><td>SP</td><td>李秉芳</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>廖婉辛</td><td>CA</td><td>李秉芳</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>林君溥</td><td>CA</td><td>蔡亦程</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>劉家榮</td><td>SP</td><td>劉家榮</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>陳汶萍</td><td>CA</td><td>劉家榮</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">04 / 08</div>
+  </section>
+
+  <!-- 05 零件名單 2/2 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">當月單位進度 — 零件名單（續）</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <p class="slide-subtitle">截至 115/07/31・累計 FYC = 0（2/2）</p>
+      <table class="data-table">
+        <thead>
+          <tr><th>姓名</th><th>職稱</th><th>主管</th><th style="text-align:right;">件數</th><th style="text-align:right;">累計 FYP</th><th style="text-align:right;">累計 FYC</th></tr>
+        </thead>
+        <tbody>
+          <tr class="row-zero"><td>林佩怡</td><td>CA</td><td>劉家榮</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>虞哲煬</td><td>AM</td><td>虞哲煬</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>蘇慶恩</td><td>CA</td><td>虞哲煬</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>廖寶福</td><td>AM</td><td>廖寶福</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>林淑慧</td><td>SP</td><td>林淑慧</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>陳錦紅</td><td>CA</td><td>林淑慧</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>施建宏</td><td>UM</td><td>施建宏</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>施昕余</td><td>MAM</td><td>施昕余</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+          <tr class="row-zero"><td>謝麗芳</td><td>MS</td><td>謝麗芳</td><td style="text-align:right;">0</td><td style="text-align:right;">—</td><td style="text-align:right;">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">05 / 08</div>
+  </section>
+
+  <!-- 06 季獎金 115/05–07 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/05–07</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">總追蹤人數</div><div class="kpi-val">4</div></div>
+        <div class="kpi-card green"><div class="kpi-label">已達標</div><div class="kpi-val">3</div></div>
+        <div class="kpi-card gold"><div class="kpi-label">差距 &lt; 2 萬</div><div class="kpi-val">1</div></div>
+        <div class="kpi-card red"><div class="kpi-label">未達標</div><div class="kpi-val">1</div></div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>姓名</th><th>職稱</th>
+            <th style="text-align:right;">累積 FYC</th>
+            <th style="text-align:center;">比例</th>
+            <th>距下一級</th>
+            <th>進度</th>
+            <th style="text-align:right;">試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">高聖芳</td><td>CA</td>
+            <td style="text-align:right;font-weight:700;">233,640</td>
+            <td style="text-align:center;"><span class="badge badge-18">18%</span></td>
+            <td><span class="gap-top">已達頂級</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><span class="prog-pct">100%</span></div></td>
+            <td style="text-align:right;font-weight:700;color:#15803d;">42,055</td>
+          </tr>
+          <tr>
+            <td>林君溥</td><td>CA</td>
+            <td style="text-align:right;">98,171</td>
+            <td style="text-align:center;"><span class="badge badge-12">12%</span></td>
+            <td>差 21,829 → 15%</td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:81.8%"></div></div><span class="prog-pct">81.8%</span></div></td>
+            <td style="text-align:right;font-weight:700;">11,781</td>
+          </tr>
+          <tr>
+            <td>甯鍶蒨</td><td>CA</td>
+            <td style="text-align:right;">91,599</td>
+            <td style="text-align:center;"><span class="badge badge-12">12%</span></td>
+            <td>差 28,401 → 15%</td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:76.3%"></div></div><span class="prog-pct">76.3%</span></div></td>
+            <td style="text-align:right;font-weight:700;">10,992</td>
+          </tr>
+          <tr>
+            <td>陳錦紅</td><td>CA</td>
+            <td style="text-align:right;">20,148</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-near">差 19,852 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:50.4%"></div></div><span class="prog-pct">50.4%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">06 / 08</div>
+  </section>
+
+  <!-- 07 季獎金 115/06–08 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/06–08</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">總追蹤人數</div><div class="kpi-val">7</div></div>
+        <div class="kpi-card green"><div class="kpi-label">已達標</div><div class="kpi-val">3</div></div>
+        <div class="kpi-card gold"><div class="kpi-label">差距 &lt; 2 萬</div><div class="kpi-val">4</div></div>
+        <div class="kpi-card red"><div class="kpi-label">未達標</div><div class="kpi-val">4</div></div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>姓名</th><th>職稱</th>
+            <th style="text-align:right;">累積 FYC</th>
+            <th style="text-align:center;">比例</th>
+            <th>距下一級</th>
+            <th>進度</th>
+            <th style="text-align:right;">試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">陳冠辰</td><td>UM</td>
+            <td style="text-align:right;font-weight:700;">1,333,339</td>
+            <td style="text-align:center;"><span class="badge badge-18">18%</span></td>
+            <td><span class="gap-top">已達頂級</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><span class="prog-pct">100%</span></div></td>
+            <td style="text-align:right;font-weight:700;color:#15803d;">240,001</td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;">蔡亦程</td><td>AM</td>
+            <td style="text-align:right;font-weight:700;">200,900</td>
+            <td style="text-align:center;"><span class="badge badge-18">18%</span></td>
+            <td><span class="gap-top">已達頂級</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" style="width:100%"></div></div><span class="prog-pct">100%</span></div></td>
+            <td style="text-align:right;font-weight:700;color:#15803d;">36,162</td>
+          </tr>
+          <tr>
+            <td>孫桂英</td><td>AM</td>
+            <td style="text-align:right;">50,763</td>
+            <td style="text-align:center;"><span class="badge badge-5">5%</span></td>
+            <td><span class="gap-near">差 9,237 → 10%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:84.6%"></div></div><span class="prog-pct">84.6%</span></div></td>
+            <td style="text-align:right;font-weight:700;">2,538</td>
+          </tr>
+          <tr>
+            <td>蘇慶恩</td><td>CA</td>
+            <td style="text-align:right;">39,594</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-near">差 406 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:99%"></div></div><span class="prog-pct">99.0%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>林淑慧</td><td>SP</td>
+            <td style="text-align:right;">35,582</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-near">差 4,418 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:88.9%"></div></div><span class="prog-pct">88.9%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>林宸禾</td><td>CA</td>
+            <td style="text-align:right;">28,752</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-near">差 11,248 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:71.9%"></div></div><span class="prog-pct">71.9%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>蔡錫文</td><td>DM</td>
+            <td style="text-align:right;">4,226</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 35,774 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:10.6%"></div></div><span class="prog-pct">10.6%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">07 / 08</div>
+  </section>
+
+  <!-- 08 季獎金 115/07–09 -->
+  <section class="slide">
+    <h2 class="animate-line" style="--i:0">季獎金追蹤 · 115/07–09</h2>
+    <div class="slide-content animate-line" style="--i:1">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-label">總追蹤人數</div><div class="kpi-val">9</div></div>
+        <div class="kpi-card green"><div class="kpi-label">已達標</div><div class="kpi-val">1</div></div>
+        <div class="kpi-card gold"><div class="kpi-label">差距 &lt; 2 萬</div><div class="kpi-val">1</div></div>
+        <div class="kpi-card red"><div class="kpi-label">未達標</div><div class="kpi-val">8</div></div>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>姓名</th><th>職稱</th>
+            <th style="text-align:right;">累積 FYC</th>
+            <th style="text-align:center;">比例</th>
+            <th>距下一級</th>
+            <th>進度</th>
+            <th style="text-align:right;">試算獎金</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700;">李秉芳</td><td>SP</td>
+            <td style="text-align:right;font-weight:700;">54,344</td>
+            <td style="text-align:center;"><span class="badge badge-5">5%</span></td>
+            <td><span class="gap-near">差 5,656 → 10%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill gold" style="width:90.6%"></div></div><span class="prog-pct">90.6%</span></div></td>
+            <td style="text-align:right;font-weight:700;">2,717</td>
+          </tr>
+          <tr>
+            <td>秦慧娟</td><td>CA</td>
+            <td style="text-align:right;">11,532</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 28,468 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:28.8%"></div></div><span class="prog-pct">28.8%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>李敏櫻</td><td>SP</td>
+            <td style="text-align:right;">9,674</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 30,326 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:24.2%"></div></div><span class="prog-pct">24.2%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>廖婉辛</td><td>CA</td>
+            <td style="text-align:right;">4,795</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 35,205 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:12%"></div></div><span class="prog-pct">12.0%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>施江燁</td><td>CA</td>
+            <td style="text-align:right;">3,590</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 36,410 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:9%"></div></div><span class="prog-pct">9.0%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>廖寶福</td><td>AM</td>
+            <td style="text-align:right;">179</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 39,821 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:0.4%"></div></div><span class="prog-pct">0.4%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>陳羿晴</td><td>CA</td>
+            <td style="text-align:right;">495</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 39,505 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:1.2%"></div></div><span class="prog-pct">1.2%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>施建宏</td><td>UM</td>
+            <td style="text-align:right;">0</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 40,000 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:0%"></div></div><span class="prog-pct">0%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+          <tr>
+            <td>虞哲煬</td><td>AM</td>
+            <td style="text-align:right;">0</td>
+            <td style="text-align:center;"><span class="badge badge-0">0%</span></td>
+            <td><span class="gap-far">差 40,000 → 5%</span></td>
+            <td><div class="prog-wrap"><div class="prog-bar"><div class="prog-fill red" style="width:0%"></div></div><span class="prog-pct">0%</span></div></td>
+            <td style="text-align:right;color:#94a3b8;">0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-sig"><span class="dot"></span>TC813 · Keri</div>
+    <div class="slide-pg">08 / 08</div>
+  </section>
+
+</div><!-- /.deck -->
+
+<!-- 控制列 -->
 <div class="ctrl-bar">
-  <button onclick="prev()" title="←"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
-  <span class="counter" id="counter">1 / 11</span>
-  <button onclick="next()" title="→"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
-  <button onclick="toggleMode()" title="切換模式"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg></button>
-  <button onclick="window.print()" title="列印"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></button>
-  <button onclick="toggleGrid()" title="光桌 G"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+  <button onclick="prev()" title="上一張 ←">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <span class="counter" id="counter">1 / 8</span>
+  <button onclick="next()" title="下一張 →">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+  <button onclick="toggleMode()" title="投影片 ↔ 捲動模式">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16V4m0 0L3 8m4-4l4 4M17 8v12m0 0l4-4m-4 4l-4-4"/></svg>
+  </button>
+  <button onclick="window.print()" title="列印 / 匯出 PDF">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+  </button>
+  <button onclick="toggleGrid()" title="光桌一覽 G">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+  </button>
   <button id="btn-fs" onclick="document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()" title="全螢幕 F">
     <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
     <svg id="icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg>
@@ -422,49 +701,145 @@ html.grid-mode .slide::after{content:attr(data-slide-num);position:absolute;
 </div>
 
 <script>
-document.addEventListener('fullscreenchange',()=>{const i=!!document.fullscreenElement;document.getElementById('icon-fs-enter').style.display=i?'none':'';document.getElementById('icon-fs-exit').style.display=i?'':'none';});
-(function(){const b=document.querySelector('.ctrl-bar');let t;function s(){b.classList.remove('hidden');clearTimeout(t);t=setTimeout(()=>b.classList.add('hidden'),5000);}document.addEventListener('mousemove',s);document.addEventListener('keydown',s);document.addEventListener('touchstart',s,{passive:true});b.addEventListener('mouseenter',()=>{clearTimeout(t);b.classList.remove('hidden');});b.addEventListener('mouseleave',s);s();})();
-const lb=document.getElementById('lightbox'),lbi=document.getElementById('lightbox-img');
-document.addEventListener('click',e=>{const img=e.target.closest('.slide img');if(!img||img.closest('.lightbox'))return;lbi.src=img.src;lb.classList.add('active');e.stopPropagation();});
-lb.addEventListener('click',e=>{if(e.target!==lbi)lb.classList.remove('active');});
+document.addEventListener('fullscreenchange',()=>{
+  const inFS=!!document.fullscreenElement;
+  document.getElementById('icon-fs-enter').style.display=inFS?'none':'';
+  document.getElementById('icon-fs-exit').style.display=inFS?'':'none';
+});
+(function(){
+  const bar=document.querySelector('.ctrl-bar');
+  let t;
+  function show(){bar.classList.remove('hidden');clearTimeout(t);t=setTimeout(()=>bar.classList.add('hidden'),5000);}
+  document.addEventListener('mousemove',show);
+  document.addEventListener('keydown',show);
+  document.addEventListener('touchstart',show,{passive:true});
+  bar.addEventListener('mouseenter',()=>{clearTimeout(t);bar.classList.remove('hidden');});
+  bar.addEventListener('mouseleave',show);
+  show();
+})();
+</script>
+
+<script>
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightbox-img');
+document.addEventListener('click',e=>{
+  const img=e.target.closest('.slide img');
+  if(!img||img.closest('.lightbox'))return;
+  lightboxImg.src=img.src; lightbox.classList.add('active'); e.stopPropagation();
+});
+lightbox.addEventListener('click',e=>{if(e.target!==lightboxImg)closeLightbox();});
+function closeLightbox(){lightbox.classList.remove('active');}
+
 const deckEl=document.querySelector('.deck');
-function fitCanvas(){if(mode!=='slide')return;const s=Math.min(window.innerWidth/1280,window.innerHeight/960);deckEl.style.transform=`scale(${s})`;}
+function fitCanvas(){
+  if(mode!=='slide')return;
+  const s=Math.min(window.innerWidth/1280,window.innerHeight/960);
+  deckEl.style.transform=`scale(${s})`;
+}
 window.addEventListener('resize',fitCanvas);
-let mode='slide',current=0;
-const slides=document.querySelectorAll('.slide'),counter=document.getElementById('counter');
-slides.forEach(s=>s.setAttribute('data-orig-style',s.getAttribute('style')||''));
-function resetAnim(slide){slide.querySelectorAll('.animate-line').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation='';});}
+
+let mode='slide';
+let current=0;
+const slides=document.querySelectorAll('.slide');
+const counter=document.getElementById('counter');
+
+slides.forEach(s=>{s.setAttribute('data-orig-style',s.getAttribute('style')||'');});
+
+function resetAnimations(slide){
+  slide.querySelectorAll('.animate-line').forEach(el=>{
+    el.style.animation='none'; el.offsetHeight; el.style.animation='';
+  });
+}
+
 function render(){
-  if(mode==='slide'){slides.forEach((s,i)=>{s.style.position='absolute';s.style.inset='0';s.style.display=i===current?'flex':'none';if(i===current)resetAnim(s);});fitCanvas();}
-  else{slides.forEach(s=>{s.style.position='relative';s.style.display='flex';});deckEl.style.transform='none';}
+  if(mode==='slide'){
+    slides.forEach((s,i)=>{
+      s.style.position='absolute'; s.style.inset='0';
+      s.style.display=i===current?'flex':'none';
+      if(i===current)resetAnimations(s);
+    });
+    fitCanvas();
+  } else {
+    slides.forEach(s=>{s.style.position='relative'; s.style.display='flex';});
+    deckEl.style.transform='none';
+  }
   counter.textContent=(current+1)+' / '+slides.length;
 }
+
 function next(){if(current<slides.length-1){current++;render();}}
 function prev(){if(current>0){current--;render();}}
-function toggleMode(){mode=mode==='slide'?'scroll':'slide';document.body.classList.toggle('scroll-mode');document.documentElement.classList.toggle('scroll-mode');render();}
+
+function toggleMode(){
+  mode=mode==='slide'?'scroll':'slide';
+  document.body.classList.toggle('scroll-mode');
+  document.documentElement.classList.toggle('scroll-mode');
+  render();
+}
+
 document.addEventListener('keydown',e=>{
   if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();next();}
   if(e.key==='ArrowLeft'){e.preventDefault();prev();}
   if(e.key==='f'||e.key==='F'){document.documentElement.requestFullscreen?.();}
   if(e.key==='g'||e.key==='G'){toggleGrid();}
-  if(e.key==='Escape'){if(document.body.classList.contains('grid-mode')){toggleGrid();}else if(lb.classList.contains('active')){lb.classList.remove('active');}else if(document.fullscreenElement){document.exitFullscreen();}}
+  if(e.key==='Escape'){
+    if(document.body.classList.contains('grid-mode'))toggleGrid();
+    else if(lightbox.classList.contains('active'))closeLightbox();
+    else if(document.fullscreenElement)document.exitFullscreen();
+  }
 });
-window.addEventListener('beforeprint',()=>slides.forEach(s=>{s.style.position='';s.style.inset='';s.style.display='';}));
-window.addEventListener('afterprint',()=>render());
+
+window.addEventListener('beforeprint',()=>{slides.forEach(s=>{s.style.position='';s.style.inset='';s.style.display='';});});
+window.addEventListener('afterprint',()=>{render();});
+
 function toggleGrid(){
-  const isGrid=document.body.classList.toggle('grid-mode');document.documentElement.classList.toggle('grid-mode');
-  if(isGrid){requestAnimationFrame(()=>{
-    const nW=window.innerWidth,nH=window.innerHeight,tW=(slides[0]?.getBoundingClientRect().width)||360,z=tW/nW;
-    slides.forEach((s,i)=>{const orig=s.getAttribute('data-orig-style')||'';s.style.cssText=orig+`;width:${nW}px;height:${nH}px;zoom:${z};--grid-zoom:${z}`;s.setAttribute('data-slide-num',i+1);s.classList.toggle('grid-current',i===current);s._gc=()=>{current=i;toggleGrid();render();};s.addEventListener('click',s._gc);});
-    requestAnimationFrame(()=>{const cur=document.querySelector('.slide.grid-current');if(cur)cur.scrollIntoView({block:'center',behavior:'instant'});});
-  });}
-  else{slides.forEach(s=>{s.style.cssText=s.getAttribute('data-orig-style')||'';if(s._gc){s.removeEventListener('click',s._gc);delete s._gc;}s.classList.remove('grid-current');});render();}
+  const isGrid=document.body.classList.toggle('grid-mode');
+  document.documentElement.classList.toggle('grid-mode');
+  if(isGrid){
+    requestAnimationFrame(()=>{
+      const natW=window.innerWidth; const natH=window.innerHeight;
+      const thumbW=(slides[0]?.getBoundingClientRect().width)||360;
+      const zoom=thumbW/natW;
+      slides.forEach((s,i)=>{
+        const orig=s.getAttribute('data-orig-style')||'';
+        s.style.cssText=orig+`;width:${natW}px;height:${natH}px;zoom:${zoom};--grid-zoom:${zoom}`;
+        s.setAttribute('data-slide-num',i+1);
+        s.classList.toggle('grid-current',i===current);
+        s._gridClick=()=>{current=i;toggleGrid();render();};
+        s.addEventListener('click',s._gridClick);
+      });
+      requestAnimationFrame(()=>{
+        const cur=document.querySelector('.slide.grid-current');
+        if(cur)cur.scrollIntoView({block:'center',behavior:'instant'});
+      });
+    });
+  } else {
+    slides.forEach(s=>{
+      s.style.cssText=s.getAttribute('data-orig-style')||'';
+      if(s._gridClick){s.removeEventListener('click',s._gridClick);delete s._gridClick;}
+      s.classList.remove('grid-current');
+    });
+    render();
+  }
 }
-if(window.innerWidth<=768){mode='scroll';document.body.classList.add('scroll-mode');document.documentElement.classList.add('scroll-mode');}
+
+if(window.innerWidth<=768){
+  mode='scroll';
+  document.body.classList.add('scroll-mode');
+  document.documentElement.classList.add('scroll-mode');
+}
+
 document.addEventListener('fullscreenchange',()=>{if(mode==='slide')fitCanvas();});
-let txS=0,tyS=0;
-document.addEventListener('touchstart',e=>{txS=e.touches[0].clientX;tyS=e.touches[0].clientY;},{passive:true});
-document.addEventListener('touchend',e=>{if(mode!=='slide')return;const dx=e.changedTouches[0].clientX-txS,dy=e.changedTouches[0].clientY-tyS;if(Math.abs(dx)<50||Math.abs(dy)>Math.abs(dx))return;if(dx<0)next();else prev();});
+
+let touchStartX=0,touchStartY=0;
+document.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;touchStartY=e.touches[0].clientY;},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(mode!=='slide')return;
+  const dx=e.changedTouches[0].clientX-touchStartX;
+  const dy=e.changedTouches[0].clientY-touchStartY;
+  if(Math.abs(dx)<50||Math.abs(dy)>Math.abs(dx))return;
+  if(dx<0)next();else prev();
+});
+
 render();
 </script>
 </body>
