@@ -107,7 +107,7 @@ html.scroll-mode, html.scroll-mode body { height: auto; overflow: auto; }
   flex-direction: column;
   justify-content: center;
   padding: 2em 4.5em 5.5em;
-  font-size: 15px;
+  font-size: 18px;
   overflow: hidden;
   background: var(--surface);
   color: var(--text);
@@ -122,11 +122,11 @@ html.scroll-mode .deck {
 html.scroll-mode .slide {
   position: relative; display: flex !important;
   width: 100%; min-height: 56.25vw; border-radius: 4px;
-  font-size: clamp(9px, 1.2vw, 15px);
+  font-size: clamp(11px, 1.4vw, 18px);
 }
 @media (max-width: 768px) {
   html.scroll-mode .slide {
-    font-size: clamp(11px, 2.8vw, 15px);
+    font-size: clamp(13px, 2.8vw, 18px);
     padding: 1.5em 2em 4em;
     min-height: 0; height: auto; overflow: visible;
   }
@@ -316,7 +316,7 @@ html.grid-mode .slide::after {
 .bonus-big-lbl { font-size:1.07em; color:var(--text-muted); font-weight:500; margin-bottom:0.2em; }
 .bonus-big-total { font-size:1.07em; color:var(--text-muted); margin-top:0.25em; }
 .tier-bar { display:flex; gap:0.5em; flex-wrap:wrap; margin:0.7em 0 0.6em; }
-.tc { padding:0.67em 1.13em; font-size:1.27em; font-weight:700; border:1.5px solid; border-radius:2px; white-space:nowrap; }
+.tc { padding:0.55em 0.95em; font-size:1.08em; font-weight:700; border:1.5px solid; border-radius:2px; white-space:nowrap; }
 .tc4   { color:#3531a0; border-color:#3531a0; }
 .tc6   { color:#0d6171; border-color:#0d6171; }
 .tc8   { color:#1f6f24; border-color:#1f6f24; }
@@ -327,12 +327,12 @@ html.grid-mode .slide::after {
 .tc20  { color:#b34715; border-color:#b34715; }
 .bonus-cols { display:grid; grid-template-columns:1fr 1px 1fr; gap:0 1.8em; flex:1; min-height:0; overflow:hidden; }
 .bonus-col-div { background:#e8e8e8; }
-.btbl2 { width:100%; border-collapse:collapse; font-size:1.33em; }
+.btbl2 { width:100%; border-collapse:collapse; font-size:1.12em; }
 .btbl2 thead th { text-align:left; font-size:0.8em; font-weight:700; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.04em; padding:0 0.5em 0.35em; border-bottom:2px solid #111; }
 .btbl2 thead th.r { text-align:right; }
 .btbl2 tbody tr { border-bottom:1px solid #f2f2f2; }
 .btbl2 tbody tr:last-child { border-bottom:2px solid #111; font-weight:900; }
-.btbl2 tbody td { padding:0.4em 0.7em; vertical-align:middle; }
+.btbl2 tbody td { padding:0.34em 0.7em; vertical-align:middle; }
 .btbl2 td.r { text-align:right; }
 .btbl2 td.rk { color:var(--text-muted); font-size:0.82em; font-weight:600; }
 .btbl2 td.nm { font-weight:700; }
