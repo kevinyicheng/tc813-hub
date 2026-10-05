@@ -350,6 +350,25 @@ html.grid-mode .slide::after {
 .btbl2 td.dash { color:#ccc; text-align:right; }
 .btbl2 tr.total td { font-weight:900; color:#000; }
 .btbl2 tr.total td.bonus { color:#16a34a; }
+
+/* 頒獎底版 — 大字名牌 */
+.slide.award{justify-content:flex-start;}
+.aw-wrap{display:flex;flex-direction:column;height:100%;padding-top:3.6em;}
+.aw-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:3px solid #000;padding-bottom:0.45em;margin-bottom:0.9em;flex-shrink:0;}
+.aw-eyebrow{font-size:0.9em;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);}
+.aw-title{font-size:4.2em;font-weight:900;color:#000;line-height:1;letter-spacing:-0.02em;margin-top:0.12em;}
+.aw-amt{font-size:1.7em;font-weight:900;color:var(--red);white-space:nowrap;}
+.aw-sub{font-size:0.95em;color:var(--text-muted);margin-top:0.2em;}
+.aw-grid{display:grid;gap:0.9em;flex:1;min-height:0;align-content:center;}
+.aw-grid.cols-2{grid-template-columns:repeat(2,1fr);}
+.aw-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.aw-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.aw-card{border:1.5px solid #e0e0e0;border-radius:4px;padding:1.3em 1.5em;display:flex;flex-direction:column;justify-content:center;gap:0.45em;}
+.aw-card.hl{background:#000;color:#fff;border-color:#000;}
+.aw-tag{font-size:0.9em;font-weight:700;color:var(--red);letter-spacing:0.08em;}
+.aw-card.hl .aw-tag{color:#ff7a7a;}
+.aw-name{font-size:2.7em;font-weight:900;line-height:1;letter-spacing:-0.01em;}
+.aw-card.big .aw-name{font-size:3.6em;}
 </style>
 </head>
 <body>
@@ -376,7 +395,7 @@ html.grid-mode .slide::after {
     </ul>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">01 / 10</div>
+  <div class="slide-pg">01 / 15</div>
 </section>
 
 <!-- ══ 02 · 八月 Team Overview ══ -->
@@ -397,7 +416,7 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">02 / 10</div>
+  <div class="slide-pg">02 / 15</div>
 </section>
 
 <!-- ══ 03 · 八月 FYC 總表 ══ -->
@@ -423,7 +442,7 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">03 / 10</div>
+  <div class="slide-pg">03 / 15</div>
 </section>
 
 <!-- ══ 04 · 八月 FYC 月度冠軍 ══ -->
@@ -448,7 +467,7 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="hero-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="hero-pg">04 / 10</div>
+  <div class="hero-pg">04 / 15</div>
 </section>
 
 <!-- ══ 05 · 八月 FYC 前三名 ══ -->
@@ -467,7 +486,7 @@ html.grid-mode .slide::after {
     <div class="top3-card light"><div><div class="top3-no">NO.</div><div class="top3-num">03</div></div><div><div class="top3-nm">孫桂英</div><div class="top3-metric-lbl">FYC</div><div class="top3-metric-val">44,036</div><div class="top3-sub">佔全隊 11.3%</div></div></div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">05 / 10</div>
+  <div class="slide-pg">05 / 15</div>
 </section>
 
 <!-- ══ 06 · 八月 實收保費冠軍 ══ -->
@@ -492,7 +511,7 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="hero-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="hero-pg">06 / 10</div>
+  <div class="hero-pg">06 / 15</div>
 </section>
 
 <!-- ══ 07 · 八月 實收保費前三名 ══ -->
@@ -511,7 +530,7 @@ html.grid-mode .slide::after {
     <div class="top3-card light"><div><div class="top3-no">NO.</div><div class="top3-num">03</div></div><div><div class="top3-nm">孫桂英</div><div class="top3-metric-lbl">實收保費</div><div class="top3-metric-val">496,736</div><div class="top3-sub">FYC：44,036</div></div></div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">07 / 10</div>
+  <div class="slide-pg">07 / 15</div>
 </section>
 
 <!-- ══ 08 · 八月 件數前三名 ══ -->
@@ -530,7 +549,7 @@ html.grid-mode .slide::after {
     <div class="top3-card light"><div><div class="top3-no">NO.</div><div class="top3-num">03</div></div><div><div class="top3-nm">孫桂英</div><div class="top3-metric-lbl">件數</div><div class="top3-metric-val">5</div><div class="top3-sub">保費 496,736 &nbsp;·&nbsp; FYC 44,036</div></div></div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">08 / 10</div>
+  <div class="slide-pg">08 / 15</div>
 </section>
 
 <!-- ══ 09 · Section: 獎金追蹤 ══ -->
@@ -547,7 +566,7 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">09 / 10</div>
+  <div class="slide-pg">09 / 15</div>
 </section>
 
 <!-- ══ 10 · 年終獎金試算 ══ -->
@@ -590,7 +609,113 @@ html.grid-mode .slide::after {
     </div>
   </div>
   <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
-  <div class="slide-pg">10 / 10</div>
+  <div class="slide-pg">10 / 15</div>
+</section>
+
+
+<!-- ══ 11 · Section: 頒獎 ══ -->
+<section class="slide divider">
+  <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-section">04 · 頒獎</div>
+  <div class="divider-wm">頒獎<br>表揚</div>
+  <div class="divider-content animate-line" style="--i:0">
+    <div class="divider-section-lbl">SECTION 03 · AWARDS</div>
+    <div class="divider-title">頒獎</div>
+    <div class="divider-desc">激勵現金發放，表揚衝刺達標與績優店長的夥伴。</div>
+    <div class="divider-items">
+      <div class="divider-item"><span class="di-num">01</span><span class="di-text">FYC 王　·　每名 $500</span></div>
+      <div class="divider-item"><span class="di-num">02</span><span class="di-text">首二週達 5 萬　·　每名 $500</span></div>
+      <div class="divider-item"><span class="di-num">03</span><span class="di-text">20 萬績優店長　·　每名 $2,000</span></div>
+      <div class="divider-item"><span class="di-num">04</span><span class="di-text">每季獎勵（4～6月）　·　每名 $500</span></div>
+      <div class="divider-item"><span class="di-num">—</span><span class="di-text">合計發放　$12,500 元　·　19 人次</span></div>
+    </div>
+  </div>
+  <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-pg">11 / 15</div>
+</section>
+
+<!-- ══ 12 · 頒獎 · FYC 王 ══ -->
+<section class="slide award">
+  <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-section">04.01 · 頒獎</div>
+  <div class="aw-wrap">
+    <div class="aw-head animate-line" style="--i:0">
+      <div>
+        <div class="aw-eyebrow">AWARDS · 激勵現金</div>
+        <div class="aw-title">FYC 王</div>
+        <div class="aw-sub">5–7工　各工月度 FYC 冠軍</div>
+      </div>
+      <div class="aw-amt">每名 $500</div>
+    </div>
+    <div class="aw-grid cols-3 animate-line" style="--i:1">
+      <div class="aw-card"><div class="aw-tag">5工</div><div class="aw-name">孫桂英</div></div><div class="aw-card"><div class="aw-tag">6工</div><div class="aw-name">汪淑玲</div></div><div class="aw-card"><div class="aw-tag">7工</div><div class="aw-name">陳冠辰</div></div>
+    </div>
+  </div>
+  <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-pg">12 / 15</div>
+</section>
+
+<!-- ══ 13 · 頒獎 · 首二週達 5 萬 ══ -->
+<section class="slide award">
+  <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-section">04.02 · 頒獎</div>
+  <div class="aw-wrap">
+    <div class="aw-head animate-line" style="--i:0">
+      <div>
+        <div class="aw-eyebrow">AWARDS · 激勵現金</div>
+        <div class="aw-title">首二週達 5 萬</div>
+        <div class="aw-sub">5–7工　當工首二週實收保費達 5 萬</div>
+      </div>
+      <div class="aw-amt">每名 $500</div>
+    </div>
+    <div class="aw-grid cols-4 animate-line" style="--i:1">
+      <div class="aw-card"><div class="aw-tag">5工</div><div class="aw-name">高聖芳</div></div><div class="aw-card"><div class="aw-tag">5工</div><div class="aw-name">蔡亦程</div></div><div class="aw-card"><div class="aw-tag">5工</div><div class="aw-name">李秉芳</div></div><div class="aw-card"><div class="aw-tag">6工</div><div class="aw-name">汪淑玲</div></div><div class="aw-card"><div class="aw-tag">7工</div><div class="aw-name">陳冠辰</div></div><div class="aw-card"><div class="aw-tag">7工</div><div class="aw-name">蔡亦程</div></div><div class="aw-card"><div class="aw-tag">7工</div><div class="aw-name">林君溥</div></div><div class="aw-card"><div class="aw-tag">7工</div><div class="aw-name">甯鍶蒨</div></div>
+    </div>
+  </div>
+  <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-pg">13 / 15</div>
+</section>
+
+<!-- ══ 14 · 頒獎 · 20 萬績優店長 ══ -->
+<section class="slide award">
+  <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-section">04.03 · 頒獎</div>
+  <div class="aw-wrap">
+    <div class="aw-head animate-line" style="--i:0">
+      <div>
+        <div class="aw-eyebrow">AWARDS · 激勵現金</div>
+        <div class="aw-title">20 萬績優店長</div>
+        <div class="aw-sub">7工　單月實收保費達 20 萬</div>
+      </div>
+      <div class="aw-amt">每名 $2,000</div>
+    </div>
+    <div class="aw-grid cols-2 animate-line" style="--i:1">
+      <div class="aw-card hl big"><div class="aw-tag">7工</div><div class="aw-name">陳冠辰</div></div><div class="aw-card hl big"><div class="aw-tag">7工</div><div class="aw-name">蔡亦程</div></div>
+    </div>
+  </div>
+  <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-pg">14 / 15</div>
+</section>
+
+<!-- ══ 15 · 頒獎 · 每季獎勵　4～6月 ══ -->
+<section class="slide award">
+  <div class="slide-logo"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-section">04.04 · 頒獎</div>
+  <div class="aw-wrap">
+    <div class="aw-head animate-line" style="--i:0">
+      <div>
+        <div class="aw-eyebrow">AWARDS · 激勵現金</div>
+        <div class="aw-title">每季獎勵　4～6月</div>
+        <div class="aw-sub">第二季（4～6月）達標</div>
+      </div>
+      <div class="aw-amt">每名 $500</div>
+    </div>
+    <div class="aw-grid cols-3 animate-line" style="--i:1">
+      <div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">陳冠辰</div></div><div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">蔡亦程</div></div><div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">李秉芳</div></div><div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">孫桂英</div></div><div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">高聖芳</div></div><div class="aw-card"><div class="aw-tag">4～6月</div><div class="aw-name">汪淑玲</div></div>
+    </div>
+  </div>
+  <div class="slide-sig"><span class="dot"></span>TC813 · 中銘通訊處</div>
+  <div class="slide-pg">15 / 15</div>
 </section>
 
 </div><!-- /deck -->
